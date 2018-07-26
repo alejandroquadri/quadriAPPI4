@@ -9,4 +9,11 @@
 <ion-content padding>
   The world is your oyster.
   <p>If you get lost, the <a target="_blank" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+
+  <ul>
+    <li class="text" *ngFor="let item of items | async">
+      {{item | json}}
+    </li>
+  </ul>
+
 </ion-content>
