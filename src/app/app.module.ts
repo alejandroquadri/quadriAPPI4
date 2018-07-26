@@ -16,6 +16,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
+import { ElasticModule } from 'angular2-elastic';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +31,7 @@ import { environment } from '../environments/environment';
     // AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    ElasticModule
   ],
   providers: [
     StatusBar,

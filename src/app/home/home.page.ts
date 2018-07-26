@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-page-home',
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs';
 export class HomePage {
 
   items: Observable<any[]>;
+  date = moment();
 
   constructor(db: AngularFireDatabase) {
     this.items = db.list('finance/avion').valueChanges();

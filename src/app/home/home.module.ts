@@ -4,6 +4,9 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { ElasticModule } from 'angular2-elastic';
+
+
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -11,6 +14,7 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ElasticModule,
     RouterModule.forChild([
       {
         path: '',
