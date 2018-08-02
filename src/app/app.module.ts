@@ -9,29 +9,32 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
+// Firebase imports
 import { AngularFireModule } from 'angularfire2';
-// import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
-import { ElasticModule } from 'angular2-elastic';
-
+import { SharedModule } from './shared';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule  ,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // para la database de siempre
-    // AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    ElasticModule
+    SharedModule,
+    AuthModule
   ],
   providers: [
     StatusBar,

@@ -1,3 +1,62 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane>
+    <ion-menu *ngIf="userProfile" >
+
+      <ion-header>
+
+        <ion-toolbar>
+
+          <ion-item *ngIf="userProfile">
+            <ion-avatar slot="start">
+              <img [src]="userProfile.photoURL">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ userProfile.displayName }}</h2>
+              <h3>{{ userProfile.email }}</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-buttons slot="end">
+            <ion-button slot="end" fill="clear" [routerLink]="'/home'">
+              <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" fill="clear" [routerLink]="'/home'">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+
+        </ion-toolbar>
+
+      </ion-header>
+
+      <ion-content>
+
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-list-header>
+              <ion-label>Usuario</ion-label>
+            </ion-list-header>
+            <ion-item (click)="logOut()">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>Salir</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+      </ion-content>
+
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>
