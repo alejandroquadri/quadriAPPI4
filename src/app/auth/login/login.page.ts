@@ -31,7 +31,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.splitS.updateSplitShow(false);
     this.buildForm();
   }
 
@@ -63,7 +62,6 @@ export class LoginPage implements OnInit {
         this.loading.dismiss().then(() => {
           this.loginForm.reset();
           this.router.navigateByUrl('home');
-          this.splitS.showChange();
         });
       },
       error => {

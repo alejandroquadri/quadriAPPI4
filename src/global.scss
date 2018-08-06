@@ -18,3 +18,8 @@
   user-select: text;
 }
 
+// para que el split pane no ocupe tanto espacio
+.split-pane-md.split-pane-visible>.split-pane-side {
+  max-width: 20%;
+}
+

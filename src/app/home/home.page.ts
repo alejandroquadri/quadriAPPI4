@@ -3,6 +3,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
+import { ApiService } from '../shared';
+
 @Component({
   selector: 'app-page-home',
   templateUrl: 'home.page.html',
@@ -14,9 +16,9 @@ export class HomePage {
   date = moment();
 
   constructor(
-    private db: AngularFireDatabase,
+    private api: ApiService
   ) {
-    this.items = db.list('finance/avion').valueChanges();
+    this.items = this.api.getList('finance/avion');
   }
 
 }

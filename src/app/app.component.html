@@ -22,7 +22,8 @@
               <ion-icon slot="icon-only" name="home"></ion-icon>
             </ion-button>
             <ion-button slot="end" fill="clear" (click)="changeShow()">
-              <ion-icon slot="icon-only" name="close"></ion-icon>
+              <ion-icon *ngIf="disSplit"  slot="icon-only" name="close"></ion-icon>
+              <ion-icon *ngIf="!disSplit" slot="icon-only" name="open"></ion-icon>
             </ion-button>
           </ion-buttons>
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -28,7 +29,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule  ,
+    AppRoutingModule ,
+    HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // para la database de siempre
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
