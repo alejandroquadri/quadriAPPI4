@@ -13,7 +13,9 @@ export class HomePage {
   items: Observable<any[]>;
   date = moment();
 
-  constructor(db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+  ) {
     this.items = db.list('finance/avion').valueChanges();
   }
 

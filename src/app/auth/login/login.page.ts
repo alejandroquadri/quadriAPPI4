@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, MenuController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LoggerService } from '../shared/logger.service';
+import { SplitService } from './../../shared/services/split.service';
 
 @Component({
   selector: 'app-page-login',
@@ -11,24 +12,26 @@ import { LoggerService } from '../shared/logger.service';
 })
 export class LoginPage implements OnInit {
 
-  quadriImg = './assets/images/quadri.jpg';
-  loginForm: FormGroup;
+  quadriImg = './assets/images/LogoQuadri1024.png'; // /Users/alejandroquadri/Dev/quadriAppI4/src/assets/images/Logo Quadri 1024.png
   emailChanged = false;
   passwordChanged = false;
   submitAttempt = false;
   userProfile: any = null;
-  loading: any;
+  public loginForm: FormGroup;
+  public loading: HTMLIonLoadingElement;
 
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    private authData: LoggerService
+    private authData: LoggerService,
+    private splitS: SplitService
   ) {
   }
 
   ngOnInit() {
+    // this.splitS.updateSplitShow(false);
     this.buildForm();
   }
 
@@ -48,48 +51,39 @@ export class LoginPage implements OnInit {
     });
   }
 
-  elementChanged(input) {
-    const field = input.ngControl.name;
-    this[field + 'Changed'] = true;
+  async loginUser(): Promise<void> {
+    if (!this.loginForm.valid) {
+      console.log('Form is not valid yet, current value:', this.loginForm.value);
+    } else {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      this.authData.login(email, password)
+      .then( () => {
+        this.loading.dismiss().then(() => {
+          this.loginForm.reset();
+          this.router.navigateByUrl('home');
+          this.splitS.showChange();
+        });
+      },
+      error => {
+        this.loading.dismiss()
+        .then(async () => {
+          const alert = await this.alertCtrl.create({
+            message: error.message,
+            buttons: [{ text: 'Ok', role: 'cancel' }],
+          });
+          await alert.present();
+        });
+      });
+
+      this.loading = await this.loadingCtrl.create();
+      await this.loading.present();
+    }
   }
 
-  loginUser() {
-    this.submitAttempt = true;
-
-    if (!this.loginForm.valid) {
-      console.log(this.loginForm.value);
-    } else {
-      console.log(this.loginForm.value);
-      // this.authData.login(this.loginForm.value.email, this.loginForm.value.password)
-      // .then( authData => {
-      //   console.log('va a root');
-      //   this.loading.dismiss().catch(() => {});
-      //   this.router.navigate(['/home']);
-      //   // lo de arriba lo saco porque la observable del appcomponent ya lo esta direccionando y poniendo
-      //   // el root en tabs cuando el usuario de loguea
-      // }, error => {
-      //   console.log('hubo un error');
-      //   this.loading.dismiss()
-      //   .then( async () => {
-      //     const alert = await this.alertCtrl.create({
-      //       message: error.message,
-      //       buttons: [
-      //         {
-      //           text: 'Ok',
-      //           role: 'cancel'
-      //         }
-      //       ]
-      //     });
-      //     await alert.present();
-      //   })
-      //   .catch(() => {});
-      // });
-
-      // this.loading = this.loadingCtrl.create({
-      //   dismissOnPageChange: true,
-      // });
-      // this.loading.present();
-    }
+  loginUser2() {
+    console.log(this.loginForm);
   }
 
   logOut2() {

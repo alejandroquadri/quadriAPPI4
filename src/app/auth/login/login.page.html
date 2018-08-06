@@ -2,15 +2,22 @@
 
     <ion-grid>
       <ion-row justify-content-center>
-        <img [src]="quadriImg">
+        <ion-col>
+          <img  class="logo" [src]="quadriImg">
+        </ion-col>
       </ion-row>
   
       <ion-row justify-content-center>
         
         <form [formGroup]="loginForm" (ngSubmit)="loginUser()" novalidate>
   
+          <ion-button round fill="outline" expand="block" margin-bottom (click)="loginGoogle()">
+              <ion-icon slot="start" name="logo-googleplus"></ion-icon>
+              Iniciar con Google
+          </ion-button>
+          
           <ion-item>
-            <ion-label>Email</ion-label>
+            <ion-label position="fixed">Email</ion-label>
             <!-- <ion-input #email formControlName="email" type="email"></ion-input> -->
             <ion-input formControlName="email" type="email" [class.invalid]="!loginForm.controls.email.valid && blur">
             </ion-input>
@@ -20,10 +27,8 @@
           </ion-item>
   
           <ion-item>
-            <ion-label>Constraseña</ion-label>
-            <!-- <ion-input #password formControlName="password" type="password">
-            </ion-input> -->
-            <ion-input #password formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid && blur">
+            <ion-label position="fixed">Constraseña</ion-label>
+            <ion-input formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid && blur">
             </ion-input>
           </ion-item>
           <ion-item class="error-message"  *ngIf="!loginForm.controls.password.valid
@@ -31,24 +36,23 @@
             <ion-label>Tu contraseña debe contener al menos 6 caracteres</ion-label>
           </ion-item>
           
-          <ion-button fill="outline" expand="block" padding type="submit">
+          <ion-button margin-top fill="outline" expand="block" type="button" [disabled]="!loginForm.valid" (click)="loginUser()" >
             Iniciar sesion
-          </ion-button>
-
-          <ion-button round fill="outline" expand="block" padding (click)="loginGoogle()">
-            <ion-icon slot="start" name="logo-googleplus"></ion-icon>
-            Google
           </ion-button>
   
         </form>
   
       </ion-row>
-  
+
+      <!-- <ion-row>
+        formulario {{ loginForm | json }}
+      </ion-row> -->
+<!--   
     	<ion-row justify-content-center>
         <ion-button block fill="outline" expand="block" (click)="logOut2()">
           logout
         </ion-button>
-      </ion-row>
+      </ion-row> -->
       
     </ion-grid>
   

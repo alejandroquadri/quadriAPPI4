@@ -1,6 +1,7 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu *ngIf="userProfile" >
+  <ion-split-pane [when]="shouldShow()">
+
+    <ion-menu>
 
       <ion-header>
 
@@ -20,7 +21,7 @@
             <ion-button slot="end" fill="clear" [routerLink]="'/home'">
               <ion-icon slot="icon-only" name="home"></ion-icon>
             </ion-button>
-            <ion-button slot="end" fill="clear" [routerLink]="'/home'">
+            <ion-button slot="end" fill="clear" (click)="changeShow()">
               <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
           </ion-buttons>

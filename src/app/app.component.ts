@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ComponentsModule } from './components/components';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoggerService } from './auth/shared/logger.service';
+import { SplitService } from './shared/services/split.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public appPages = [
     {
@@ -25,14 +27,26 @@ export class AppComponent {
   ];
 
   userProfile: any;
+  disSplitObs: any;
+  disSplit = true;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authData: LoggerService
+    private authData: LoggerService,
+    public splitService: SplitService
   ) {
     this.initializeApp();
+  }
+
+  ngOnInit() {
+    this.disSplitObs = this.splitService.disableObs
+    .subscribe( (disable: boolean) => {
+      console.log('obs', disable);
+      this.disSplit = disable;
+    })
+    console.log('On Init', this.disSplit);
   }
 
   initializeApp() {
@@ -47,5 +61,17 @@ export class AppComponent {
 
   logOut() {
     this.authData.logout();
+  }
+
+  changeShow() {
+    this.splitService.updateSplitShow();
+  }
+
+  shouldShow() {
+    if (this.disSplit === true) {
+      return 'lg';
+    } else {
+      return false;
+    }
   }
 }
