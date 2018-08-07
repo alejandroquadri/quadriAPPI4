@@ -18,7 +18,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
-import { SharedModule } from './shared';
+// import { ChartsModule } from 'ng2-charts';
+
+// import { SharedModule } from './shared';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -34,8 +36,9 @@ import { AuthModule } from './auth/auth.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // para la database de siempre
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    SharedModule,
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features,
+    // ChartsModule,
+    // SharedModule,
     AuthModule
   ],
   providers: [
