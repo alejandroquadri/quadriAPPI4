@@ -24,12 +24,14 @@ export class AuthGuard implements CanActivate {
       this.logService.user.subscribe( user => {
         if (user) {
           console.log(user);
+          this.logService.current = user;
           this.splitS.updateSplitShow(true);
           resolve(true);
         } else {
           console.log('User is not logged in');
           this.splitS.updateSplitShow(false);
           this.router.navigate(['/login']);
+          this.logService.current = undefined;
           resolve(false);
         }
       });

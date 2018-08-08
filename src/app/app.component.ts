@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+// import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoggerService } from './auth/shared/logger.service';
 import { SplitService } from './shared/services/split.service';
 
@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
+    // private splashScreen: SplashScreen,
+    // private statusBar: StatusBar,
     private authData: LoggerService,
     public splitService: SplitService
   ) {
@@ -50,8 +50,8 @@ export class AppComponent implements OnInit {
       this.authData.user.subscribe( user => {
         this.userProfile = user;
       })
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.statusBar.styleDefault();
+      // this.splashScreen.hide();
     });
   }
 
@@ -69,5 +69,9 @@ export class AppComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  permission(area: string) {
+    return this.authData.checkRestriction(area, this.userProfile.email);
   }
 }

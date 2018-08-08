@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -10,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
 // Firebase imports
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -18,10 +17,13 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
-// import { ChartsModule } from 'ng2-charts';
-
-// import { SharedModule } from './shared';
 import { AuthModule } from './auth/auth.module';
+import { StaticDataService } from './shared';
+
+// esto es para precargar la data antes que se inicie la aplicacion
+export function DataProviderFactory(provider: StaticDataService) {
+  return () => provider.getStaticData();
+}
 
 @NgModule({
   declarations: [
@@ -37,14 +39,13 @@ import { AuthModule } from './auth/auth.module';
     AngularFireDatabaseModule, // para la database de siempre
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features,
-    // ChartsModule,
-    // SharedModule,
     AuthModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
   ],
   bootstrap: [AppComponent]
 })

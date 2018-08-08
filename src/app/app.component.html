@@ -31,7 +31,20 @@
 
       </ion-header>
 
-      <ion-content>
+      <ion-content *ngIf="userProfile">
+
+        <!-- <ion-list *ngIf="permission('fabrica') || permission('direccion')"> -->
+        <ion-list *ngIf="permission('fabrica') || permission('direccion')">
+          <ion-menu-toggle auto-hide="false">
+            <ion-list-header>
+              <ion-label>Mantenimiento</ion-label>
+            </ion-list-header>
+            <ion-item [routerLink]="['/home/registros-mantenimiento']">
+              <ion-icon slot="start" name="list-box"></ion-icon>
+              <ion-label>Registro</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
 
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">

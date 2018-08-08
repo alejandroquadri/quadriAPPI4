@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="onChange($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="presentModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="headers" text-center>
+        <ion-col col-1>
+          <strong>Fecha</strong>
+        </ion-col>
+        <ion-col col-1>
+          <strong >Orden</strong>
+        </ion-col>
+        <ion-col col-2>
+          <strong>Maquina</strong>
+        </ion-col>
+        <ion-col col-6>
+          <strong>Descripcion</strong>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row class="data" *ngFor="let log of machineLogs">
+      <ion-col col-1 text-center>
+        <!-- {{ log.payload.val().date }} -->
+      {{ log.payload.val().date | moment:'DD/MM/YY' }}
+
+      </ion-col>
+      <ion-col col-1 text-center>
+        {{ log.payload.val().orderNumber }}
+      </ion-col>
+      <ion-col col-2 text-center>
+        {{ log.payload.val().title }}
+      </ion-col>
+      <ion-col col-6>
+        <div class="description">{{ log.payload.val().description }}</div>
+      </ion-col>
+      <ion-col col-2 text-center>
+        <ion-button icon-only fill="clear" color="dark" size="small" (click)="editLog(log.payload.val(), log.key)">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+        <ion-button icon-only fill="clear" color="dark" size="small" (click)="deleteLog(log.key)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+              <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Cargando mas registros...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

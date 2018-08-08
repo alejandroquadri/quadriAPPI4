@@ -1,0 +1,84 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { NavController, Platform, PopoverController, ModalController, InfiniteScroll } from '@ionic/angular';
+
+import { MaintenanceService } from './../shared/maintenance.service';
+import { WordFilterPipe, SortPipe } from '../../../shared';
+import { MaintLogFormPage } from '../maint-log-form/maint-log-form.page';
+
+@Component({
+  selector: 'maint-log',
+  templateUrl: './maint-log.page.html',
+  styleUrls: ['./maint-log.page.scss'],
+})
+export class MaintLogPage implements OnInit {
+
+  machineSubs: any;
+  machineDataCrude: any;
+  machineLogs: any;
+
+  searchInput = '';
+  field = 'date';
+  asc = false;
+  offset = 100;
+
+  @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
+
+  constructor(
+    public navCtrl: NavController,
+    public platform: Platform,
+    public popoverCtrl: PopoverController,
+    public modalCtrl: ModalController,
+    private machineLogData: MaintenanceService,
+    private filterPipe: WordFilterPipe,
+    private sortPipe: SortPipe
+  ) { }
+
+  ngOnInit() {
+    this.machineSubs = this.machineLogData.getMachineLogsMeta().subscribe(logs => {
+      this.machineDataCrude = logs;
+      this.filter();
+    });
+  }
+
+  filter() {
+    const filtered = this.filterPipe.transform(this.machineDataCrude, this.searchInput, true);
+    const ordered = this.sortPipe.transform(filtered, this.field, this.asc, true);
+    this.machineLogs = this.sliceArray(ordered);
+  }
+
+  sliceArray(array: Array<any>) {
+    return array.slice(0, this.offset);
+  }
+
+  doInfinite(infiniteScroll: InfiniteScroll) {
+    setTimeout( () => {
+      this.offset += 20;
+      this.filter();
+      infiniteScroll.complete();
+    }, 500);
+  }
+
+  deleteLog(key) {
+    this.machineLogData.deleteLog(key);
+  }
+
+  editLog(log, key) {
+    log['$key'] = key;
+    this.presentModal(log);
+  }
+
+  async presentModal(form?: any) {
+    const profileModal = await this.modalCtrl.create({
+      component: MaintLogFormPage,
+      componentProps: form
+    });
+    return await profileModal.present();
+  }
+
+  onChange(event) {
+    this.searchInput = event;
+    this.filter();
+  }
+
+}

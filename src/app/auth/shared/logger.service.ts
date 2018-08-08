@@ -14,7 +14,6 @@ export class LoggerService {
 
   user: Observable<firebase.User>;
   current: any;
-  uid: string;
   users: any;
 
   constructor(

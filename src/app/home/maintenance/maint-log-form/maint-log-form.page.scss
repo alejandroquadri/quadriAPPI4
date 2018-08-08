@@ -1,0 +1,23 @@
+.selectMachine {
+  background-color:rgba(244, 244, 244, 0.29);
+  border: none;
+  flex: 1;
+}
+
+.labelMachineSelect {
+  color: #999;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 200px;
+}
+
+.labelGrey {
+  color: #999;
+}
+
+.dateDesktop {
+  border: none;
+}

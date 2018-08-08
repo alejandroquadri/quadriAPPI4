@@ -1,0 +1,71 @@
+<ion-header>
+
+  <ion-toolbar>
+  	<ion-button *ngIf="platform.is('mobile')">
+	    <ion-icon name="menu"></ion-icon>
+	  </ion-button>
+		<ion-title>{{submitType === 'new' ? 'Nuevo registro' : 'Editar registro'}}</ion-title>
+    <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
+	    <ion-button (click)="modalCtrl.dismiss()">
+	      Salir
+	    </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+		<form [formGroup]="machineForm" (ngSubmit)="onSubmit()">
+
+			<ion-list>
+				<ion-item *ngIf="platform.is('mobile')">
+				  <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
+				  <ion-datetime formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
+				</ion-item>
+
+				<ion-item *ngIf="!platform.is('mobile')">
+			    <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
+			    <input class="dateDesktop" formControlName="date" type="date">
+			  </ion-item>
+
+				<ion-item>
+			    <ion-label position="fixed" class="labelGrey">N° de orden</ion-label>
+			    <ion-input formControlName="orderNumber" type="number"></ion-input>
+			  </ion-item>
+				
+				<ion-item *ngIf="platform.is('mobile')">
+				  <ion-label position="fixed" class="labelGrey">Maquina</ion-label>
+				  <ion-select formControlName="title" interface="popover">
+				    <ion-select-option *ngFor="let maquina of machines | sort:'':true">{{maquina}}</ion-select-option>
+				  </ion-select>
+				</ion-item>
+
+				<ion-item *ngIf="!platform.is('mobile')">
+						<ion-label position="fixed" class="labelMachineSelect">Maquina</ion-label>					
+					  <select item-content formControlName="title" class="selectMachine">
+					    <option *ngFor="let maquina of machines | sort:'':true">{{maquina}}</option>
+					  </select>
+				</ion-item>
+
+			  <ion-item>
+			    <ion-label position="fixed" class="labelGrey">Descripcion</ion-label>
+			    <ion-textarea  rows="5" formControlName="description"></ion-textarea>
+        </ion-item>
+
+        
+			</ion-list>
+      
+			<ion-button fill="outline" type="button" [disabled]="!machineForm.valid" (click)="onSubmit()">
+        {{submitType === 'new' ? 'Agregar' : 'Actualizar '}}
+		  </ion-button>
+      
+		  <ion-button fill="outline" type="button" (click)="toNew()" *ngIf="submitType !== 'new'">
+        Nuevo
+		  </ion-button>
+      
+	  </form>
+
+</ion-content>
+
