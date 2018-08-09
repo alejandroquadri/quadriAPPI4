@@ -39,10 +39,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.disSplitObs = this.splitService.disableObs
-    .subscribe( (disable: boolean) => {
-      this.disSplit = disable;
-    })
+    // this.disSplitObs = this.splitService.disableObs
+    // .subscribe( (disable: boolean) => {
+    //   this.disSplit = disable;
+    // });
   }
 
   initializeApp() {

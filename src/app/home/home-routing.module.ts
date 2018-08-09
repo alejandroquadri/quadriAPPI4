@@ -9,8 +9,9 @@ const routes: Routes = [
     component: HomePage,
     canActivate: [AuthGuard],
     children: [
+      { path: '', redirectTo: 'tablero', pathMatch: 'full' },
       {
-        path: '',
+        path: 'tablero',
         loadChildren: './dashboard/dashboard.module#DashboardPageModule'
       },
       {

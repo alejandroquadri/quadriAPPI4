@@ -15,12 +15,13 @@ export class MaintLogPage implements OnInit {
 
   machineSubs: any;
   machineDataCrude: any;
+  filteredMachineLogs: any;
   machineLogs: any;
 
   searchInput = '';
   field = 'date';
   asc = false;
-  offset = 100;
+  offset = 50;
 
   @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
 
@@ -42,8 +43,9 @@ export class MaintLogPage implements OnInit {
   }
 
   filter() {
-    const filtered = this.filterPipe.transform(this.machineDataCrude, this.searchInput, true);
-    const ordered = this.sortPipe.transform(filtered, this.field, this.asc, true);
+    // const filtered = this.filterPipe.transform(this.machineDataCrude, this.searchInput, true);
+    this.filteredMachineLogs = this.filterPipe.transform(this.machineDataCrude, this.searchInput, true);
+    const ordered = this.sortPipe.transform(this.filteredMachineLogs, this.field, this.asc, true);
     this.machineLogs = this.sliceArray(ordered);
   }
 
@@ -51,11 +53,31 @@ export class MaintLogPage implements OnInit {
     return array.slice(0, this.offset);
   }
 
-  doInfinite(infiniteScroll: InfiniteScroll) {
+  // doInfinite(infiniteScroll: InfiniteScroll) {
+  //   setTimeout( () => {
+  //     event.target.complete();
+      
+  //     this.offset += 20;
+  //     console.log('doInfinite');
+  //     this.filter();
+  //     // infiniteScroll.complete();
+  //   }, 500);
+  // }
+
+  doInfinite(event) {
     setTimeout( () => {
+      event.target.complete();
+
+      // aca es donde hay que poner la logica para que cargue mas datos
       this.offset += 20;
       this.filter();
-      infiniteScroll.complete();
+
+      // esto es para que si ya tiene todos los registros no siga buscando
+      if (this.machineLogs.length === this.filteredMachineLogs.length ) {
+        console.log('llego');
+        event.target.disabled = true;
+      }
+
     }, 500);
   }
 

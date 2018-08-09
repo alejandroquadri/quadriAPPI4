@@ -6,6 +6,7 @@ import { MaintenanceService } from './../shared/maintenance.service';
 import { LoggerService } from '../../../auth/shared/logger.service';
 import { StaticDataService } from '../../../shared';
 import * as firebase from 'firebase';
+import * as moment from 'moment';
 
 @Component({
   selector: 'maint-log-form',
@@ -18,6 +19,7 @@ export class MaintLogFormPage implements OnInit {
   submitType = 'new';
   updateForm: any;
   machines: any;
+  today = moment().format('YYYY-MM-DD');
 
   constructor(
     private fb: FormBuilder,
@@ -37,12 +39,11 @@ export class MaintLogFormPage implements OnInit {
       this.updateForm = this.navParams.data;
       this.edit();
     }
-    this.onChanges();
   }
 
   buildForm() {
     this.machineForm = this.fb.group({
-      date: ['', Validators.required ],
+      date: [this.today , Validators.required ],
       title: ['', Validators.required],
       orderNumber: ['', Validators.required],
       description: ['', Validators.required],
@@ -61,12 +62,6 @@ export class MaintLogFormPage implements OnInit {
     });
   }
 
-  onChanges(): void {
-    this.machineForm.valueChanges.subscribe(val => {
-      console.log(val);
-    });
-  }
-
   onSubmit() {
     if (this.submitType === 'new') {
       this.pushNew();
@@ -78,6 +73,9 @@ export class MaintLogFormPage implements OnInit {
   toNew() {
     this.submitType = 'new';
     this.machineForm.reset();
+    this.machineForm.patchValue({
+      date: this.today,
+    });
   }
 
   pushNew() {

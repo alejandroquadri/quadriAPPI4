@@ -1,4 +1,4 @@
-<ion-app>
+<!-- <ion-app>
   <ion-split-pane [when]="shouldShow()">
 
     <ion-menu>
@@ -33,7 +33,6 @@
 
       <ion-content *ngIf="userProfile">
 
-        <!-- <ion-list *ngIf="permission('fabrica') || permission('direccion')"> -->
         <ion-list *ngIf="permission('fabrica') || permission('direccion')">
           <ion-menu-toggle auto-hide="false">
             <ion-list-header>
@@ -74,4 +73,8 @@
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
+</ion-app> -->
+
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>
