@@ -20,10 +20,10 @@ import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
 import { StaticDataService } from './shared';
 
-// esto es para precargar la data antes que se inicie la aplicacion
-export function DataProviderFactory(provider: StaticDataService) {
-  return () => provider.getStaticData();
-}
+// // esto es para precargar la data antes que se inicie la aplicacion
+// export function DataProviderFactory(provider: StaticDataService) {
+//   return () => provider.getStaticData();
+// }
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ export function DataProviderFactory(provider: StaticDataService) {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
+    // { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
   ],
   bootstrap: [AppComponent]
 })

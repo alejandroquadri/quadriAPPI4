@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoggerService } from './logger.service';
-import { SplitService } from '../../shared';
+import { SplitService, StaticDataService } from '../../shared';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private logService: LoggerService,
-    private splitS: SplitService
+    private splitS: SplitService,
+    private staticData: StaticDataService
   ) {}
 
   canActivate(
@@ -24,9 +25,13 @@ export class AuthGuard implements CanActivate {
       this.logService.user.subscribe( user => {
         if (user) {
           console.log(user);
-          this.logService.current = user;
-          this.splitS.updateSplitShow(true);
-          resolve(true);
+          this.staticData.getStaticData()
+          .then( () => {
+            this.logService.current = user;
+            this.splitS.updateSplitShow(true);
+            resolve(true);
+          })
+          .catch( error => console.log(error));
         } else {
           console.log('User is not logged in');
           this.splitS.updateSplitShow(false);
