@@ -1,0 +1,53 @@
+.data, .headers {
+  font-size: 0.9rem;
+}
+
+.bigFont {
+  font-size: 1.6rem;
+}
+
+.data {
+  border-bottom: solid var(--light) 1px;
+}
+
+.data:hover {
+  background-color: var(--light);
+}
+
+.select {
+  max-width: 100%;
+  border-radius: 5px;
+  padding: 5px 8px 5px 16px;
+  width: 6rem;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+}
+
+.description {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.pendiente {
+  background-color: var(--ion-color-warning);
+}
+
+.encargado {
+  background-color: var(--ion-color-primary);
+}
+
+.suspendido {
+  background-color: var(--ion-color-danger);
+}
+
+.completo {
+  background-color: var(--ion-color-secondary);
+}
+
+.autorizacion {
+background-color: var(--light-GreyQ);		
+}
+
+.actionButtons {
+  margin: 0px;
+}

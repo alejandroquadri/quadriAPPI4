@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'registros-mantenimiento',
         loadChildren: './maintenance/maintenance.module#MaintenanceModule'
       },
+      {
+        path: 'compras',
+        loadChildren: './procurement/procurement.module#ProcurementModule'
+      }
     ]
   }
 ];

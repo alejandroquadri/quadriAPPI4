@@ -46,13 +46,14 @@
         </ion-menu-toggle>
       </ion-list>
 
-      <ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-            <ion-icon slot="start" [name]="p.icon"></ion-icon>
-            <ion-label>
-              {{p.title}}
-            </ion-label>
+      <ion-list *ngIf="permission('fabrica') || permission('direccion')">
+        <ion-menu-toggle auto-hide="false">
+          <ion-list-header>
+            <ion-label>Compras</ion-label>
+          </ion-list-header>
+          <ion-item [routerLink]="['/home/compras']">
+            <ion-icon slot="start" name="cart"></ion-icon>
+            <ion-label>Compras</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

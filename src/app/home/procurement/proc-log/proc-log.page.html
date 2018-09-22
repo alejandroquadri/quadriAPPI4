@@ -1,0 +1,113 @@
+<ion-header>
+
+  <ion-toolbar>
+	  <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="onChange($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+	    <ion-button icon-only (click)="presentModal()">
+	      <ion-icon name="add"></ion-icon>
+	    </ion-button>
+    	<ion-button icon-only (click)="presentOptions($event)">
+	      <ion-icon name="options"></ion-icon>
+	    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+
+		  <ion-grid>
+			  <ion-row class="headers" text-center>
+					<ion-col col-1>
+						<strong>Fecha</strong>
+					</ion-col>
+					<ion-col col-1>
+						<strong >Tipo</strong>
+					</ion-col>
+					<ion-col col-3>
+						<strong>Descripcion</strong>
+					</ion-col>
+					<ion-col col-1>
+						<strong>Cantidad</strong>
+					</ion-col>
+					<ion-col col-1>
+						<strong>Destino</strong>
+					</ion-col>
+					<ion-col col-1>
+						<strong>Muestra</strong>
+					</ion-col>
+					<ion-col col-1>
+						<strong>Proveedor</strong>
+					</ion-col>
+					<ion-col col-2>
+						<strong>Status</strong>
+					</ion-col>
+					<ion-col col-1>
+					</ion-col>
+				</ion-row>
+		  </ion-grid>
+
+	  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content>
+
+	<div #data class="tableLog" *ngIf="spareParts">
+		<ion-grid>
+			<ion-row justify-content:start class="data" *ngFor="let part of spareParts">
+				<ion-col col-1 text-center>
+					{{ part.payload.val().fecha | moment:'D/M/YY' }}
+				</ion-col>
+				<ion-col col-1 text-center>
+					{{ part.payload.val().tipo }}
+				</ion-col>
+				<ion-col col-3>
+					<div class="description">{{ part.payload.val().detalle }}</div>
+				</ion-col>
+				<ion-col col-1 text-center>
+					{{ part.payload.val().cantidad }} {{ part.payload.val().unidad }}
+				</ion-col>
+				<ion-col col-1 text-center>
+					{{ part.payload.val().destino }}
+				</ion-col>
+				<ion-col col-1 text-center>
+					{{ part.payload.val().muestra }}
+				</ion-col>
+				<ion-col col-1>
+						{{ part.payload.val().proveedor }}
+					</ion-col>
+				<ion-col col-2 text-center>
+					<ion-select class="select" #status (ionChange)="changeStatus(status.value, part.key)" interface="popover"
+					[ngClass]="{'autorizacion': part.payload.val().status === 'Autorizacion','pendiente': part.payload.val().status === 'Pendiente','encargado': part.payload.val().status === 'Encargado', 'suspendido': part.payload.val().status === 'Suspendido','completo': part.payload.val().status === 'Completo'}">
+						<ion-select-option *ngFor="let option of statusOptions" [selected]="part.payload.val().status===option? true: false">{{option}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col col-1 text-center>
+					<ion-button icon-only fill="clear" color="lightGreyQ" size="small" (click)="editPart(part.payload.val(), part.key)" class="actionButtons">
+						<ion-icon name="create"></ion-icon>
+					</ion-button>
+					<ion-button icon-only fill="clear" color="lightGreyQ" size="small" (click)="deletepart(part.key)" class="actionButtons">
+						<ion-icon name="trash"></ion-icon>
+					</ion-button>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+						<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+              <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Cargando mas registros...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+				</ion-col>
+			</ion-row>
+	  </ion-grid>
+	</div>
+
+</ion-content>
+
+
+
