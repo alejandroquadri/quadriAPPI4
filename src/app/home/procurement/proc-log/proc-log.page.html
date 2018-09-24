@@ -79,17 +79,17 @@
 				<ion-col col-1>
 						{{ part.payload.val().proveedor }}
 					</ion-col>
-				<ion-col col-2 text-center>
+				<ion-col class="select-col" col-2 text-center>
 					<ion-select class="select" #status (ionChange)="changeStatus(status.value, part.key)" interface="popover"
 					[ngClass]="{'autorizacion': part.payload.val().status === 'Autorizacion','pendiente': part.payload.val().status === 'Pendiente','encargado': part.payload.val().status === 'Encargado', 'suspendido': part.payload.val().status === 'Suspendido','completo': part.payload.val().status === 'Completo'}">
 						<ion-select-option *ngFor="let option of statusOptions" [selected]="part.payload.val().status===option? true: false">{{option}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col col-1 text-center>
-					<ion-button icon-only fill="clear" color="lightGreyQ" size="small" (click)="editPart(part.payload.val(), part.key)" class="actionButtons">
+					<ion-button icon-only fill="clear" size="small" (click)="editPart(part.payload.val(), part.key)" class="actionButtons">
 						<ion-icon name="create"></ion-icon>
 					</ion-button>
-					<ion-button icon-only fill="clear" color="lightGreyQ" size="small" (click)="deletepart(part.key)" class="actionButtons">
+					<ion-button icon-only fill="clear" size="small" (click)="deletepart(part.key)" class="actionButtons">
 						<ion-icon name="trash"></ion-icon>
 					</ion-button>
 				</ion-col>
