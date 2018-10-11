@@ -53,17 +53,6 @@ export class MaintLogPage implements OnInit {
     return array.slice(0, this.offset);
   }
 
-  // doInfinite(infiniteScroll: InfiniteScroll) {
-  //   setTimeout( () => {
-  //     event.target.complete();
-      
-  //     this.offset += 20;
-  //     console.log('doInfinite');
-  //     this.filter();
-  //     // infiniteScroll.complete();
-  //   }, 500);
-  // }
-
   doInfinite(event) {
     setTimeout( () => {
       event.target.complete();

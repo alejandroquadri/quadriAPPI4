@@ -23,7 +23,8 @@ const routes: Routes = [
         loadChildren: './procurement/procurement.module#ProcurementModule'
       }
     ]
-  }
+  },
+  { path: 'proc-filters', loadChildren: './procurement/proc-filters/proc-filters.module#ProcFiltersPageModule' }
 ];
 
 @NgModule({

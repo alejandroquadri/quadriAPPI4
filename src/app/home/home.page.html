@@ -4,22 +4,30 @@
 
   <ion-menu>
 
-    <ion-header>
+    <!-- <ion-header>
 
       <ion-toolbar>
 
-        <ion-item *ngIf="userProfile">
+        <ion-item slot="start" *ngIf="userProfile">
           <ion-avatar slot="start">
             <img [src]="userProfile.photoURL">
           </ion-avatar>
           <ion-label>
-            <h2>{{ userProfile.displayName }}</h2>
-            <h3>{{ userProfile.email }}</h3>
+            <div class="display-name">{{ userProfile.displayName }}</div>
+            <div class="email">{{ userProfile.email }}</div>
           </ion-label>
+          <ion-button fill="outline" slot="end">View</ion-button>
+          <ion-button slot="end" fill="clear" [routerLink]="'/home'">
+            <ion-icon slot="icon-only" name="home"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" fill="clear" (click)="changeShow()">
+            <ion-icon *ngIf="disSplit"  slot="icon-only" name="close"></ion-icon>
+            <ion-icon *ngIf="!disSplit" slot="icon-only" name="open"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <ion-buttons slot="end">
-          <ion-button slot="end" fill="clear" [routerLink]="'/home'">
+          <ion-button slot="start" fill="clear" [routerLink]="'/home'">
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
           <ion-button slot="end" fill="clear" (click)="changeShow()">
@@ -30,12 +38,31 @@
 
       </ion-toolbar>
 
-    </ion-header>
+    </ion-header> -->
 
     <ion-content *ngIf="userProfile">
 
+      <ion-list>
+        <ion-item >
+          <ion-avatar slot="start">
+            <img [src]="userProfile.photoURL">
+          </ion-avatar>
+          <ion-label>
+            <div class="display-name">{{ userProfile.displayName }}</div>
+            <div class="email">{{ userProfile.email }}</div>
+          </ion-label>
+          <ion-button size="small" color="dark" slot="end" fill="clear" [routerLink]="'/home'">
+            <ion-icon slot="icon-only" name="home"></ion-icon>
+          </ion-button>
+          <ion-button size="small" color="dark" slot="end" fill="clear" (click)="changeShow()">
+            <ion-icon *ngIf="disSplit"  slot="icon-only" name="close"></ion-icon>
+            <ion-icon *ngIf="!disSplit" slot="icon-only" name="open"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
       <ion-list *ngIf="permission('fabrica') || permission('direccion')">
-        <ion-menu-toggle auto-hide="false">
+        <!-- <ion-menu-toggle auto-hide="false"> -->
           <ion-list-header>
             <ion-label>Mantenimiento</ion-label>
           </ion-list-header>
@@ -43,7 +70,7 @@
             <ion-icon slot="start" name="list-box"></ion-icon>
             <ion-label>Registro</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        <!-- </ion-menu-toggle> -->
       </ion-list>
 
       <ion-list *ngIf="permission('fabrica') || permission('direccion')">

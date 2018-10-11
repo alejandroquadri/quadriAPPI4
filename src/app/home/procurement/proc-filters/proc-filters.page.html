@@ -1,0 +1,28 @@
+<ion-list lines="inset">
+
+  <ion-item>
+    <ion-label>Autorizacion</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="options.autorizacion" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Pendiente</ion-label>
+    <ion-toggle value="foo" checked="true" color="primary" [(ngModel)]="options.pendiente" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Encargado</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="options.encargado" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Completo</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="options.completo" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Suspendido</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="options.suspendido" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+    
+</ion-list>

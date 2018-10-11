@@ -22,7 +22,7 @@ export class StaticDataService {
       })
       .catch( err => {
         reject( err );
-      })
-    })
+      });
+    });
   }
 }

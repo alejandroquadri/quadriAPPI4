@@ -1,9 +1,106 @@
 <ion-header>
+
   <ion-toolbar>
-    <ion-title>proc-form</ion-title>
+  	<ion-button menuToggle *ngIf="platform.is('mobile')">
+	    <ion-icon name="menu"></ion-icon>
+	  </ion-button>
+    <ion-title>{{submitType === 'new' ? 'Nuevo repuesto' : 'Editar repuesto '}}</ion-title>
+    <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
+	    <ion-button (click)="modalCtrl.dismiss()">
+	      Salir
+	    </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
+
 <ion-content padding>
+
+	<ion-grid fixed #form>
+	  <form [formGroup]="spareForm" (ngSubmit)="onSubmit()">
+				<ion-list lines="inset">
+					
+					<ion-item lines="none" *ngIf="platform.is('mobile')">
+					  <ion-label position="fixed">Tipo</ion-label>
+					  <ion-select formControlName="tipo" interface="popover">
+					    <ion-select-option *ngFor="let item of data.items | sort:'':true" [value]="item">{{item}}</ion-select-option>
+					  </ion-select>
+					</ion-item>
+
+					<ion-item lines="none" *ngIf="!platform.is('mobile')">
+							<ion-label position="fixed" class="labelMachineSelect">Tipo</ion-label>					
+							<select formControlName="tipo" class="selectMachine">
+						    <option *ngFor="let item of data.items | sort:'':true" [ngValue]="item">{{ item }}</option>
+						  </select>
+					</ion-item>
+
+					<ion-item lines="none" *ngIf="platform.is('mobile')">
+					  <ion-label position="fixed">Destino</ion-label>
+					  <ion-select formControlName="destino" interface="popover">
+					    <ion-select-option *ngFor="let maquina of data.maquinas | sort:'':true" [value]="maquina">{{maquina}}</ion-select-option>
+					  </ion-select>
+					</ion-item>
+
+					<ion-item lines="none" *ngIf="!platform.is('mobile')">
+							<ion-label position="fixed" class="labelMachineSelect">Destino</ion-label>					
+							<select formControlName="destino" class="selectMachine">
+						    <option *ngFor="let maquina of data.maquinas | sort:'':true" [ngValue]="maquina">{{maquina}}</option>
+						  </select>
+					</ion-item>
+
+				  <ion-item lines="none">
+				    <ion-label position="fixed">Descripcion</ion-label>
+				    <ion-textarea formControlName="detalle"></ion-textarea>
+				  </ion-item>
+
+				  <ion-item lines="none">
+				    <ion-label position="fixed">Cantidad</ion-label>
+				    <ion-input formControlName="cantidad" type="number"></ion-input>
+				  </ion-item>
+
+				  <ion-item lines="none" *ngIf="platform.is('mobile')">
+					  <ion-label position="fixed" >Unidad</ion-label>
+					  <ion-select formControlName="unidad" interface="popover">
+              <ion-select-option disabled></ion-select-option>
+					    <ion-select-option *ngFor="let unidad of data.unidades | sort:'':true" [value]="unidad">{{unidad}}</ion-select-option>
+					  </ion-select>				
+				  </ion-item>
+
+				  <ion-item lines="none" *ngIf="!platform.is('mobile')">
+					  <ion-label position="fixed" class="labelMachineSelect">Unidad</ion-label>
+						<select formControlName="unidad" class="selectMachine">
+              <option disabled></option>
+              <option *ngFor="let unidad of data.unidades | sort:'':true" [ngValue]="unidad">{{unidad}}</option>
+					  </select>
+				  </ion-item>
+
+					<ion-item lines="none">
+				    <ion-label position="fixed">Proveedor</ion-label>
+				    <ion-input formControlName="proveedor" type="text"></ion-input>
+				  </ion-item>
+
+				  <ion-item lines="none" *ngIf="submitType === 'edit'">
+				    <ion-label position="fixed">Observacion</ion-label>
+				    <ion-textarea formControlName="observacion"></ion-textarea>
+				  </ion-item>
+
+				  <ion-item lines="none">
+					  <ion-label position="fixed">Muestra</ion-label>
+					  <ion-checkbox formControlName="muestra"></ion-checkbox>
+					</ion-item>
+
+				</ion-list>
+
+				<ion-button fill="outline"  type="submit" [disabled]="!spareForm.valid">
+			    {{submitType === 'new' ? 'Agregar' : 'Actualizar '}}
+			  </ion-button>
+
+			  <ion-button fill="outline" (click)="toNew()" *ngIf="submitType !== 'new'">
+			    Nuevo
+			  </ion-button>
+      </form>
+      
+  </ion-grid>
 
 </ion-content>

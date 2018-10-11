@@ -1,17 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-  //   selector: 'app-page-home',
-  //   templateUrl: 'home.page.html',
-  //   styleUrls: ['home.page.scss'],
-  // })
-  // export class HomePage {
-    
-    //   constructor(
-      //   ) {}
-      
-      // }
-      
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { LoggerService } from '../auth/shared/logger.service';
@@ -23,19 +9,6 @@ import { SplitService } from '../shared';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
-  ];
 
   userProfile: any;
   disSplitObs: any;
@@ -49,6 +22,7 @@ export class HomePage implements OnInit {
     public splitService: SplitService
   ) {
     this.userProfile = this.authData.current;
+    console.log(this.userProfile);
   }
 
   ngOnInit() {

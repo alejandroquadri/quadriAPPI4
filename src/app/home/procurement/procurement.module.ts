@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared';
 import { ProcLogPage } from './proc-log/proc-log.page';
 import { ProcFormPage } from './proc-form/proc-form.page';
+import { ProcFiltersPage } from './proc-filters/proc-filters.page';
 
 
 const routes: Routes = [
@@ -20,10 +21,12 @@ const routes: Routes = [
   ],
   declarations: [
     ProcLogPage,
-    ProcFormPage
+    ProcFormPage,
+    ProcFiltersPage
   ],
   entryComponents: [
-    ProcFormPage
+    ProcFormPage,
+    ProcFiltersPage
   ]
 })
 export class ProcurementModule { }

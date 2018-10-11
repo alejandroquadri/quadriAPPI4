@@ -22,10 +22,6 @@ export class ProcurementService {
   field = 'fecha';
   asc = false;
 
-
-  // sparePartsSubject = new ReplaySubject(1);
-  // sparePartsObs = this.sparePartsSubject.asObservable();
-
   filterSubject = new ReplaySubject(1);
   filterObs = this.filterSubject.asObservable();
 
@@ -33,7 +29,7 @@ export class ProcurementService {
     private api: ApiService,
   ) {
     this.updateFilters();
-   }
+  }
 
   pushSparePart(form: any) {
     return this.api.push('repuestos', form);
@@ -44,7 +40,6 @@ export class ProcurementService {
   }
 
   getSparePartsMeta() {
-    console.log('spare');
     return this.api.getListMeta('repuestos');
   }
 

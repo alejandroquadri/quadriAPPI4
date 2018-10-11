@@ -6,6 +6,7 @@ import { combineLatest } from 'rxjs';
 import { StaticDataService, FieldFilterPipe, SortPipe, WordFilterPipe } from '../../../shared';
 import { ProcFormPage } from './../proc-form/proc-form.page';
 import { ProcurementService } from '../shared/procurement.service';
+import { ProcFiltersPage } from '../proc-filters/proc-filters.page';
 
 @Component({
   selector: 'proc-log',
@@ -37,33 +38,18 @@ export class ProcLogPage implements OnInit {
     private filterPipe: WordFilterPipe,
     private sortPipe: SortPipe,
     public modalCtrl: ModalController,
+    public popoverCtrl: PopoverController
   ) {
     this.statusOptions = this.staticData.data.produccion.tipoStatus;
    }
 
   ngOnInit() {
     this.spare$ = this.spareData.getSparePartsMeta();
-    // .subscribe( data => {
-    //   console.log('spare', data);
-    // });
     this.filter$ = this.spareData.filterObs;
-    // .subscribe( filters => {
-    //   console.log('filters', filters);
-    // })
-
-    // this.combined$ = combineLatest(this.spare$, this.filter$, (parts: any, filters: any) => ({parts, filters}))
-    // .subscribe( (pair: any) => {
-    //   console.log(pair);
-    //   this.sparePartsCrude = pair.parts;
-    //   this.filters = pair.filters;
-    //   this.offsetInit();
-    //   this.filter();
-    // });
 
     this.combined$ = combineLatest(this.spare$, this.filter$);
     this.combined$.subscribe(
       ([parts, filters]) => {
-        console.log(parts, filters);
         this.sparePartsCrude = parts;
         this.filters = filters;
         this.offsetInit();
@@ -129,21 +115,13 @@ export class ProcLogPage implements OnInit {
   //    profileModal.present();
   //  }
 
-   async presentModal(form?: any) {
+  async presentModal(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: ProcFormPage,
       componentProps: form
     });
     return await profileModal.present();
   }
-
-  // presentToast() {
-  //   const toast = this.toastCtrl.create({
-  //     message: 'Enderezar el telefono para editar',
-  //     duration: 3000
-  //   });
-  //   toast.present();
-  // }
 
   // presentOptions(myEvent) {
   //   let popover = this.popoverCtrl.create('OptionsPage');
@@ -152,10 +130,16 @@ export class ProcLogPage implements OnInit {
   //   });
   // }
 
+  async presentOptions(event) {
+    const popover = await this.popoverCtrl.create({
+      component: ProcFiltersPage,
+      event: event
+    });
+    return await popover.present();
+  }
+
   changeStatus(status: string, key: string) {
-    console.log('status changed', status, key);
-    this.spareData.updateSparePart(key, {status: status})
-    .then( () => console.log('status actualizado'));
+    this.spareData.updateSparePart(key, {status: status});
   }
 
   // onChange(event) {
