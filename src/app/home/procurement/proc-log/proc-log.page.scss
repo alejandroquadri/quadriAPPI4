@@ -32,19 +32,19 @@
 }
 
 .pendiente {
-  background-color: var(--ion-color-warning);
+  background-color: var(--warning);
 }
 
 .encargado {
-  background-color: var(--ion-color-primary);
+  background-color: var(--ionBlue);
 }
 
 .suspendido {
-  background-color: var(--ion-color-danger);
+  background-color: var(--danger);
 }
 
 .completo {
-  background-color: var(--ion-color-secondary);
+  background-color: var(--secondary);
 }
 
 .autorizacion {

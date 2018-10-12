@@ -17,7 +17,7 @@ export class StaticDataService {
       this.apiData.getObjectOnce('staticData')
       .then( ret => {
         this.data = ret.val();
-        console.log('habemus static data', this.data);
+        // console.log('habemus static data', this.data);
         resolve(this.data);
       })
       .catch( err => {

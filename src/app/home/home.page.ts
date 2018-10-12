@@ -22,7 +22,6 @@ export class HomePage implements OnInit {
     public splitService: SplitService
   ) {
     this.userProfile = this.authData.current;
-    console.log(this.userProfile);
   }
 
   ngOnInit() {

@@ -1,0 +1,164 @@
+scroll-content {
+  display: flex;
+  flex-direction: column;
+}
+
+ion-grid {
+  padding: 0px;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #dedede;
+}
+
+.grid {
+  padding: 0px;
+}
+
+.monthTitle {
+  background-color: #5FA8A3;
+  font-weight: bold;
+  color: white;
+  border-top: 1px solid #5FA8A3;
+  border-left: 1px solid #5FA8A3;
+  border-right: 1px solid #5FA8A3;
+}
+
+.daysTitle {
+  border-left: 1px solid #dedede;
+  border-right: 1px solid #dedede;
+  font-size: 0.9rem;
+}
+
+.week {
+  flex: 1;
+  border-top: 1px solid #dedede;
+  border-left: 1px solid #dedede;
+}
+
+.day {
+  border-right: 1px solid #dedede;
+  overflow: scroll;
+  font-size: 11px;
+  line-height: 120%;
+}
+
+.fecha {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  z-index: 1;
+  padding: 0px;
+  margin: 0px;
+  color: black;
+  font-size: 11px;
+  font-weight: normal;
+}
+
+.fecha:hover {
+  // cursor: pointer;
+  border-radius: 10px;
+}
+
+.item {
+  margin-bottom: 4px;
+}
+
+.machine {
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.article {
+  color: var(--grey-quadri);
+}
+
+.article:hover {
+  cursor: pointer;
+  background-color:rgba(244, 244, 244, 0.8);
+  border-radius: 5px;
+}
+
+.prensa {
+  background-color: var(--ionBlue);
+}
+
+.pulidora {
+  background-color: var(--ionGreen);
+}
+
+.otro {
+  background-color: var(--warning);
+}
+
+.inputForm {
+  font-size: 12px;
+}
+
+.selectInput {
+  background-color:rgba(244, 244, 244, 0.5);
+  border: none;
+}
+
+.selectLabel {
+  color: #999;
+}
+
+.inputQuantity {
+  width: 60px;
+  background-color:rgba(244, 244, 244, 0.5);
+  border-radius: 5px;
+}
+
+.inputDate {
+  background-color:rgba(244, 244, 244, 0.5);
+  width: 140px;
+  border-radius: 5px;
+}
+
+.inputObs {
+  background-color:rgba(244, 244, 244, 0.5);
+  width: 90px;
+  border-radius: 5px;
+}
+
+ion-input {
+    --padding-top: 0px !important;
+    --padding-end: 0px !important;
+    --padding-bottom: 1px !important;
+    --padding-start: 0px !important;
+}
+
+.text-input-md {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.entregasContainer {
+  overflow: scroll;
+}
+
+.entregas {
+  font-size: 0.7rem;
+}
+
+.entregasHeader {
+  font-weight: bold;
+  border-bottom: solid 2px #dedede;
+}
+
+.entregasItems {
+  border-bottom: 1px solid #dedede;
+}
+
+.entregasItems:hover {
+  background-color: rgba(244, 244, 244, 0.8);
+}

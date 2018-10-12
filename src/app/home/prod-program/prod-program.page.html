@@ -1,0 +1,203 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <form slot="primary" [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+  
+      <ion-row align-items-center class="inputForm">
+        <ion-col size="auto">
+          <ion-input #inputDate formControlName="date" placeholder="Fecha" type="date" class="inputDate"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectMachine formControlName="machine" class="selectInput"
+          [ngClass]="{selectLabel: selectMachine.value === ''}">  
+            <option value="" disabled selected>Maquina</option>
+            <option *ngFor="let mach of data.maquinasProd | sort:'':true">{{mach}}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectColor formControlName="color" class="selectInput"
+          [ngClass]="{selectLabel: selectColor.value === ''}">
+            <option value="" disabled selected>Color</option>
+            <option *ngFor="let color of colors | sort:'':true">{{color}}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectDim formControlName="dim" class="selectInput"
+          [ngClass]="{selectLabel: selectDim.value === ''}">
+            <option value="" disabled selected>Dim</option>
+            <option *ngFor="let dim of dims | sort:'':true">{{ dim }}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectDrawing formControlName="drawing" class="selectInput"
+          [ngClass]="{selectLabel: selectDrawing.value === ''}">
+            <option value="" disabled selected>Dibujo</option>
+            <option *ngFor="let drawing of drawings | sort:'':true">{{ drawing }}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-input formControlName="quantity" placeholder="Cant" type="number" class="inputQuantity"></ion-input>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectUnit formControlName="unit" class="selectInput"
+          [ngClass]="{selectLabel: selectUnit.value === ''}">
+            <option value="" disabled selected>Unidad</option>
+            <option *ngFor="let unit of data.unidadesProd | sort:'':true">{{ unit }}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-input formControlName="obs" placeholder="Observacion" type="text" class="inputObs"></ion-input>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="!editing">
+          <ion-button fill="clear" size="small"  type="submit" [disabled]="!myForm.valid">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="editing">
+          <ion-button fill="clear" size="small"  color="ionBlue" type="submit" [disabled]="!myForm.valid">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="editing">
+          <ion-button fill="clear" size="small" color="danger" type="button" (click)="remove()">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding>
+          <ion-button fill="clear" size="small" color="warning" type="button" (click)="buildForm()">
+            <ion-icon name="refresh"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding>
+          <ion-button fill="clear" size="small" color= "lightGreyQ" type="button" (click)="showForm = false">
+            <ion-icon name="remove-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+
+    <ion-buttons slot="end">
+      <ion-button size="small" (click)="newProgram()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button size="small" (click)="showEntregas = !showEntregas">
+        <ion-icon slot="icon-only" name="paper-plane"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+  
+  
+  <ion-content no-padding>
+  
+    <ion-grid>
+      <ion-row style="height: 100%;">
+  
+        <ion-col class="container" *ngIf="program">
+  
+          <ion-row align-items-center class="monthTitle" no-padding>
+            <ion-col size="1" text-center no-padding>
+              <ion-button fill="clear" size="small" color="light" (click)="previous()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+            </ion-col>
+            <ion-col size="10" text-center no-padding>
+              {{ selected.format('MMMM') }} {{ selected.format('YYYY') }}
+            </ion-col>
+            <ion-col size="1" text-center no-padding>
+              <ion-button fill="clear" size="small" color="light" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+  
+          <ion-row align-items-center class="daysTitle"> 
+            <ion-col text-center>Dom</ion-col>
+            <ion-col text-center>Lun</ion-col>
+            <ion-col text-center>Mar</ion-col>
+            <ion-col text-center>Mier</ion-col>
+            <ion-col text-center>Jue</ion-col>
+            <ion-col text-center>Vier</ion-col>
+            <ion-col text-center>Sab</ion-col>
+          </ion-row>
+  
+          <ion-row *ngFor="let week of weeks" class="week">
+            <ion-col *ngFor="let day of week.days" class="day">
+              <div ion-button small clear class="fecha" (click)="newProgram(day)">{{ day.number }}</div>
+              <div *ngIf="program[day.date.format('YYYYMMDD')]">
+                <div *ngFor="let mach of program[day.date.format('YYYYMMDD')] | objNgfor" class="item">
+                  <div><span [ngClass]="machClass(mach)" class="machine">{{ mach }}:&nbsp;</span></div>
+                  <div *ngFor="let art of program[day.date.format('YYYYMMDD')][mach] | objNgfor" class="article"
+                  (click)="edit(program[day.date.format('YYYYMMDD')][mach][art], day, art, mach)">
+                    {{ program[day.date.format('YYYYMMDD')][mach][art].codigo }}
+                    <span *ngIf="program[day.date.format('YYYYMMDD')][mach][art].valor">-</span> 
+                    {{ program[day.date.format('YYYYMMDD')][mach][art].valor }}&nbsp;
+                    {{ program[day.date.format('YYYYMMDD')][mach][art].unidad}}
+                    <span *ngIf="program[day.date.format('YYYYMMDD')][mach][art].observacion">-</span>
+                    {{ program[day.date.format('YYYYMMDD')][mach][art].observacion }}
+                    <!-- <span (click) = "remove()"><ion-icon name="trash" color="danger"></ion-icon></span> -->
+                  </div>
+                </div>						
+              </div>
+            </ion-col>
+          </ion-row>
+  
+        </ion-col>
+      
+        <ion-col no-padding size="3" *ngIf="showEntregas" class="entregasContainer">
+          <!-- <div *ngIf="entregas"> -->
+  
+          <ion-row no-padding>
+            <ion-col no-padding>
+              <ion-card *ngIf="entregas">
+                <ion-card-content no-padding class="entregas">
+                <ion-row class="entregasHeader">
+                  <ion-col size="4">
+                    Art
+                  </ion-col>
+                  <ion-col size="2">
+                    Sem 0
+                  </ion-col>
+                  <ion-col size="2">
+                    Sem 1
+                  </ion-col>
+                  <ion-col size="2">
+                    Sem 2
+                  </ion-col>
+                  <ion-col size="2">
+                    Sem 3
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let item of items | sort:'total':false" class="entregasItems">
+                  <ion-col size="4">
+                    {{ item.code }}						
+                  </ion-col>
+                  <ion-col *ngFor="let week of weeksEntregas; let i = index" size="2">
+                    <span *ngIf="entregas[item.code][week]">{{ entregas[item.code][week] | number : '1.0-0'}}</span>
+                  </ion-col>
+                </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row no-padding>
+            <ion-col no-padding>
+              <ion-card>
+                <ion-card-content class="entregas">
+                    <!-- <stock-chart></stock-chart> -->
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+  
+      </ion-row>
+    </ion-grid>
+  
+  </ion-content>
+  

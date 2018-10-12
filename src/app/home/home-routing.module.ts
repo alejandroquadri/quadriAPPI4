@@ -21,10 +21,14 @@ const routes: Routes = [
       {
         path: 'compras',
         loadChildren: './procurement/procurement.module#ProcurementModule'
+      },
+      {
+        path: 'programa-produccion',
+        loadChildren: './prod-program/prod-program.module#ProdProgramPageModule'
       }
     ]
   },
-  { path: 'proc-filters', loadChildren: './procurement/proc-filters/proc-filters.module#ProcFiltersPageModule' }
+  { path: 'proc-filters', loadChildren: './procurement/proc-filters/proc-filters.module#ProcFiltersPageModule' },
 ];
 
 @NgModule({

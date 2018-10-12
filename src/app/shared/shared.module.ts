@@ -9,6 +9,7 @@ import { WordFilterPipe } from './pipes/word-filter.pipe';
 import { FieldFilterPipe } from './pipes/field-filter.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { ObjNgforPipe } from './pipes/objNgfor.pipe';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { SortPipe } from './pipes/sort.pipe';
     WordFilterPipe,
     FieldFilterPipe,
     MomentPipe,
-    SortPipe
+    SortPipe,
+    ObjNgforPipe
   ],
   exports: [
     ElasticDirective,
@@ -33,7 +35,8 @@ import { SortPipe } from './pipes/sort.pipe';
     WordFilterPipe,
     FieldFilterPipe,
     MomentPipe,
-    SortPipe
+    SortPipe,
+    ObjNgforPipe
   ],
   providers: [
     WordFilterPipe,
