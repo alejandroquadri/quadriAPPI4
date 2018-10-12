@@ -127,7 +127,7 @@
   
           <ion-row *ngFor="let week of weeks" class="week">
             <ion-col *ngFor="let day of week.days" class="day">
-              <div ion-button small clear class="fecha" (click)="newProgram(day)">{{ day.number }}</div>
+              <div class="fecha" (click)="newProgram(day)">{{ day.number }}</div>
               <div *ngIf="program[day.date.format('YYYYMMDD')]">
                 <div *ngFor="let mach of program[day.date.format('YYYYMMDD')] | objNgfor" class="item">
                   <div><span [ngClass]="machClass(mach)" class="machine">{{ mach }}:&nbsp;</span></div>

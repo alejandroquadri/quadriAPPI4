@@ -63,8 +63,9 @@ ion-grid {
 }
 
 .fecha:hover {
-  // cursor: pointer;
+  cursor: pointer;
   border-radius: 10px;
+  background-color:rgba(244, 244, 244, 0.8);
 }
 
 .item {
@@ -122,6 +123,7 @@ ion-grid {
   background-color:rgba(244, 244, 244, 0.5);
   width: 140px;
   border-radius: 5px;
+  margin-left: 1rem;
 }
 
 .inputObs {
