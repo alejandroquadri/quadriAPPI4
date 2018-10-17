@@ -28,7 +28,6 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'proc-filters', loadChildren: './procurement/proc-filters/proc-filters.module#ProcFiltersPageModule' },
 ];
 
 @NgModule({

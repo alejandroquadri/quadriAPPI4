@@ -25,6 +25,7 @@ export class ProdProgramService {
     const date = moment(form.date).format('YYYYMMDD');
     const mach = form.machine;
     const key = this.api.getNewKey();
+    // tslint:disable-next-line:max-line-length
     const code = `${this.staticData.codebuilder.drawing[form.drawing]}${this.staticData.codebuilder.color[form.color]}${this.staticData.codebuilder.dim[form.dim]}`;
     const info = {
       color: form.color,
@@ -41,6 +42,7 @@ export class ProdProgramService {
   update(form, key, diff: string) {
     const date = moment(form.date).format('YYYYMMDD');
     const mach = form.machine;
+    // tslint:disable-next-line:max-line-length
     const code = `${this.staticData.codebuilder.drawing[form.drawing]}${this.staticData.codebuilder.color[form.color]}${this.staticData.codebuilder.dim[form.dim]}`;
     const info = {
       color: form.color,
