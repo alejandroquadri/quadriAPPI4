@@ -97,4 +97,8 @@ export class ProdProgramService {
     return this.api.removeItemList('sc-program', key);
   }
 
+  deleteScProg(key) {
+    return this.api.removeItemList('sc-program', key);
+  }
+
 }

@@ -25,6 +25,10 @@ const routes: Routes = [
       {
         path: 'programa-produccion',
         loadChildren: './prod-program/prod-program.module#ProdProgramPageModule'
+      },
+      {
+        path: 'programa-entregas',
+        loadChildren: './del-program/del-program.module#DelProgramPageModule'
       }
     ]
   },

@@ -1,0 +1,131 @@
+.container {
+  height: 100%;
+  font-size: 0.8rem;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.headers {
+  border-bottom: solid 1px black;
+  font-size: 0.9rem;
+}
+
+.dateHeaders {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-left: solid 1px black;
+}
+
+.data {
+  height: calc(100% - 62px);
+  overflow-y: scroll;
+}
+
+.scDataCol {
+  border-left: solid 1px black;
+  display: flex;
+  flex-direction: column;
+}
+
+.today {
+  font-weight: bold;
+  color: var(--primary)
+}
+
+.np {
+  border-bottom: solid  1px;
+  border-bottom-color: var(--light);
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+}
+
+.article {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.cell {
+  // min-height: 26px;
+  cursor: pointer;
+  border-right: solid 1px;
+  border-right-color: var(--light);
+  flex-grow: 1;
+  height: 100%;
+}
+
+.cellSat {
+  border-right: solid 1px;
+  border-right-color: var(--grey-quadri)
+}
+
+.cellItems {
+  border-left: solid 1px;
+  border-left-color: var(--light);
+  height: 100%;
+}
+
+.toMake {
+  color: var(--danger);
+}
+
+.cell:hover {
+  background-color: var(--light);
+}
+
+.reserved {
+  color: var(--primary);
+}
+
+.inputForm {
+  font-size: 12px;
+}
+
+.inputQuantity {
+  // height: 20px;
+  width: 60px;
+  background-color: white;
+  border-radius: 5px;
+  line-height: 160%;
+}
+
+.inputDate {
+  // height: 20px;    
+  background-color:white;
+  width: 140px;
+  border-radius: 5px;
+}
+
+.text-input-md {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.inputObs {
+  background-color: white;
+  border-radius: 5px;
+  line-height: 160%;
+}
+
+ion-input {
+  --padding-top: 0px !important;
+  --padding-end: 0px !important;
+  --padding-bottom: 1px !important;
+  --padding-start: 0px !important;
+}
+
+.dolar-icon {
+  color: var(--ionGreen);
+}
+
+.train-icon {
+  color: var(--ionBlue);
+}
+
+.cart-icon {
+  color: var(--pink);
+}

@@ -1,0 +1,186 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="filter()"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" size="small" color= "lightGreyQ" (click)="thisWeek()">
+        <ion-icon name="calendar"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" size="small" color= "lightGreyQ" (click)="prevWeek()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" size="small" color= "lightGreyQ" (click)="nextWeek()"><ion-icon name="ios-arrow-forward"></ion-icon>
+      </ion-button>
+	  </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="showForm" >
+    <form [formGroup]="scForm" (ngSubmit)="submit()">
+      <ion-row align-items-center class="inputForm">
+        <ion-col size="auto">
+          <ion-input #inputDate formControlName="date" placeholder="Fecha" type="date" class="inputDate"></ion-input>
+        </ion-col>
+        <ion-col size="auto">
+          <span>{{ this.scForm.value.np || '' }}</span>
+        </ion-col>
+        <ion-col size="auto">
+          <span>{{ this.scForm.value.code || '' }}</span>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-input #qInput formControlName="quantity" placeholder="Cant" type="number" class="inputQuantity"></ion-input>
+        </ion-col>
+        <ion-col size="auto">
+          <input type="checkbox" formControlName="reserved" value="" (change)="reservedChange($event)"> Reservado
+        </ion-col>
+        <ion-col size="auto">
+          <input type="checkbox" formControlName="paid" value=""> Pago
+        </ion-col>
+        <ion-col size="auto">
+          <input type="checkbox" formControlName="delivery" value="" (change)="deliveryChange()"> Entrega
+        </ion-col>
+        <ion-col size="auto">
+            <input type="checkbox" formControlName="takeAway" value="" (change)="takeAwayChange()"> Retira
+        </ion-col>
+        <ion-col>
+          <ion-input formControlName="obs" placeholder="Observacion" type="text" class="inputObs"></ion-input>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="!editing">
+          <ion-button fill="clear" size="small" type="submit" [disabled]="!scForm.valid">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="editing">
+          <ion-button fill="clear" size="small" color="ionBlue" type="submit" [disabled]="!scForm.valid">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" no-padding *ngIf="editing">
+          <ion-button fill="clear" size="small" color="danger" type="button" (click)="remove()">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid no-padding>
+
+    <div *ngIf="npObj" class="container">
+  
+        <ion-row align-items-center no-padding class="headers">
+  
+          <ion-col size="4" class="info">
+            <ion-row>
+      
+              <ion-col size="4">
+                <ion-row>
+                  <ion-col text-center>
+                    NP - Vendedor
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+      
+              <ion-col size="8">
+                <ion-row>
+                  <ion-col size="6" text-center>
+                    Codigo
+                  </ion-col>
+                  <ion-col size="3" text-center>
+                    Original
+                  </ion-col>
+                  <ion-col size="3" text-center>
+                    Pendiente
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            
+            </ion-row>
+          </ion-col>
+          
+          <ion-col size="8" class="dateHeaders">
+            <ion-row>
+              <ion-col *ngFor="let date of periodArray" class="date">
+                <ion-row [ngClass]="{today: isToday(date)}">
+                  <ion-col text-center>{{ dateFormat(date, 'fecha') }}</ion-col>
+                </ion-row>
+                <ion-row [ngClass]="{today: isToday(date)}">
+                  <ion-col text-center>{{ dateFormat(date, 'dia') }}</ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+  
+        </ion-row>
+  
+  
+      <div class="data">
+  
+        <ion-row *ngFor="let np of npObj | objNgfor" class="np" no-padding>
+          
+          <ion-col  no-padding size="4" class="info">
+            <ion-row>
+  
+              <ion-col size="4" no-padding class="articles">
+                <ion-row>
+                  <ion-col>
+                    {{ np }} - {{ shortSales(npObj[np].salesRep) }}
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    {{ npObj[np].client }}
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+      
+              <ion-col size="8" no-padding class="articles">
+                <ion-row *ngFor="let item of npObj[np].items" class="article">
+                  <ion-col size="6" class="cellItems">
+                    {{ item.code }}
+                  </ion-col>
+                  <ion-col size="3" class="cellItems">
+                    {{ item.original | number : '1.0-2' }}
+                  </ion-col>
+                  <ion-col size="3" class="cellItems">
+                    {{ item.pendiente | number : '1.0-2' }}
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+  
+            </ion-row>
+          </ion-col>
+  
+          <ion-col size="8" no-padding class="scDataCol">
+              <ion-row *ngFor="let item of npObj[np].items" class="article">
+                <ion-col align-self-center text-center class="cell"
+                *ngFor="let date of periodArray"
+                (click)="addToForm(np, item.code, date, returnQ(np, item.code, date))"
+                [ngClass]="{cellSat: dateFormat(date, 'dia') === 'sá'}">
+                  <div class="innerCell" *ngIf="returnQ(np, item.code, date)">
+                    <span [ngClass]="{toMake: scObj[np][item.code][dateFormat(date, 'fechaObj')].quantity<0,
+                  reserved: scObj[np][item.code][dateFormat(date, 'fechaObj')].reserved}" >
+                      {{ scObj[np][item.code][dateFormat(date, 'fechaObj')].quantity }}
+                    </span>
+                    <span *ngIf="scObj[np][item.code][dateFormat(date, 'fechaObj')].paid"><ion-icon name="logo-usd" class="dolar-icon"></ion-icon></span>
+                    <span *ngIf="scObj[np][item.code][dateFormat(date, 'fechaObj')].delivery"><ion-icon name="train" class="train-icon"></ion-icon></span>
+                    <span *ngIf="scObj[np][item.code][dateFormat(date, 'fechaObj')].takeAway"><ion-icon name="ios-cart" class="cart-icon"></ion-icon></span>
+                  </div>
+                </ion-col>
+              </ion-row>
+          </ion-col>
+  
+        </ion-row>
+  
+      </div>
+    </div>
+  </ion-grid>
+
+</ion-content>
+
