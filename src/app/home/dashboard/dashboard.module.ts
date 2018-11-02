@@ -7,6 +7,7 @@ import { ChartsModule } from 'ng2-charts';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPage } from './dashboard.page';
+import { SharedModule } from '../../shared';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   declarations: [
     DashboardPage

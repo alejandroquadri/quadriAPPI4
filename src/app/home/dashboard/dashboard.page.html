@@ -4,49 +4,22 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Ionic Blank
+        Tablero
       </ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content padding>
     
-    <!-- <p>{{ date }}</p>
-  
-    <ul>
-      <li class="text" *ngFor="let item of items | async">
-        {{ item.account }}
-      </li>
-    </ul> -->
     <ion-grid>
       <ion-row>
-        <ion-col class="col-6">
-          <div style="display: block;">
-            <canvas baseChart class="chart"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
-          </div>
-        </ion-col>
+        <ion-col size="6"><app-ac-sales></app-ac-sales></ion-col>
+        <ion-col size="6"></ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="col-6" style="margin-bottom: 10px">
-          <table class="table table-responsive table-condensed">
-            <tr>
-              <th *ngFor="let label of lineChartLabels">{{label}}</th>
-            </tr>
-            <tr *ngFor="let d of lineChartData">
-              <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-            </tr>
-          </table>
-          <button (click)="randomize()">CLICK</button>
-        </ion-col>
-      </ion-row>
+          <ion-col size="6"></ion-col>
+          <ion-col size="6"></ion-col>
+        </ion-row>
     </ion-grid>
-  
+      
   </ion-content>
