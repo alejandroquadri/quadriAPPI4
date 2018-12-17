@@ -313,9 +313,9 @@ export class AcSalesComponent implements OnInit {
 
   formatNumber(value, format: string) {
     let val;
-    if (type === 'money') {
+    if (format === 'money') {
       val = `$ ${this.number.transform(value, format)}`;
-    } else if (type === 'm2' ) {
+    } else if (format === 'm2' ) {
       val = `${this.number.transform(value, format)} m2`;
     }
     return val;
