@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 
-import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction } from '@angular/fire/database';
 import { DataSnapshot } from '@firebase/database-types';
 import * as firebase from 'firebase';
 
