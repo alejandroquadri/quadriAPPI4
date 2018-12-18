@@ -7,7 +7,7 @@
     <ion-content *ngIf="userProfile">
 
       <ion-list>
-        <ion-item >
+        <ion-item>
           <ion-avatar slot="start">
             <img [src]="userProfile.photoURL">
           </ion-avatar>
@@ -16,11 +16,11 @@
             <div class="email">{{ userProfile.email }}</div>
           </ion-label>
           <ion-button size="small" color="dark" slot="end" fill="clear" [routerLink]="'/home'">
-            <ion-icon slot="icon-only" name="home"></ion-icon>
+            <ion-icon name="home"></ion-icon>
           </ion-button>
           <ion-button size="small" color="dark" slot="end" fill="clear" (click)="changeShow()">
-            <ion-icon *ngIf="disSplit"  slot="icon-only" name="close"></ion-icon>
-            <ion-icon *ngIf="!disSplit" slot="icon-only" name="open"></ion-icon>
+            <ion-icon *ngIf="disSplit"  name="close"></ion-icon>
+            <ion-icon *ngIf="!disSplit" name="open"></ion-icon>
           </ion-button>
         </ion-item>
       </ion-list>
