@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, Platform, PopoverController, ModalController, InfiniteScroll } from '@ionic/angular';
+import { NavController, Platform, PopoverController, ModalController, IonInfiniteScroll } from '@ionic/angular';
 
 import { combineLatest } from 'rxjs';
 
@@ -29,7 +29,7 @@ export class ProcLogPage implements OnInit {
   asc = false;
   offset = 50;
 
-  @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private staticData: StaticDataService,
