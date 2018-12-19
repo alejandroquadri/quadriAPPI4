@@ -114,7 +114,6 @@ export class AcSalesComponent implements OnInit {
 
       const obj = this.buildSalesObj(salesFiltered);
       const avionObj = this.buildAvionObj(avionFiltered);
-
       for (let i = 1, n = monthDays ; i <= n; i++) {
         const date = this.date.date(i).format('YYYY-MM-DD');
         this.labels.push(i);
@@ -200,10 +199,11 @@ export class AcSalesComponent implements OnInit {
 
   buildSalesObj(filteredArray: Array<any>, monthly?: boolean) {
     const filteredObj = {};
-
+    console.log(filteredArray);
     filteredArray.forEach( sale => {
-      const total = + sale.total;
-      const cant = + sale.cantidad;
+      const total = Number(sale.total)
+      let cant = Number(sale.cantidad);
+      sale.transaccion === 'Nota de Credito' ? cant = -cant : cant = cant;
       let quantity;
       let date;
 
@@ -212,6 +212,7 @@ export class AcSalesComponent implements OnInit {
       } else {
         quantity = 0;
       }
+      console.log(sale.transaccion, quantity, total);
 
       if (monthly) {
         date = moment(sale.fecha).format('YYYY-MM');
@@ -322,7 +323,6 @@ export class AcSalesComponent implements OnInit {
   }
 
   formatTooltip(value, format: string) { // .yLabel
-    console.log(value);
     let val;
     if (value.datasetIndex === 1 ||
         value.datasetIndex === 2 ||
