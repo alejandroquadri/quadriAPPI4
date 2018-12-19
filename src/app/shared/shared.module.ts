@@ -13,6 +13,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { ObjNgforPipe } from './pipes/objNgfor.pipe';
 
 import { AcSalesComponent } from './components';
+import { AcProdComponent } from './components/ac-prod/ac-prod.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AcSalesComponent } from './components';
     MomentPipe,
     SortPipe,
     ObjNgforPipe,
-    AcSalesComponent
+    AcSalesComponent,
+    AcProdComponent
   ],
   exports: [
     ElasticDirective,
@@ -44,7 +46,8 @@ import { AcSalesComponent } from './components';
     MomentPipe,
     SortPipe,
     ObjNgforPipe,
-    AcSalesComponent
+    AcSalesComponent,
+    AcProdComponent
   ],
   providers: [
     WordFilterPipe,

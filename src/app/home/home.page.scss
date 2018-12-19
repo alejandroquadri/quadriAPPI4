@@ -1,3 +1,9 @@
+
+// para que el split pane no ocupe tanto espacio
+.split-pane-md.split-pane-visible>.split-pane-side {
+  max-width: 15%;
+}
+
 ion-item {
   font-size: 0.9rem;
 }
@@ -7,12 +13,16 @@ ion-item {
   width: 100%;
 }
 
+.name-label {
+  margin-left: 0.4rem;
+}
+
 .display-name{
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .email {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
 }
 
 ion-list-header { 
