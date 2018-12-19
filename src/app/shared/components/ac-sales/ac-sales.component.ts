@@ -261,6 +261,10 @@ export class AcSalesComponent implements OnInit {
     return {
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
       scales: {
         yAxes: [
           {
