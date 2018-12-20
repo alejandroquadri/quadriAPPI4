@@ -1,3 +1,44 @@
-<p>
-  ac-prod works!
-</p>
+<ion-grid>
+
+  <ion-row align-items-center justify-content-center class="filters">
+    <ion-col size="auto">
+        <ion-button fill="outline" size="small" (click)= "subMonth()">
+          <ion-icon name="ios-arrow-back"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <span>
+          <span>{{ date.format('MMM') }} - {{ date.format('YY') }}</span>
+        </span>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button fill="outline" size="small" (click)= "addMonth()">
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+    <ion-col size="auto">
+      <select [(ngModel)]="unit" (ngModelChange)="acProdData()" class="selectItem">
+        <option>m2</option>
+        <option>ml</option>
+      </select>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <div *ngIf="showChart" class="chart-container" style="display: block;">
+        <canvas baseChart class="chart"
+          [datasets]="datasets"
+          [labels]="labels"
+          [options]="options"
+          [colors] = "colors"
+          [chartType]="lineChartType"
+          [legend]="true"
+          (chartClick)="chartClicked($event)"
+          >
+        </canvas>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

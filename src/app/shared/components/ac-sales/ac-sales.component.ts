@@ -199,9 +199,8 @@ export class AcSalesComponent implements OnInit {
 
   buildSalesObj(filteredArray: Array<any>, monthly?: boolean) {
     const filteredObj = {};
-    console.log(filteredArray);
     filteredArray.forEach( sale => {
-      const total = Number(sale.total)
+      const total = Number(sale.total);
       let cant = Number(sale.cantidad);
       sale.transaccion === 'Nota de Credito' ? cant = -cant : cant = cant;
       let quantity;
@@ -212,7 +211,6 @@ export class AcSalesComponent implements OnInit {
       } else {
         quantity = 0;
       }
-      console.log(sale.transaccion, quantity, total);
 
       if (monthly) {
         date = moment(sale.fecha).format('YYYY-MM');
