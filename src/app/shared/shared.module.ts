@@ -14,6 +14,7 @@ import { ObjNgforPipe } from './pipes/objNgfor.pipe';
 
 import { AcSalesComponent } from './components';
 import { AcProdComponent } from './components/ac-prod/ac-prod.component';
+import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AcProdComponent } from './components/ac-prod/ac-prod.component';
     SortPipe,
     ObjNgforPipe,
     AcSalesComponent,
-    AcProdComponent
+    AcProdComponent,
+    CustomCurrencyPipe
   ],
   exports: [
     ElasticDirective,
@@ -46,6 +48,7 @@ import { AcProdComponent } from './components/ac-prod/ac-prod.component';
     MomentPipe,
     SortPipe,
     ObjNgforPipe,
+    CustomCurrencyPipe,
     AcSalesComponent,
     AcProdComponent
   ],
@@ -54,7 +57,8 @@ import { AcProdComponent } from './components/ac-prod/ac-prod.component';
     FieldFilterPipe,
     MomentPipe,
     SortPipe,
-    DecimalPipe
+    DecimalPipe,
+    CustomCurrencyPipe
   ]
 })
 export class SharedModule { }

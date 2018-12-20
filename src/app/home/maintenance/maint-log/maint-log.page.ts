@@ -70,11 +70,11 @@ export class MaintLogPage implements OnInit {
     }, 500);
   }
 
-  deleteLog(key) {
+  deleteLog(key: string) {
     this.machineLogData.deleteLog(key);
   }
 
-  editLog(log, key) {
+  editLog(log, key: string) {
     log['$key'] = key;
     this.presentModal(log);
   }

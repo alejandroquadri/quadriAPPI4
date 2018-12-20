@@ -51,11 +51,19 @@
 
       </ion-list>
 
+      <ion-list *ngIf="permission('fabrica') || permission('direccion')" lines="none">
+        <ion-list-header>
+          <ion-label>Finanzas</ion-label>
+        </ion-list-header>
+        <ion-item [routerLink]="['/home/avion']">
+          <ion-icon slot="start" name="airplane"></ion-icon>
+          <ion-label>Avion</ion-label>
+        </ion-item>
+      
+      </ion-list>
+
       <ion-list>
         <ion-menu-toggle auto-hide="false">
-          <!-- <ion-list-header>
-            <ion-label>Usuario</ion-label>
-          </ion-list-header> -->
           <ion-item (click)="logOut()" class="logout">
             <ion-icon slot="start" name="log-out"></ion-icon>
             <ion-label>Salir</ion-label>

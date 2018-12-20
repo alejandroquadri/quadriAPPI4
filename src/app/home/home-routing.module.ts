@@ -29,9 +29,13 @@ const routes: Routes = [
       {
         path: 'programa-entregas',
         loadChildren: './del-program/del-program.module#DelProgramPageModule'
+      },
+      {
+        path: 'avion',
+        loadChildren: './avion/avion.module#AvionModule'
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

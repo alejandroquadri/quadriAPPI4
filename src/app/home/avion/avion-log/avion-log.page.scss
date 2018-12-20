@@ -1,0 +1,15 @@
+.data, .headers {
+  font-size: 0.9rem;
+}
+
+.data {
+  border-bottom: solid var(--light) 1px;
+}
+
+.data:hover {
+  background-color: var(--light);
+}
+
+.total {
+  padding: 0 1rem;
+}
