@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, Platform, NavParams } from '@ionic/angular';
 
-import * as firebase from 'firebase';
 import * as moment from 'moment';
 
 import { StaticDataService, FinanceService, CustomCurrencyPipe } from '../../../shared';
-import { LoggerService } from '../../../auth/shared/logger.service';
 
 @Component({
   selector: 'app-avion-form',
@@ -103,16 +101,17 @@ export class AvionFormPage implements OnInit {
       }
     });
 
-    this.amountChange$ = this.avionForm.controls['amount'].valueChanges.subscribe( val => {
-      const parsed = this.customCurrencyPipe.parse(val, 0);
-      this.amount = this.customCurrencyPipe.transform(parsed, 0);
-    });
+    // this.amountChange$ = this.avionForm.controls['amount'].valueChanges.subscribe( val => {
+    //   const parsed = this.customCurrencyPipe.parse(val, 0);
+    //   this.amount = this.customCurrencyPipe.transform(parsed, 0);
+    // });
 
   }
 
-  onAmountChange(event) {
+  onAmountChange(event: string) {
     const parsed = this.customCurrencyPipe.parse(event, 0);
-    this.amount = this.customCurrencyPipe.transform(parsed, 0);
+    // this.amount = this.customCurrencyPipe.transform(parsed, 0);
+    return this.customCurrencyPipe.transform(parsed, 0);
   }
 
   toNew() {

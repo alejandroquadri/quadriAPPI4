@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavParams, Platform, ModalController} from '@ionic/angular';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { ProcurementService } from '../shared/procurement.service';
 import { LoggerService } from '../../../auth/shared/logger.service';

@@ -48,12 +48,10 @@
 
       <ion-item lines="none">
         <ion-label position="fixed" class="labelGrey">Monto</ion-label>
-        <!-- <ion-input [ngModel]="amount" 
-        (ngModelChange)="onAmountChange($event)" 
-        formControlName="amount" type="text"></ion-input> -->
-        <ion-input formControlName="amount" type="text" [ngModel]="amount"></ion-input>
+        <ion-input formControlName="amount" type="text" 
+        [value]="onAmountChange(avionForm.get('amount').value)">
+        </ion-input>
       </ion-item>
-
       
       <div *ngIf="showSalesForm">
         

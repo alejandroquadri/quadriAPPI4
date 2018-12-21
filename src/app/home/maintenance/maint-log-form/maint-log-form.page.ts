@@ -5,7 +5,7 @@ import { ModalController, Platform, NavParams } from '@ionic/angular';
 import { MaintenanceService } from './../shared/maintenance.service';
 import { LoggerService } from '../../../auth/shared/logger.service';
 import { StaticDataService } from '../../../shared';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import * as moment from 'moment';
 
 @Component({

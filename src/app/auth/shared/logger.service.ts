@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 // import { GooglePlus } from '@ionic-native/google-plus';
 
 import { Users } from './users';

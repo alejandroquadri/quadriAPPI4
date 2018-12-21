@@ -3,7 +3,7 @@ import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { AngularFireDatabase, AngularFireAction } from '@angular/fire/database';
 import { DataSnapshot } from '@firebase/database-types';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { Observable } from 'rxjs';
 
