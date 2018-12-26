@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Oportunidad</ion-title>
+    <ion-buttons slot="end">
+	    <ion-button (click)="modalCtrl.dismiss()">
+	      Salir
+	    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+      <form [formGroup]="opForm" (ngSubmit)="onSubmit()">
+
+        <ion-list lines="inset">
+          
+          <ion-item lines="none">
+            <ion-label position="fixed" class="label">Oportunidad</ion-label>
+            <ion-input *ngIf="!addPsp" formControlName="obra" type="text"></ion-input>
+            <div *ngIf="addPsp" item-content class="">
+              {{ opForm.value.obra}}
+            </div>
+            <ion-button *ngIf="addPsp" type="button" fill="clear" slot="end" (click)="lookOp()">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="fixed" class="label">Cliente</ion-label>
+            <div item-content class="">
+                {{ opForm.value.client}}
+            </div>
+            <ion-button type="button" fill="clear"  slot="end" (click)="lookClient()">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item lines="none" *ngIf="addPsp">
+            <ion-label position="fixed" class="label">Razon Social</ion-label>
+            <div item-content class="">
+              {{ pspData.razSoc }}
+            </div>
+          </ion-item>
+
+          <ion-item lines="none" *ngIf="!addPsp">
+            <ion-label position="fixed" class="labelSelect">Vendedor</ion-label>
+            <select item-content formControlName="salesRep" class="select">
+              <option value="" disabled></option>
+              <option *ngFor="let salesRepOp of salesReps | sort:'':true"
+              value="{{ salesRepOp === 'Tarruella Alberto Horacio'? 'Tarruella Alberto Horacio ': salesRepOp }}">{{ salesRepOp }}</option>
+            </select>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="fixed" class="labelSelect">Mes cierre</ion-label>
+            <select item-content formControlName="closeMonth" class="select">
+              <option value=""></option>
+              <option *ngFor="let month of months">{{ month }}</option>
+            </select>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="fixed" class="label">Monto</ion-label>
+            <ion-input 
+            [value]="onAmountChange(opForm.get('total').value)"
+            formControlName="total" type="text"></ion-input>
+            <!-- <ion-input 
+            formControlName="total" type="text"></ion-input> -->
+          </ion-item>
+
+        </ion-list>
+
+        <ion-button margin-start fill="outline" type="submit" [disabled]="!opForm.valid">
+          Aceptar
+        </ion-button>
+
+      </form>
+  
+
+</ion-content>

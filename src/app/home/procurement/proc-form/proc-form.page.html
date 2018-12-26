@@ -1,9 +1,6 @@
 <ion-header>
 
   <ion-toolbar>
-  	<ion-button menuToggle *ngIf="platform.is('mobile')">
-	    <ion-icon name="menu"></ion-icon>
-	  </ion-button>
     <ion-title>{{submitType === 'new' ? 'Nuevo repuesto' : 'Editar repuesto '}}</ion-title>
     <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
 	    <ion-button (click)="modalCtrl.dismiss()">

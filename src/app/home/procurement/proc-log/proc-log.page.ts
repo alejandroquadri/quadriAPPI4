@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, Platform, PopoverController, ModalController, IonInfiniteScroll } from '@ionic/angular';
+import { Platform, PopoverController, ModalController, IonInfiniteScroll } from '@ionic/angular';
 
 import { combineLatest } from 'rxjs';
 
@@ -38,10 +38,11 @@ export class ProcLogPage implements OnInit {
     private filterPipe: WordFilterPipe,
     private sortPipe: SortPipe,
     public modalCtrl: ModalController,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public platform: Platform
   ) {
     this.statusOptions = this.staticData.data.produccion.tipoStatus;
-   }
+  }
 
   ngOnInit() {
     this.spare$ = this.spareData.getSparePartsMeta();
@@ -110,11 +111,6 @@ export class ProcLogPage implements OnInit {
     this.presentModal(part);
   }
 
-  // presentModal(form: any) {
-  //    let profileModal = this.modalCtrl.create('SparePartsFormPage', form);
-  //    profileModal.present();
-  //  }
-
   async presentModal(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: ProcFormPage,
@@ -122,13 +118,6 @@ export class ProcLogPage implements OnInit {
     });
     return await profileModal.present();
   }
-
-  // presentOptions(myEvent) {
-  //   let popover = this.popoverCtrl.create('OptionsPage');
-  //   popover.present({
-  //     ev: myEvent
-  //   });
-  // }
 
   async presentOptions(event) {
     const popover = await this.popoverCtrl.create({
@@ -141,11 +130,6 @@ export class ProcLogPage implements OnInit {
   changeStatus(status: string, key: string) {
     this.spareData.updateSparePart(key, {status: status});
   }
-
-  // onChange(event) {
-  //   this.spareData.searchInput = event;
-  //   this.spareData.filter();
-  // }
 
   onChange(event) {
     this.offsetInit();

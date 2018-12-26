@@ -61,13 +61,15 @@ export class AvionFormPage implements OnInit {
 
   edit() {
     this.submitType = 'edit';
+    const amount = this.customCurrencyPipe.transform(this.updateForm.amount, 0);
+
     if (this.updateForm.account === 'Venta') {
 
       this.showSalesForm = true;
       this.avionForm.patchValue({
         date: this.updateForm.date,
         type: this.updateForm.type,
-        amount: this.updateForm.amount,
+        amount: amount,
         account: this.updateForm.account,
         obs: this.updateForm.obs,
         np: this.updateForm.np,
@@ -79,7 +81,7 @@ export class AvionFormPage implements OnInit {
       this.avionForm.patchValue({
         date: this.updateForm.date,
         type: this.updateForm.type,
-        amount: this.updateForm.amount,
+        amount: amount,
         account: this.updateForm.account,
         obs: this.updateForm.obs,
       });
@@ -89,11 +91,9 @@ export class AvionFormPage implements OnInit {
   formChangeSubs() {
 
     this.typeChange$ = this.avionForm.controls['type'].valueChanges.subscribe( val => {
-      console.log('type', val);
     });
 
     this.accountChange$ = this.avionForm.controls['account'].valueChanges.subscribe( val => {
-      console.log('account', val);
       if (val === 'Venta') {
         this.showSalesForm = true;
       } else {
@@ -101,16 +101,10 @@ export class AvionFormPage implements OnInit {
       }
     });
 
-    // this.amountChange$ = this.avionForm.controls['amount'].valueChanges.subscribe( val => {
-    //   const parsed = this.customCurrencyPipe.parse(val, 0);
-    //   this.amount = this.customCurrencyPipe.transform(parsed, 0);
-    // });
-
   }
 
   onAmountChange(event: string) {
     const parsed = this.customCurrencyPipe.parse(event, 0);
-    // this.amount = this.customCurrencyPipe.transform(parsed, 0);
     return this.customCurrencyPipe.transform(parsed, 0);
   }
 

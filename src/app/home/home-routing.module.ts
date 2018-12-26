@@ -33,9 +33,13 @@ const routes: Routes = [
       {
         path: 'avion',
         loadChildren: './avion/avion.module#AvionModule'
+      },
+      {
+        path: 'crm',
+        loadChildren: './crm/crm.module#CrmModule'
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
