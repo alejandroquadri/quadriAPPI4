@@ -1,0 +1,95 @@
+<ion-header>
+
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="searchBar($event)"></ion-searchbar>
+      <ion-buttons slot="start">
+        <div class="total"> $ {{ total | number : '1.0-0' }} </div>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="presentModal()">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+        <ion-button (click)="presentFilters($event)">
+          <ion-icon name="options"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  
+    <ion-toolbar>
+        <ion-grid>
+          <ion-row text-center>
+            <ion-col size="2">
+              <strong>Obra</strong>
+            </ion-col>
+            <ion-col size="3">
+              <strong>Cliente</strong>
+            </ion-col>
+            <ion-col size="2">
+              <strong>Vendedor</strong>
+            </ion-col>
+            <ion-col size="1" (click)="changeSort('total')" class="orderCol">
+              <strong>Monto $ 
+                <ion-icon name="arrow-dropup" *ngIf="sortTerm === 'total' && sortDir === true"></ion-icon>
+                <ion-icon name="arrow-dropdown" *ngIf="sortTerm === 'total' && sortDir === false"></ion-icon>
+              </strong>
+            </ion-col>
+            <ion-col (click)="changeSort('closeMonth')" class="orderCol">
+              <strong>Cierre
+                <ion-icon name="arrow-dropup" *ngIf="sortTerm === 'closeMonth' && sortDir === true"></ion-icon>
+                <ion-icon name="arrow-dropdown" *ngIf="sortTerm === 'closeMonth' && sortDir === false"></ion-icon>
+              </strong>
+            </ion-col>
+            <ion-col size="2">
+              <strong>Status</strong>
+            </ion-col>
+            <ion-col size="auto">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  <ion-content>
+  
+    <ion-grid>
+      <ion-row class="data" *ngFor="let op of opList">
+        <ion-col size="2">
+          {{ op.payload.val().obra }}
+        </ion-col>
+        <ion-col size="3">
+          {{ op.payload.val().client }}
+        </ion-col>
+        <ion-col size="2">
+          {{ op.payload.val().salesRep }}
+        </ion-col>
+        <ion-col size="1">
+          {{ op.payload.val().total |  number : '1.0-0' }}
+        </ion-col>
+        <ion-col text-center>
+          <ion-select #closeMonth (ionChange)="changeCloseMonth(closeMonth.value, op.key)" interface="popover">
+            <ion-select-option [selected]="oldMonth(op.payload.val().closeMonth)" disabled="true">
+              anterior
+            </ion-select-option>
+            <ion-select-option *ngFor="let month of months" [selected]="op.payload.val().closeMonth===month? true: false">{{ month | moment:'MMM YY'}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="2" text-center class="select-col">
+          <ion-select class="select" (ionChange)="changeStatus(status.value, op.key)" interface="popover"
+          [ngClass]="{'pendiente': op.payload.val().status === 'Pendiente','rechazado': op.payload.val().status === 'Rechazado','cerrado': op.payload.val().status === 'Cerrado', 'seguro': op.payload.val().status === 'Seguro'}">
+            <ion-select-option *ngFor="let option of statusOptions" [selected]="op.payload.val().status===option? true: false">{{option}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="auto" text-center>
+          <ion-button fill="clear" size="small" (click)="seeOp(op.payload.val(), op.key)" class="actionButtons">
+            <ion-icon name="eye"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  </ion-content>
+  

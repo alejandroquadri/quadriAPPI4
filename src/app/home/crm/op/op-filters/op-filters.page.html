@@ -1,0 +1,40 @@
+<ion-list>
+
+  <ion-item>
+    <ion-label>Seguro</ion-label>
+    <ion-toggle color="tertiary" [(ngModel)]="filters.status.seguro" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Pendiente</ion-label>
+    <ion-toggle checked="true" color="warning" [(ngModel)]="filters.status.pendiente" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Cerrado</ion-label>
+    <ion-toggle color="success" [(ngModel)]="filters.status.cerrado" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Rechazado</ion-label>
+    <ion-toggle color="danger" [(ngModel)]="filters.status.rechazado" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Roldan</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="filters.salesRep.roldan" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tarruella</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="filters.salesRep.tarruella" (ionChange)="updateFilters()"></ion-toggle>
+  </ion-item>
+
+  <ion-item lines="none">
+    <select class="select" [(ngModel)]="filters.month" (ngModelChange)="updateFilters()">
+      <option value="">Mes</option>
+      <option *ngFor="let month of months" [value]="month">{{ month | moment:'MMM YY' }}</option>
+    </select>
+  </ion-item>
+
+</ion-list>
