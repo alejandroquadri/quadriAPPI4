@@ -4,6 +4,8 @@ import { SharedModule } from '../../../shared';
 import { AddOpPage } from './add-op/add-op.page';
 import { ClientSelectPage } from './client-select/client-select.page';
 import { OpSelectPage } from './op-select/op-select.page';
+import { EmailPspComponent } from './email-psp/email-psp.component';
+import { ClientFormComponent } from './client-form/client-form.component';
 
 @NgModule({
   imports: [
@@ -12,7 +14,9 @@ import { OpSelectPage } from './op-select/op-select.page';
   declarations: [
     AddOpPage,
     ClientSelectPage,
-    OpSelectPage
+    OpSelectPage,
+    EmailPspComponent,
+    ClientFormComponent
   ],
   entryComponents: [
     ClientSelectPage,
@@ -21,7 +25,9 @@ import { OpSelectPage } from './op-select/op-select.page';
   exports: [
     AddOpPage,
     ClientSelectPage,
-    OpSelectPage
+    OpSelectPage,
+    EmailPspComponent,
+    ClientFormComponent
   ]
 })
-export class CrmSharedCModule { }
+export class CrmSharedModule { }

@@ -5,8 +5,8 @@ import { SharedModule } from '../../../shared';
 import { OpLogPage } from './op-log/op-log.page';
 import { OpDetailPage } from './op-detail/op-detail.page';
 import { OpFiltersPage } from './op-filters/op-filters.page';
-import { AddOpPage } from '../shared/add-op/add-op.page';
-import { CrmSharedCModule } from '../shared/crm-shared.module';
+
+import { CrmSharedModule, AddOpPage, EmailPspComponent, ClientFormComponent } from '../shared';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     SharedModule,
-    CrmSharedCModule
+    CrmSharedModule
   ],
   declarations: [
     OpLogPage,
@@ -32,7 +32,9 @@ const routes: Routes = [
   ],
   entryComponents: [
     OpFiltersPage,
-    AddOpPage
+    AddOpPage,
+    EmailPspComponent,
+    ClientFormComponent
   ]
 
 })

@@ -4,8 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { PspLogPage } from './psp-log/psp-log.page';
 import { PspDetailPage } from './psp-detail/psp-detail.page';
 import { SharedModule } from '../../../shared';
-import { AddOpPage } from '../shared/add-op/add-op.page';
-import { CrmSharedCModule } from '../shared/crm-shared.module';
+
+import { CrmSharedModule,
+        AddOpPage,
+        EmailPspComponent,
+        ClientFormComponent } from '../shared';
 
 const routes: Routes = [
   {
@@ -18,7 +21,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     SharedModule,
-    CrmSharedCModule
+    CrmSharedModule
   ],
   declarations: [
     PspLogPage,
@@ -26,7 +29,9 @@ const routes: Routes = [
   ],
   entryComponents: [
     PspDetailPage,
-    AddOpPage
+    AddOpPage,
+    EmailPspComponent,
+    ClientFormComponent
   ]
 })
 export class PspCrmModule { }

@@ -1,9 +1,240 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>op-detail</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
-
-</ion-content>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title *ngIf="op">
+        <input class="opName" #opNameEl type="text" size="{{ opName.length + 1 || 1 }}" 
+        (blur)="change('obra', opNameEl.value)" 
+        [(ngModel)]="opName">
+        <span (click)="changeClient(op)" class="client" >
+          - {{ op?.client }}	
+        </span>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button fill="clear" color="medium" size="small" (click)="seeClient(op?.clientKey)">
+            <ion-icon name="eye"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+  
+    <ion-grid *ngIf="op">
+      
+      <ion-row>
+        <ion-col size="auto" class="op-data">
+          <select class="titleItem" #sales (change)="change('salesRep', sales.value)">
+            <option *ngFor="let salesRep of salesReps" [selected]="op.salesRep===salesRep? true: false">{{salesRep}}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          $ <input style="border: none;" #totalValueEl type="text" class="input"
+          size="{{ totalValue.toString().length || 1 }}" 
+          (blur)="change('total', totalValueEl.value)" 
+          [ngModel]="totalValue"
+          (ngModelChange)="onAmountChange($event)"
+          >
+        </ion-col>
+        <ion-col size="auto">
+          <select class="titleItem" #closeMonth (change)="change('closeMonth', closeMonth.value)">
+            <option *ngFor="let month of months" [selected]="op.closeMonth===month? true: false">{{month}}</option>
+          </select>
+        </ion-col>
+        <ion-col size="auto">
+          <select class="titleItem" #status (change)="change('status', status.value)"
+          [ngClass]="{'pendiente': statusBis === 'Pendiente','rechazado': statusBis === 'Rechazado','cerrado': statusBis === 'Cerrado', 'seguro': statusBis === 'Seguro'}">
+            <option *ngFor="let option of statusOptions" [selected]="op.status === option? true: false">{{option}}</option>
+          </select>
+        </ion-col>
+      </ion-row>
+      
+      <form [formGroup]="agendaForm" class="inputForm" (ngSubmit)="submit()">
+        <ion-row align-items-center>
+            <ion-col size="auto">
+              <ion-input [ngClass]="{label: agendaForm.get('time').value === ''}" formControlName="time" placeholder="Fecha" type="date" class="input inputDate"></ion-input>
+            </ion-col>
+          <ion-col size="auto">
+            <select formControlName="action" class="selectInput" [ngClass]="{label: agendaForm.get('action').value === ''}">
+              <option value="" disabled selected>accion</option>
+              <option *ngFor="let action of actions | sort:'':true">{{ action }}</option>
+            </select>
+          </ion-col>
+          <ion-col>
+            <ion-input [ngClass]="{label: agendaForm.get('desc').value === ''}" formControlName="desc" placeholder="descripcion" type="text" class="input inputText"></ion-input>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-button fill="clear" size="small"  color="tertiary" type="submit" [disabled]="!agendaForm.valid">
+              <ion-icon *ngIf="edit" name="create"></ion-icon>
+              <ion-icon *ngIf="!edit" name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="auto" *ngIf="edit">
+            <ion-button fill="clear" size="small"  color="tertiary" type="button"
+            (click)="switchToNew()" >
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+  
+      <div *ngIf="op.agenda">
+        <ion-card>
+        
+          <ion-card-header>
+            <ion-card-title>Registro de actividades</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-row class="headers">
+              <ion-col text-center size="2">
+                <strong>Fecha</strong>
+              </ion-col>
+              <ion-col text-center size="2">
+                <strong>Accion</strong>
+              </ion-col>
+              <ion-col text-center>
+                <strong>Descripcion</strong>
+              </ion-col>
+              <ion-col text-center size="1">
+                <strong>Completo</strong>
+              </ion-col>
+              <ion-col size="2">
+              </ion-col>
+            </ion-row>
+  
+            <ion-row *ngFor="let item of op.agenda | objNgfor" class="data" align-items-center>
+              <ion-col text-center size="2">
+                {{ agendaObj[item]?.time | moment:'DD-MM-YYYY' }}
+              </ion-col>
+              <ion-col text-center size="2">
+                {{ agendaObj[item]?.action }}
+              </ion-col>
+              <ion-col>
+                {{ agendaObj[item]?.desc }}
+              </ion-col>
+              <ion-col text-center size="1" class="checkButton">
+                <ion-checkbox #check align-self-center [checked]="agendaObj[item]?.complete" 
+                (ionChange)="changeCheck(item, check.checked)"></ion-checkbox>
+              </ion-col>
+              <ion-col size="2" text-center>
+                <ion-button fill="clear" color="medium-tint" size="small" 
+                (click)="switchEditAgendaItem(agendaObj[item], item)" class="actionButtons">
+                  <ion-icon name="create"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" color="medium-tint" size="small" 
+                (click)="deleteAgendaItem(item)" class="actionButtons">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+  
+          </ion-card-content>
+        </ion-card>
+      </div>
+      
+      
+      <h4 *ngIf="!op.psps" margin>
+        No han sido emitidos presupuestos
+      </h4>
+      <div *ngIf="op.psps">
+        <ion-card *ngFor="let psp of op.psps | objNgfor">
+          
+          <div *ngIf="calipsoObj">
+            <div *ngIf="calipsoObj[psp]">
+              
+              <ion-row class="headers">
+                <ion-col>
+                  <ion-card-header>
+                    <ion-card-title>
+                      Presupuesto {{ psp }} - {{ calipsoObj[psp].flag }}
+                    </ion-card-title>
+                  </ion-card-header>
+                </ion-col>
+                <ion-col size="auto" align-self-center>
+                  <ion-button fill="clear" color="medium-tint" size="small" 
+                  (click)="sendPsp(psp)" class="actionButtons">
+                    <ion-icon name="paper-plane"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" color="medium-tint" size="small" 
+                  (click)="deletePsp(psp)" class="actionButtons">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              
+              
+              <ion-card-content>
+                <ion-row class="headers">
+                  <ion-col>
+                    <strong>Codigo</strong>
+                  </ion-col>
+                  <ion-col size="4">
+                    <strong>Descripcion</strong>
+                  </ion-col>
+                  <ion-col>
+                    <strong>Cantidad</strong>
+                  </ion-col>
+                  <ion-col>
+                    <strong>Precio</strong>
+                  </ion-col>
+                  <ion-col>
+                    <strong>Sub-total</strong>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let item of calipsoObj[psp]?.items" class="data">
+                  <ion-col>
+                    {{ item.codigocc }}
+                  </ion-col>
+                  <ion-col size="4">
+                    {{ item.conceptocomercial }}
+                  </ion-col>
+                  <ion-col>
+                    {{ item.cantidad | number: '1.0-0'}}
+                  </ion-col>
+                  <ion-col>
+                    {{ item.precio | number: '1.0-0' }}
+                  </ion-col>
+                  <ion-col>
+                    {{ item.total_importe | number: '1.0-0'}}
+                  </ion-col>
+                </ion-row>
+                <ion-row class="headers">
+                  <ion-col>
+                  </ion-col>
+                  <ion-col size="4">
+                  </ion-col>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                    <strong>{{ calipsoObj[psp].total | number: '1.0-0' }}</strong>
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </div>
+            <div *ngIf="!calipsoObj[psp]" >
+              <ion-card-header margin-bottom>
+               Presupuesto {{ psp }}
+              </ion-card-header>
+              <ion-card-content>
+                  rechazado, para licitacion o muy antiguo
+              </ion-card-content>
+            </div>
+          </div>
+          
+          
+  
+        </ion-card>
+      </div>
+  
+    </ion-grid>
+  
+  </ion-content>
+  

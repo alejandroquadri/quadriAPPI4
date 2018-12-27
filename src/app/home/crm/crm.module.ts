@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CrmSharedCModule } from './shared/crm-shared.module';
+import { CrmSharedModule } from './shared/crm-shared.module';
 
 const routes: Routes = [
   {
@@ -16,12 +16,12 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    CrmSharedCModule
+    CrmSharedModule
   ],
   declarations: [
   ],
   exports: [
-    CrmSharedCModule
+    CrmSharedModule
   ]
 })
 export class CrmModule { }
