@@ -1,3 +1,117 @@
-<p>
-  client-form works!
-</p>
+<ion-header>
+
+    <ion-toolbar>
+      <ion-title *ngIf="clientName">
+        <input class="clientName" #clientNameEl type="text" size="{{ clientName.length || 1 }}" 
+        (blur)="editName(clientNameEl.value)" 
+        [(ngModel)]="clientName">
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="modalCtrl.dismiss()">
+          Salir
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    
+    <ion-toolbar no-padding>
+      <label margin-horizontal>Vendedor</label>
+      <select margin-horizontal class="select" name="" [(ngModel)]="salesRep" (ngModelChange)="change('salesRep', salesRep)">
+        <option disabled value=""></option>
+        <option *ngFor="let salesRepOp of salesReps"
+        value="{{ salesRepOp === 'Tarruella Alberto Horacio'? 'Tarruella Alberto Horacio ': salesRepOp }}">
+          {{ salesRepOp }}
+        </option>
+      </select>
+  
+      <label margin-horizontal>Tipo</label>
+      <select margin-horizontal class="select" name="" [(ngModel)]="clientType" (ngModelChange)="change('clientType', clientType)">
+        <option value=""></option>
+        <option *ngFor="let clientTypeOp of clientTypes">{{clientTypeOp}}</option>
+      </select>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+  
+    <form [formGroup]="clientForm" class="inputForm" (ngSubmit)="submit()">
+      <ion-row align-items-center>
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <ion-input [ngClass]="{label: clientForm.get('name').value === ''}" formControlName="name" placeholder="Nombre" type="text" class="input inputText"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input [ngClass]="{label: clientForm.get('tel').value === ''}" formControlName="tel" placeholder="telefono" type="text" class="input inputText"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input [ngClass]="{label: clientForm.get('mail').value === ''}" formControlName="mail" placeholder="e-mail" type="email" class="input inputText"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input [ngClass]="{label: clientForm.get('pos').value === ''}" formControlName="pos" placeholder="posicion" type="text" class="input inputText"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input [ngClass]="{label: clientForm.get('obs').value === ''}" formControlName="obs" placeholder="observacion" type="text" class="input inputText"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="auto" no-padding>
+          <ion-button fill="clear" size="small"  color="ionBlue" type="submit" [disabled]="!clientForm.valid">
+            <ion-icon *ngIf="editForm" name="create"></ion-icon>
+            <ion-icon *ngIf="!editForm" name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" *ngIf="editForm" no-padding>
+          <ion-button fill="clear" size="small"  color="ionBlue" type="button"
+          (click)="switchToNew()" >
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    
+    <div *ngIf="clientObj?.contacts">
+      <ion-card *ngFor="let contact of clientObj.contacts | objNgfor" >
+    
+        <ion-card-header>
+          
+          <ion-row no-padding>
+            <ion-col no-padding>
+              <ion-card-title> 
+                <span>{{ contactObj[contact]?.name }}</span>
+              </ion-card-title>
+              <ion-card-subtitle>
+                <span *ngIf="contactObj[contact]?.pos" >{{ contactObj[contact]?.pos }}</span>
+              </ion-card-subtitle>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-button fill="clear" color="lightGreyQ" size="small" 
+              (click)="switchEditContact(contactObj[contact], contact)" class="actionButtons">
+                <ion-icon name="create"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="lightGreyQ" size="small" 
+              (click)="deleteContact(contact)" class="actionButtons">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+          <div>{{ contactObj[contact]?.tel}}</div>
+          <div>{{ contactObj[contact]?.mail}}</div>
+          <div>{{contactObj[contact]?.obs }}</div>
+        </ion-card-content>
+      
+      </ion-card>
+    </div>
+  
+  </ion-content>
+  

@@ -64,11 +64,9 @@ export class OpDetailPage implements OnInit {
       ( op: any, calipsoObj: any, agendaObj) => ({op, calipsoObj, agendaObj}))
     .subscribe( (pair: any) => {
       this.op = pair.op;
-      console.log(this.op.$key);
       if (this.op) {
         this.statusBis = this.op.status;
         this.op['$key'] = this.opKey;
-        // this.totalValue = this.op.total;
         this.totalValue = this.customCurrencyPipe.transform(this.op.total.toString(), 0);
         this.opName = this.op.obra;
       }
@@ -88,7 +86,6 @@ export class OpDetailPage implements OnInit {
   change(field: string, value: any) {
     // tslint:disable-next-line:no-unused-expression
     value === 'Tarruella Alberto Horacio' ? value = 'Tarruella Alberto Horacio ' : '';
-    // field === 'total' ? value = Number(value) : '' ;
     // tslint:disable-next-line:no-unused-expression
     field === 'total' ? value = Number( this.customCurrencyPipe.parse(value, 0) ) : '' ;
     const form = {};
@@ -126,7 +123,6 @@ export class OpDetailPage implements OnInit {
   }
 
   switchEditAgendaItem(agendaItem, key) {
-    console.log(agendaItem, key);
     this.editAgendaKey = key;
     this.agendaForm.patchValue( {
       time: agendaItem.time,
@@ -156,11 +152,6 @@ export class OpDetailPage implements OnInit {
     this.crmData.delteAgendaItem(agendaKey, this.op.$key);
   }
 
-  // seeClient2(key: string) {
-  //   const profileModal = this.modalCtrl.create('CrmClientFormPage', {$key: key, mode: 'edit'});
-  //   profileModal.present();
-  // }
-
   async seeClient (key: string) {
     const profileModal = await this.modalCtrl.create({
       component: ClientFormComponent,
@@ -168,21 +159,6 @@ export class OpDetailPage implements OnInit {
     });
     return await profileModal.present();
   }
-
-  // changeClient2(op) {
-  //   let profileModal = this.modalCtrl.create('ClientSelectPage', {pablo:'pelotudo'});
-  //   profileModal.onDidDismiss(data => {
-  //     if (data) {
-  //       if (data.payload) {
-  //         let client = data.payload.val();
-  //         this.crmData.changeClient(client.name, op.clientKey, op.$key, data.key);
-  //       } else {
-  //         this.crmData.changeClient(data, op.clientKey, op.$key);
-  //       }
-  //     }
-  //   })
-  //   profileModal.present();
-  // }
 
   async changeClient(op) {
     const profileModal = await this.modalCtrl.create({
@@ -205,7 +181,6 @@ export class OpDetailPage implements OnInit {
   }
 
   deletePsp(psp) {
-    console.log(psp, this.opKey);
     this.crmData.removePspOp(psp, this.opKey);
   }
 
@@ -215,7 +190,6 @@ export class OpDetailPage implements OnInit {
   }
 
   async sendPsp(psp: any) {
-    console.log(this.calipsoObj[psp]);
     const opForm = this.agendaForm.value;
     opForm['opKey'] = this.op.$key;
     opForm['op'] = this.op.obra;

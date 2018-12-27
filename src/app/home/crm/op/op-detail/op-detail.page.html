@@ -27,7 +27,7 @@
   
     <ion-grid *ngIf="op">
       
-      <ion-row>
+      <ion-row padding-top>
         <ion-col size="auto" class="op-data">
           <select class="titleItem" #sales (change)="change('salesRep', sales.value)">
             <option *ngFor="let salesRep of salesReps" [selected]="op.salesRep===salesRep? true: false">{{salesRep}}</option>

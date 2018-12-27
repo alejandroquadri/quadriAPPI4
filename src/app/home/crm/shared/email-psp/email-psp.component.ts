@@ -31,11 +31,9 @@ export class EmailPspComponent implements OnInit {
     this.buildForm();
     this.currentEmail = this.authData.current.email;
     this.currentSalesMan = this.crmData.currentSalesRep;
-    console.log(this.currentEmail);
    }
 
   ngOnInit() {
-    console.log(this.navParams.data.psp, this.navParams.data.op);
     this.psp = this.navParams.data.psp;
     this.op = this.navParams.data.op;
   }
@@ -62,7 +60,6 @@ export class EmailPspComponent implements OnInit {
     emailForm['iibb'] = this.psp.iibb;
     emailForm['final'] = this.psp.totalFinal;
     emailForm['currentEmail'] = this.currentEmail;
-    console.log(emailForm);
 
     let activityForm = {
       time: today,
