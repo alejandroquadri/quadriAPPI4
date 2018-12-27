@@ -39,7 +39,7 @@ const routes: Routes = [
         loadChildren: './crm/crm.module#CrmModule'
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

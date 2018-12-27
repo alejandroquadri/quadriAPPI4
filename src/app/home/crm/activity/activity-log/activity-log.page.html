@@ -1,0 +1,150 @@
+<ion-header>
+    
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <form [formGroup]="agendaForm" class="inputForm" (ngSubmit)="submit()">
+
+        <ion-row align-items-center>
+          <ion-col size="auto">
+            <ion-input [ngClass]="{label: agendaForm.get('time').value === ''}" formControlName="time" placeholder="Fecha" type="date" class="input inputDate"></ion-input>
+          </ion-col>
+          <ion-col size="auto">
+            <select formControlName="action" class="selectInput" [ngClass]="{label: agendaForm.get('action').value === ''}">
+              <option value="" disabled selected>accion</option>
+              <option *ngFor="let action of actions | sort:'':true">{{ action }}</option>
+            </select>
+          </ion-col>
+          <ion-col>
+            <ion-input [ngClass]="{label: agendaForm.get('desc').value === ''}" formControlName="desc" placeholder="descripcion" type="text" class="input inputText"></ion-input>
+          </ion-col>
+          <ion-col size="auto" *ngIf="opName"  >
+            <div [ngClass]="{label: opName === 'oportunidad'}" class="input inputText op">
+              {{ opName }}
+            </div>
+          </ion-col>
+          <div *ngIf="showOp">
+            <ion-col size="auto">
+              <ion-button fill="outline" size="small" color="tertiary" type="button"
+              (click)="lookOp()">
+                Buscar Op
+              </ion-button>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-button fill="outline" size="small" color="tertiary" type="button"
+              (click)="addOp()">
+                Agregar Op
+              </ion-button>
+            </ion-col>
+          </div>
+          <ion-col size="auto">
+            <ion-button fill="clear" size="small"  color="tertiary" type="submit" [disabled]="!agendaForm.valid">
+              <ion-icon *ngIf="edit" name="create"></ion-icon>
+              <ion-icon *ngIf="!edit" name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="auto" *ngIf="edit">
+            <ion-button fill="clear" size="small"  color="tertiary" type="button"
+            (click)="switchToNew()" >
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        
+      </form>
+    </ion-toolbar>
+
+    <ion-toolbar>
+      <ion-row class="filters" align-items-center>
+        <!-- <ion-col size="auto">
+          <ion-input class="inputDate" [(ngModel)]="date" (ngModelChange)="buildAgendaObj()" type="date"></ion-input>
+        </ion-col> -->
+        <ion-col size="auto">
+          <ion-button  fill="clear" size="small" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <span class="input inputDate">{{ date }} </span>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button fill="clear" size="small" (click)="forward()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
+        </ion-col>
+        <ion-col size="auto">
+          <select #selectSalesMan [(ngModel)]="salesMan" class="selectInput" [ngClass]="{label: selectSalesMan.value === ''}">
+            <option value="" selected>Vendedor</option>
+            <option>Alejandra Roldan</option>
+            <option
+            value="{{'Tarruella Alberto Horacio '}}"
+            >Alberto Tarruella</option>
+          </select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="headers">
+        <ion-col text-center size="1">
+          <strong>Vendedor</strong>
+        </ion-col>
+        <ion-col text-center size="1">
+          <strong>Accion</strong>
+        </ion-col>
+        <ion-col text-center size="3">
+          <strong>Descripcion</strong>
+        </ion-col>
+        <ion-col text-center size="3">
+          <strong>Oportunidad</strong>
+        </ion-col>
+        <ion-col text-center size="2">
+          <strong>Cliente</strong>
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+    
+    <div *ngIf="agendaObj">
+
+      <ion-row *ngFor="let item of agendaObj[date] | fieldFilter:['salesRep']:[salesMan]:false" align-items-center class="data">
+        <ion-col size="1" text-center>
+          {{ minSalesRep(item.salesRep) }}
+        </ion-col>
+        <ion-col size="1" text-center>
+          {{ item.action }}
+        </ion-col>
+        <ion-col size="3">
+          {{ item.desc }}
+        </ion-col>
+        <ion-col size="3" text-center>
+          {{ item.op }}
+        </ion-col>
+        <ion-col size="2" text-center>
+          {{ item.client }}
+        </ion-col>
+        <ion-col class="buttons" size="2">
+          <!-- <ion-checkbox  class="ckechbox" #check align-self-center [checked]="item?.complete" 
+            (ionChange)="changeCheck(item.$key, check.checked)">
+          </ion-checkbox> -->
+          <ion-button fill="clear" color="medium" size="small" 
+          (click)="switchEditAgendaItem(item)" class="actionButtons">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="medium" size="small" 
+          (click)="deleteAgendaItem(item)" class="actionButtons">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <ion-button  [disabled]="!item.opKey"  fill="clear" color="medium" size="small" (click)="seeOp(item.opKey)" class="actionButtons">
+            <ion-icon name="eye"></ion-icon>
+          </ion-button>
+        </ion-col>
+
+      </ion-row>
+      
+    </div>
+  
+  </ion-content>
+  
