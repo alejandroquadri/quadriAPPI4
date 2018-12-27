@@ -1,3 +1,47 @@
-<p>
-  email-psp works!
-</p>
+<ion-header>
+
+    <ion-toolbar>
+      <ion-title>Envio de presupuesto</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="modalCtrl.dismiss()">
+          Salir
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-grid>
+  
+      <form [formGroup]="emailForm" (submit)="onSubmit()">
+  
+        <ion-list>
+  
+          <ion-item>
+            <ion-label position="fixed">Destinatario</ion-label>
+            <ion-input formControlName="to" type="email"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="fixed">CC</ion-label>
+            <ion-input formControlName="cc" type="email"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="fixed">Comentario</ion-label>
+            <ion-textarea formControlName="obs" rows="4" spellcheck="true"></ion-textarea>
+          </ion-item>
+  
+        </ion-list>
+  
+        <ion-button margin-start fill="outline" type="submit" [disabled]="!emailForm.valid">
+          <ion-icon name="paper-plane"></ion-icon>Enviar
+        </ion-button>
+  
+      </form>
+  
+  
+    </ion-grid>
+  </ion-content>
