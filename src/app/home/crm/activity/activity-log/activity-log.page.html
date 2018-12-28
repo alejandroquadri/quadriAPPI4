@@ -58,15 +58,15 @@
 
     <ion-toolbar>
       <ion-row class="filters" align-items-center>
-        <!-- <ion-col size="auto">
-          <ion-input class="inputDate" [(ngModel)]="date" (ngModelChange)="buildAgendaObj()" type="date"></ion-input>
-        </ion-col> -->
         <ion-col size="auto">
           <ion-button  fill="clear" size="small" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
         </ion-col>
         <ion-col size="auto">
-          <span class="input inputDate">{{ date }} </span>
+          <ion-input class="inputDate" [(ngModel)]="date" (ngModelChange)="buildAgendaObj()" type="date"></ion-input>
         </ion-col>
+        <!-- <ion-col size="auto">
+          <span class="input inputDate">{{ date }} </span>
+        </ion-col> -->
         <ion-col size="auto">
           <ion-button fill="clear" size="small" (click)="forward()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
         </ion-col>

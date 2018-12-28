@@ -11,10 +11,13 @@ const routes: Routes = [
     path: 'oportunidades',
     loadChildren: './op/op-crm.module#OpCrmModule'
   },
-  { 
+  {
     path: 'registro-actividades',
     loadChildren: './activity/activity-log/activity-log.module#ActivityLogPageModule'
   },
+  { path: 'stock-precio',
+    loadChildren: './products/stock-prices/stock-prices.module#StockPricesPageModule'
+  }
 ];
 
 @NgModule({

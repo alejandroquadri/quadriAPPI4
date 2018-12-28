@@ -1,0 +1,68 @@
+<ion-header>
+
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="searchBar($event)"></ion-searchbar>
+    </ion-toolbar>
+  
+    <ion-toolbar>
+      <ion-row class="headers">
+        <ion-col size="2">
+          Codigo
+        </ion-col>
+        <ion-col size="5">
+          Descripcion
+          </ion-col>
+        <ion-col>
+          Unidad
+        </ion-col>
+        <ion-col>
+          Precio
+        </ion-col>
+        <ion-col>
+          Precio + 25 m2
+        </ion-col>
+        <ion-col>
+          Disponible
+        </ion-col>
+        <ion-col>
+          Reservado
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+    <div *ngIf="priceView" >
+      <ion-row *ngFor="let item of priceView" class="data">
+        <ion-col size="2">
+          {{ item.codigo }}
+        </ion-col>
+        <ion-col size="5">
+          {{ item.descripcion }}
+        </ion-col>
+        <ion-col>
+          {{ item.unidad }}
+        </ion-col>
+        <ion-col>
+          {{ item.importe | number : '1.0-1' }}
+        </ion-col>
+        <ion-col>
+          {{ (item.importe * (1-0.2)) | number : '1.0-1' }}
+        </ion-col>
+        <ion-col>
+          {{ item.general | number : '1.0-1' }}
+        </ion-col>
+        <ion-col>
+          {{ (toNumber(item.reservado) + toNumber(item.bloqueado)) | number : '1.0-1' }}
+        </ion-col>
+        
+      </ion-row>
+    </div>
+  
+  </ion-content>
+  
