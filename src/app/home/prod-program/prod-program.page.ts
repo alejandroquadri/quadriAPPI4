@@ -145,7 +145,6 @@ export class ProdProgramPage implements OnInit {
     this.editing = false;
     this.showForm = true;
     this.buildForm();
-    // date ? this.myForm.patchValue({date: date.date.format('YYYY-MM-DD')}) : '' ;
     if (date) { this.myForm.patchValue({date: date.date.format('YYYY-MM-DD')}); }
   }
 
@@ -186,10 +185,6 @@ export class ProdProgramPage implements OnInit {
     this.selected.month(this.selected.month() - 1);
     this.buildMonth();
   }
-
-  // private removeTime(date){
-  //     return date.day(0).hour(0).minute(0).second(0).millisecond(0);
-  // }
 
   private buildWeek(start) {
     const weekDays = [];
@@ -268,7 +263,6 @@ export class ProdProgramPage implements OnInit {
 
     scList.forEach( scProg => {
       const sc = scProg.payload.val();
-      // console.log(this.checkNp(`${sc.np}${sc.code}`));
 
       if (this.checkNp(`${sc.np}${sc.code}`)) {
 
@@ -299,28 +293,18 @@ export class ProdProgramPage implements OnInit {
       }
 
     });
-
     this.entregas = artXSem;
     this.items = this.buildItemsArray(items);
 
   }
 
   checkNp (npCodigo: string) {
-    // console.log(npCodigo);
     for (let i = 0, len = this.npList.length; i < len; i++) {
       const valueNp = `${this.npList[i].np}${this.npList[i].codigo}`;
-      // console.log(npCodigo, valueNp, npCodigo ===  valueNp);
       if (valueNp === npCodigo) {
-        // console.log(valueNp, npCodigo);
         return true;
       }
     }
-
-
-    // return this.npList.map( item => {
-    // 	// console.log(npCodigo);
-    // 	return `${item.np}${item.codigo}`;
-    // }).indexOf(`npCodigo`) !== -1;
   }
 
   buildNextWeeks () {
@@ -328,11 +312,10 @@ export class ProdProgramPage implements OnInit {
     const today = moment();
 
     for (let i = 0; i < 4; i ++) {
-      const semana = today.week() + '' + today.year();
+      const semana = `${today.format('ww')}${today.format('YYYY')}`;
       weeks.push(semana);
       today.add(1, 'w');
     }
-
     return weeks;
   }
 
