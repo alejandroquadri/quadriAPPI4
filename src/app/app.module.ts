@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 
 import { AuthModule } from './auth/auth.module';
 import { StaticDataService } from './shared';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // // esto es para precargar la data antes que se inicie la aplicacion
 // export function DataProviderFactory(provider: StaticDataService) {
@@ -39,7 +40,7 @@ import { StaticDataService } from './shared';
     AngularFireDatabaseModule, // para la database de siempre
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features,
-    AuthModule
+    AuthModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,

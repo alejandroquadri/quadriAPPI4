@@ -19,7 +19,7 @@
           <ion-item>
             <ion-label position="fixed">Email</ion-label>
             <!-- <ion-input #email formControlName="email" type="email"></ion-input> -->
-            <ion-input formControlName="email" type="email" [class.invalid]="!loginForm.controls.email.valid && blur">
+            <ion-input formControlName="email" type="email" [class.invalid]="!loginForm.controls.email.valid">
             </ion-input>
           </ion-item>
           <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.touched">
@@ -28,7 +28,7 @@
   
           <ion-item>
             <ion-label position="fixed">Constraseña</ion-label>
-            <ion-input formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid && blur">
+            <ion-input formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid">
             </ion-input>
           </ion-item>
           <ion-item class="error-message"  *ngIf="!loginForm.controls.password.valid
