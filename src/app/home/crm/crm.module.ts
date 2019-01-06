@@ -17,7 +17,12 @@ const routes: Routes = [
   },
   { path: 'stock-precio',
     loadChildren: './products/stock-prices/stock-prices.module#StockPricesPageModule'
+  },
+  {
+    path: 'clientes',
+    loadChildren: './clients/client-log/client-log.module#ClientLogPageModule'
   }
+
 ];
 
 @NgModule({

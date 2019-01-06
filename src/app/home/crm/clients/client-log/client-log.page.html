@@ -1,0 +1,83 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="searchBar($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button  (click)="seeTotals = !seeTotals">
+        <ion-icon name="calculator"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-row class="filters">
+      <label margin-horizontal>Vendedor</label>
+      <select margin-horizontal class="select" name="" [(ngModel)]="salesRep"
+      (ngModelChange)="filter()">
+        <option value=""></option>
+        <option *ngFor="let salesRepOp of salesReps"
+        value="{{ salesRepOp === 'Tarruella Alberto Horacio'? 'Tarruella Alberto Horacio ': salesRepOp }}">
+          {{ salesRepOp }}
+        </option>
+      </select>
+
+      <label margin-horizontal>Status</label>
+      <select margin-horizontal class="select" name="" [(ngModel)]="status"
+      (ngModelChange)="calcTotal()">
+        <option value=""></option>
+        <option *ngFor="let statusOp of statusOptions">
+          {{ statusOp }}
+        </option>
+      </select>
+  
+      <label margin-horizontal>Tipo</label>
+      <select margin-horizontal class="select" name="" [(ngModel)]="clientType"
+      (ngModelChange)="filter()">
+        <option value=""></option>
+        <option *ngFor="let clientTypeOp of clientTypes">{{clientTypeOp}}</option>
+      </select>
+    </ion-row>
+    <ion-row padding-top class="headers">
+      <ion-col size="2">
+        Cliente
+      </ion-col>
+      <ion-col *ngFor="let period of periodArray" 
+      (click)="changeSort(period)" class="orderCol">
+        {{ monthFormat(period) }}
+        <strong>
+          <ion-icon name="arrow-dropup" *ngIf="sortTerm === period && sortDir === true"></ion-icon>
+          <ion-icon name="arrow-dropdown" *ngIf="sortTerm === period && sortDir === false"></ion-icon>
+        </strong>
+      </ion-col>
+    </ion-row>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="clientView">
+    <ion-row *ngIf="seeTotals" class="totals" padding-top>
+      <ion-col size="2">
+        Totales
+      </ion-col>
+      <ion-col *ngFor="let period of periodArray">
+        {{ totalsObj[period] | number : '1.0-0'}}
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let client of clientView" class="data">
+        <ion-col size="2" (click)="seeClient(client.key)" class="client">
+          {{ client.name }}
+        </ion-col>
+        <ion-col *ngFor="let period of periodArray" >
+          {{ client[status][period] | number : '1.0-0' || '' }}
+        </ion-col>
+    </ion-row>
+  </div>
+    
+
+</ion-content>

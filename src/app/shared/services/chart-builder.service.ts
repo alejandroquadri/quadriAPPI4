@@ -47,7 +47,7 @@ export class ChartBuilderService {
   }
 
   buildChartColorDetail(
-    backgroundColor,borderColor, pointBorderColor, pointBackgroundColor, pointHoverBackgroundColor, pointHoverBorderColor) { {
+    backgroundColor, borderColor, pointBorderColor, pointBackgroundColor, pointHoverBackgroundColor, pointHoverBorderColor) { {
       return {
         backgroundColor: backgroundColor,
         borderColor: borderColor,
@@ -59,7 +59,7 @@ export class ChartBuilderService {
     }
   }
 
-   isFinished(log: any) {
+  isFinished(log: any) {
     if (log.machine === 'Breton' ||
         log.machine === 'Lineal' ||
         log.machine === 'Pasado tablas' ||
