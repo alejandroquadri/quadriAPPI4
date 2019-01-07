@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+// import { NavParams } from '@ionic/angular';
 import { CrmService } from '../../shared/crm.service';
 import { StaticDataService } from '../../../../shared';
 
@@ -14,7 +14,7 @@ export class OpFiltersPage implements OnInit {
   months: any;
 
   constructor(
-    public navParams: NavParams,
+    // public navParams: NavParams,
     private crmData: CrmService,
     private staticData: StaticDataService
   ) {

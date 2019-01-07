@@ -37,6 +37,10 @@ const routes: Routes = [
       {
         path: 'crm',
         loadChildren: './crm/crm.module#CrmModule'
+      },
+      {
+        path: 'produccion',
+        loadChildren: './manufacturing/manufacturing.module#ManufacturingModule'
       }
     ]
   }

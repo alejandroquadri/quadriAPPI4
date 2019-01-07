@@ -1,0 +1,12 @@
+ion-header, .headers, .data {
+  font-size: 0.9rem;
+}
+
+.data {
+  border-bottom: solid 1px;
+  border-bottom-color: var(--ion-color-light);
+}
+
+.data:hover {
+  background-color: var(--ion-color-light);
+}

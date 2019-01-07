@@ -1,0 +1,40 @@
+.datos {
+  padding-left: 16px;
+  margin-bottom: 40px;
+}
+
+.titleRow {
+  margin-bottom: 20px;
+}
+
+.month {
+  background-color: #f8f8f8;
+  width: 200px;
+}
+
+.itemTitle {
+  border-bottom: 1px solid black !important;
+}
+
+.item {
+  font-size: 14px;
+}
+
+@media print {
+
+  body {
+    overflow: hidden;
+  }
+
+  @page {
+  margin: 0.5cm;
+  }
+  
+   ion-header {
+     display: none;
+   }
+
+   .arrow {
+  	 display: none;
+   }
+}

@@ -1,0 +1,145 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Insumos de produccion</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home/produccion/carga-produccion']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/home/produccion/registros']">
+        <ion-icon name="list"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/home/produccion/cartel']">
+        <ion-icon name="print"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <form [formGroup]="sForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+
+        <!-- cabecera: fecha y maquina -->
+
+        <ion-item *ngIf="platform.is('mobile')">
+          <ion-label position="fixed">Fecha</ion-label>
+          <ion-datetime #dateInput formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
+        </ion-item>
+
+        <ion-item *ngIf="!platform.is('mobile')">
+          <ion-label position="fixed">Fecha</ion-label>
+          <ion-input #dateInput formControlName="date" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="platform.is('mobile')">
+          <ion-label position="fixed">Maquina</ion-label>
+          <ion-select #machInput formControlName="machine">
+            <ion-select-option *ngFor="let maquina of staticData.maquinasSupplies | sort:'':true">{{maquina}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="!platform.is('mobile')">
+          <ion-label position="fixed" class="labelSelect">Maquina</ion-label>	
+          <select #machInput item-content formControlName="machine" class="selectInputStyle">
+            <option value="" disabled selected></option>
+            <option *ngFor="let maquina of staticData.maquinasSupplies | sort:'':true">{{maquina}}</option>
+          </select>
+        </ion-item>
+
+        <!-- breton o lineal -->
+        <div *ngIf="sForm.value.machine === 'Breton' || sForm.value.machine === 'Lineal'" >
+
+          <ion-item *ngIf="platform.is('mobile')">
+            <ion-label>Cabezal</ion-label>
+            <ion-select #cabInput formControlName="cab">
+              <ion-select-option *ngFor="let cabezal of staticData.cabezales['sForm.value.machine']">
+                {{cabezal}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+  
+          <ion-item *ngIf="!platform.is('mobile')">
+            <ion-label class="labelSelect">Cabezal</ion-label>				
+            <select #cabInput item-content formControlName="cab" class="selectInputStyle">
+              <option value="" disabled selected></option>
+              <option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
+                {{cabezal}}
+              </option>
+            </select>
+          </ion-item>
+
+          <ion-item *ngIf="platform.is('mobile') && sForm.value.machine === 'Breton'">
+            <ion-label>Abrasivo</ion-label>
+            <ion-select formControlName="brick">
+              <ion-select-option *ngFor="let abrasivo of staticData.abrasivos">
+                {{abrasivo}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+  
+          <ion-item *ngIf="!platform.is('mobile')">
+            <ion-label class="labelSelect">Abrasivo</ion-label>				
+            <select item-content formControlName="brick" class="selectInputStyle">
+              <option value="" disabled selected></option>
+              <option *ngFor="let abrasivo of staticData.abrasivos">
+                {{abrasivo}}
+              </option>
+            </select>
+          </ion-item>
+
+        </div>
+
+        <!-- cortadoras y biseladoras -->
+
+        <div *ngIf="sForm.value.machine === 'Desbañadora' || sForm.value.machine === 'Biseladora zocalos' || sForm.value.machine === 'Biseladora' || sForm.value.machine === 'Cortadora'">
+
+          <ion-item *ngIf="platform.is('mobile')">
+            <ion-label>Cabezal</ion-label>
+            <ion-select #cabInput formControlName="cab">
+              <ion-select-option *ngFor="let cabezal of staticData.cabezales['sForm.value.machine']">
+                {{cabezal}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+  
+          <ion-item *ngIf="!platform.is('mobile')">
+            <ion-label class="labelSelect">Cabezal</ion-label>				
+            <select #cabInput item-content formControlName="cab" class="selectInputStyle">
+              <option value="" disabled selected></option>
+              <option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
+                {{cabezal}}
+              </option>
+            </select>
+          </ion-item>
+
+        </div>
+
+        <ion-item>
+          <ion-label position="fixed">Observacion</ion-label>
+          <ion-textarea formControlName="obs" fz-elastic></ion-textarea>
+        </ion-item>
+          
+      </ion-list>
+
+      <ion-button margin-left fill="outline"  type="submit" [disabled]="!sForm.valid">
+          Enviar
+      </ion-button>
+      <ion-button margin-left fill="outline" color="warning" type="button" (click)="clear()" >
+          Limpiar
+      </ion-button>
+
+
+    </form>
+  </ion-grid>
+
+</ion-content>
+
