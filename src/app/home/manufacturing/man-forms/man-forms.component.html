@@ -178,7 +178,8 @@
 			  <ion-card-content>
 			    <ion-list formArrayName="stops" no-lines>
 
-			    	<div *ngFor="let parada of myForm.controls.stops.controls; let i=index" class="">
+			    	<!-- <div *ngFor="let parada of myForm.controls.stops.controls; let i=index" class=""> -->
+			    	<div *ngFor="let parada of stopsArray.controls; let i=index" class="">
 			    		<div [formGroupName]="i">
 			    			<ion-item  *ngIf="!platform.is('mobile')">
 					    		<div item-content class="labelColor">inicio</div>

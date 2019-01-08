@@ -134,6 +134,10 @@ export class ManFormsComponent implements OnInit {
     this.myForm.controls['stops'] = this._fb.array([]);
   }
 
+  get stopsArray() {
+    return <FormArray>this.myForm.get('stops');
+  }
+
   submit() {
     if (!this.editBtn) {
       this.save();

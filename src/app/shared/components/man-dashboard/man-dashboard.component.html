@@ -1,0 +1,151 @@
+<ion-toolbar class="toolbar">
+  <ion-item class="date" lines="none">
+    <ion-label>Produccion del</ion-label>
+    <ion-input class="dateInput" [(ngModel)]="date" (ngModelChange)="dailyProdObj()" type="date"></ion-input>
+    <ion-button fill="outline" slot="end" size="small" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+    <ion-button fill="outline" slot="end" size="small" (click)="forward()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
+  </ion-item>
+</ion-toolbar>
+
+<ion-grid class="table" no-padding>
+
+  <ion-row class="headers" align-items-center>
+    <ion-col size="1" text-center class="proceso">
+      Proceso
+    </ion-col>
+    <ion-col size="2" text-center class="columna-sing">
+     <div class="cellSing">Codigo</div>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row>
+        <ion-col text-center>Produccion</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+        <ion-col text-center>%</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row>
+        <ion-col text-center>Procesados</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row>
+        <ion-col text-center>Total 2da</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+        <ion-col text-center>%</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row>
+        <ion-col text-center>Repaso</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+        <ion-col text-center>%</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row>
+        <ion-col text-center>2da</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+        <ion-col text-center>%</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna-final">
+      <ion-row>
+        <ion-col text-center>Rotos</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>u</ion-col>
+        <ion-col text-center>um</ion-col>
+        <ion-col text-center>%</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row class="data" align-items-center *ngFor="let mach of dailyProd | objNgfor ; let f = first">
+    <ion-col size="1" text-center no-padding>
+      {{ mach }}
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs">
+        <ion-col text-center>{{ buildCode(item) }} - {{getUnit(item.dim)}}</ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs"
+      [ngClass]="{success: successP(toSalesUnit( [item.prod], item.dim) )}">
+        <ion-col text-center> {{ item.prod }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [item.prod], item.dim) }} </ion-col>
+        <ion-col text-center> {{ +item.prod / +getProcesed(item) * 100 | number : '1.0-1' }} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs">
+        <ion-col text-center> {{ getProcesed(item) }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [getProcesed(item)], item.dim)}} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs" 
+      [ngClass]="{danger: dangerS(+get2da(item) / +getProcesed(item) *100 ),
+        warning: warningS(+get2da(item) / +getProcesed(item) *100 )}">
+        <ion-col text-center> {{ +get2da(item) }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [+get2da(item)], item.dim)}} </ion-col>
+        <ion-col text-center> {{ +get2da(item) / +getProcesed(item) * 100 | number : '1.0-1' }} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs"
+      [ngClass]="{danger: dangerS(+item.rep / +getProcesed(item) * 100 ),
+        warning: warningS(+item.rep / +getProcesed(item) * 100)}">
+        <ion-col text-center> {{ item.rep }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [item.rep], item.dim)}} </ion-col>
+        <ion-col text-center> {{ +item.rep / +getProcesed(item) * 100 | number : '1.0-1' }} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs"
+      [ngClass]="{danger: dangerS(+item.seg / +getProcesed(item) * 100 ),
+        warning: warningS(+item.seg / +getProcesed(item) * 100)}">
+        <ion-col text-center> {{ item.seg }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [item.seg], item.dim)}} </ion-col>
+        <ion-col text-center> {{ +item.seg / +getProcesed(item) * 100 | number : '1.0-1' }} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs"
+      [ngClass]="{danger: dangerS(+item.broken / +getProcesed(item) * 100 ),
+        warning: warningS(+item.broken / +getProcesed(item) * 100)}">
+        <ion-col text-center> {{ item.broken }} </ion-col>
+        <ion-col text-center> {{ toSalesUnit( [item.broken], item.dim)}} </ion-col>
+        <ion-col text-center> {{ +item.broken / +getProcesed(item) * 100 | number : '1.0-1' }} </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col class="columna">
+      <ion-row *ngFor="let item of dailyProd[mach].logs">
+        <ion-col text-center>
+          <button (click)="routeLog(item.$key)">
+            <ion-icon name="eye"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

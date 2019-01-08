@@ -1,0 +1,60 @@
+.table, .toolbar {
+  font-size: 0.8rem;
+}
+
+ion-grid {
+  --ion-grid-columns: 16;
+}
+
+.table {
+  border-bottom: solid 1px var(--ion-color-medium);
+}
+
+.headers, .data {
+  border-top: solid 1px var(--ion-color-medium);
+  border-right: solid 1px var(--ion-color-medium);
+  border-left: solid 1px var(--ion-color-medium);
+}
+
+.headers {
+  background-color: var(--ion-color-light);
+}
+
+.colWrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.columna-sing {
+  border-left: solid 1px var(--ion-color-medium);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60px;
+}
+
+.columna {
+  border-left: solid 1px var(--ion-color-medium);
+}
+
+.columna-final {
+  border-right: solid 1px var(--ion-color-medium);
+}
+
+.proceso {
+  height: 100%;
+}
+
+.danger {
+  background-color: var(--ion-color-danger);
+  color: white;
+}
+
+.warning {
+  background-color: var(--ion-color-warning);
+}
+
+.success {
+  background-color: var(--ion-color-success);
+}

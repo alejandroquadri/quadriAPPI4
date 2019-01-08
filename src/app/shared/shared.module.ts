@@ -15,6 +15,7 @@ import { ObjNgforPipe } from './pipes/objNgfor.pipe';
 import { AcSalesComponent } from './components';
 import { AcProdComponent } from './components/ac-prod/ac-prod.component';
 import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
+import { ManDashboardComponent } from './components/man-dashboard/man-dashboard.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
     ObjNgforPipe,
     AcSalesComponent,
     AcProdComponent,
-    CustomCurrencyPipe
+    CustomCurrencyPipe,
+    ManDashboardComponent
   ],
   exports: [
     ElasticDirective,
@@ -50,7 +52,8 @@ import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
     ObjNgforPipe,
     CustomCurrencyPipe,
     AcSalesComponent,
-    AcProdComponent
+    AcProdComponent,
+    ManDashboardComponent
   ],
   providers: [
     WordFilterPipe,
