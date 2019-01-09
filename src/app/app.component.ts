@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-// import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoggerService } from './auth/shared/logger.service';
-import { SplitService } from './shared/services/split.service';
+import { SplitService, ServiceWorkerService } from './shared';
 
 @Component({
   selector: 'app-root',
@@ -30,26 +28,22 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    // private splashScreen: SplashScreen,
-    // private statusBar: StatusBar,
     private authData: LoggerService,
-    public splitService: SplitService
+    public splitService: SplitService,
+    private swService: ServiceWorkerService
   ) {
     this.initializeApp();
+    this.swService.checkForUpdates();
   }
 
   ngOnInit() {
-    // this.disSplitObs = this.splitService.disableObs
-    // .subscribe( (disable: boolean) => {
-    //   this.disSplit = disable;
-    // });
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.authData.user.subscribe( user => {
         this.userProfile = user;
-      })
+      });
       // this.statusBar.styleDefault();
       // this.splashScreen.hide();
     });

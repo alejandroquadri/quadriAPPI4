@@ -7,7 +7,8 @@ export const Users = {
     'alejandroquadri@quadri.com.ar',
     'nicolas@quadri.com.ar',
     'quadri@quadri.com.ar',
-    'alejandro@quadri.com.ar'
+    'alejandro@quadri.com.ar',
+    'alejandraarce@quadri.com.ar'
   ],
   fabrica: [
     'hectorbudez@quadri.com.ar',

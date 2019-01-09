@@ -2,3 +2,11 @@
   height: 100%;
   width: 100%;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content {
+  overflow: scroll;
+}

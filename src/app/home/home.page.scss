@@ -4,6 +4,14 @@
   max-width: 15%;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content {
+  overflow: scroll;
+}
+
 ion-item {
   font-size: 0.9rem;
 }

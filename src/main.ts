@@ -9,4 +9,11 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+// esto de abajo es para que el service worker sea registrado bien 
+// info obtenida de https://stackoverflow.com/questions/50968902/angular-service-worker-swupdate-available-not-triggered
+.then(() => {
+  if ('serviceWorker' in navigator && environment.production) {
+    navigator.serviceWorker.register('ngsw-worker.js');
+  }
+// aca termina, lo que sigue es default
+}).catch(err => console.log(err));
