@@ -20,7 +20,7 @@
   
     <ion-toolbar>
         <ion-grid>
-          <ion-row text-center>
+          <ion-row text-center class="headers">
             <ion-col size="2">
               <strong>Obra</strong>
             </ion-col>
@@ -56,7 +56,7 @@
   <ion-content>
   
     <ion-grid>
-      <ion-row class="data" *ngFor="let op of opList">
+      <ion-row class="data" *ngFor="let op of opList" align-items-center>
         <ion-col size="2">
           {{ op.payload.val().obra }}
         </ion-col>
@@ -78,7 +78,7 @@
           </ion-select>
         </ion-col>
         <ion-col size="2" text-center class="select-col">
-          <ion-select class="select" (ionChange)="changeStatus(status.value, op.key)" interface="popover"
+          <ion-select #status class="select" (ionChange)="changeStatus(status.value, op.key)" interface="popover"
           [ngClass]="{'pendiente': op.payload.val().status === 'Pendiente','rechazado': op.payload.val().status === 'Rechazado','cerrado': op.payload.val().status === 'Cerrado', 'seguro': op.payload.val().status === 'Seguro'}">
             <ion-select-option *ngFor="let option of statusOptions" [selected]="op.payload.val().status===option? true: false">{{option}}</ion-select-option>
           </ion-select>
