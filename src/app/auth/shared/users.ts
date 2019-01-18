@@ -1,10 +1,12 @@
 export const Users = {
   owner : [
     'alejandroquadri@quadri.com.ar',
+    'ale@quadri.com.ar',
     'nicolas@quadri.com.ar',
   ],
   direccion: [
     'alejandroquadri@quadri.com.ar',
+    'ale@quadri.com.ar',
     'nicolas@quadri.com.ar',
     'quadri@quadri.com.ar',
     'alejandro@quadri.com.ar',

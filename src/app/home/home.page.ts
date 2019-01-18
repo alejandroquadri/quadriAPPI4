@@ -15,9 +15,7 @@ export class HomePage implements OnInit {
   disSplit = true;
 
   constructor(
-    private platform: Platform,
-    // private splashScreen: SplashScreen,
-    // private statusBar: StatusBar,
+    public platform: Platform,
     private authData: LoggerService,
     public splitService: SplitService
   ) {

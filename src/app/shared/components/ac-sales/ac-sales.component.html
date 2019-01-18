@@ -15,14 +15,14 @@
         <ion-icon name="ios-arrow-forward"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col size="auto">
+    <ion-col size="auto" *ngIf="!platform.is('mobile')">
         <select #selectSalesMan [(ngModel)]="salesMan" (ngModelChange)="salesDataFilter()" class="selectItem" [ngClass]="{label: selectSalesMan.value === ''}">
           <option value="" selected>Vendedor</option>
           <option>Alejandra Roldan</option>
           <option>Alberto Tarruella</option>
         </select>
     </ion-col>
-    <ion-col size="auto">
+    <ion-col size="auto" *ngIf="!platform.is('mobile')">
         <select #selectBrand [(ngModel)]="brand" (ngModelChange)="salesDataFilter()" class="selectItem" [ngClass]="{label: selectBrand.value === ''}">
           <option value="" selected>Marca</option>
           <option>Quadri</option>

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { SalesService, FinanceService, StaticDataService, ChartBuilderService } from '../../services';
 import { LoggerService } from '../../../auth/shared/logger.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-ac-sales',
@@ -46,7 +47,8 @@ export class AcSalesComponent implements OnInit {
     private staticData: StaticDataService,
     private chartBuilder: ChartBuilderService,
     private authData: LoggerService,
-    public number: DecimalPipe
+    public number: DecimalPipe,
+    public platform: Platform
   ) { }
 
   ngOnInit() {

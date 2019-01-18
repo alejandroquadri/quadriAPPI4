@@ -1,0 +1,15 @@
+.comp-header, .headers, .data, .footer {
+  font-size: 0.8rem;  
+}
+
+.headers {
+  border-bottom: solid var(--ion-color-light) 1px;
+}
+
+.footer {
+  border-top: solid var(--ion-color-light) 1px;
+}
+
+.data:hover {
+  background-color: var(--ion-color-light);
+}

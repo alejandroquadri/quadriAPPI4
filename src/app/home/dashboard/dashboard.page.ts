@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApiService } from '../../shared';
+import { LoggerService } from '../../auth/shared/logger.service';
 
 @Component({
   selector: 'dashboard',
@@ -10,7 +10,7 @@ import { ApiService } from '../../shared';
 export class DashboardPage implements OnInit {
 
   constructor(
-    private api: ApiService
+    private loggerS: LoggerService
   ) {
   }
 
@@ -19,6 +19,10 @@ export class DashboardPage implements OnInit {
   // events
   public chartClicked(e: any): void {
     console.log(e);
+  }
+
+  permission(area: string) {
+    return this.loggerS.checkRestriction(area);
   }
 
 }

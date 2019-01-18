@@ -35,7 +35,7 @@
           <div class="inner-cell" text-center>um</div>
         </div>
       </td>
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div text-center class="cell-container">
           Repaso
         </div>
@@ -45,7 +45,7 @@
           <div class="inner-cell" text-center>%</div>
         </div>
       </td>
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div text-center class="cell-container">
           Total 2da
         </div>
@@ -55,7 +55,7 @@
           <div class="inner-cell" text-center>%</div>
         </div>
       </td>
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div text-center class="cell-container">
           2da
         </div>
@@ -64,7 +64,7 @@
           <div class="inner-cell" text-center>um</div>
           <div class="inner-cell" text-center>%</div>
         </div>
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div text-center class="cell-container">
           Rotos
         </div>
@@ -74,7 +74,7 @@
           <div class="inner-cell" text-center>%</div>
         </div>
       </td>
-      <td class="columna" text-center>Det</td>
+      <td class="columna" text-center *ngIf="!platform.is('mobile')">Det</td>
     </tr>
   
     <tr class="data" align-items-center *ngFor="let mach of dailyProd | objNgfor ; let f = first">
@@ -105,7 +105,7 @@
         </div>
       </td>
 
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div *ngFor="let item of dailyProd[mach].logs"
         class="cell-container"
         [ngClass]="{danger: dangerS(+item.rep / +getProcesed(item) * 100 ),
@@ -116,7 +116,7 @@
         </div>
       </td>
       
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div 
         *ngFor="let item of dailyProd[mach].logs" 
         class="cell-container" 
@@ -129,7 +129,7 @@
       </td>
 
       
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div *ngFor="let item of dailyProd[mach].logs" class="cell-container"
         [ngClass]="{danger: dangerS(+item.seg / +getProcesed(item) * 100 ),
           warning: warningS(+item.seg / +getProcesed(item) * 100)}">
@@ -139,7 +139,7 @@
         </div>
       </td>
 
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div *ngFor="let item of dailyProd[mach].logs" class="cell-container"
         [ngClass]="{danger: dangerS(+item.broken / +getProcesed(item) * 100 ),
           warning: warningS(+item.broken / +getProcesed(item) * 100)}">
@@ -149,7 +149,7 @@
         </div>
       </td>
 
-      <td class="columna">
+      <td class="columna" *ngIf="!platform.is('mobile')">
         <div *ngFor="let item of dailyProd[mach].logs">
           <div text-center class="cell-container">
             <button (click)="routeLog(item.$key)">

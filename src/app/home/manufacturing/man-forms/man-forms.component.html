@@ -7,10 +7,10 @@
     </ion-buttons>
 		<ion-title>Parte produccion</ion-title>
 		<ion-buttons slot="end">
-      <ion-button (click)="logs()">
+      <ion-button (click)="logs()" *ngIf="!platform.is('mobile')">
         <ion-icon name="list"></ion-icon>
 			</ion-button>
-			<ion-button (click)="pushPrint()">
+			<ion-button (click)="pushPrint()" *ngIf="!platform.is('mobile')">
         <ion-icon name="print"></ion-icon>
 			</ion-button>
 			<ion-button (click)="newLog()" *ngIf="key">

@@ -10,10 +10,10 @@
       <ion-button [routerLink]="['/home/produccion/carga-produccion']">
         <ion-icon name="add"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/home/produccion/registros']">
+      <ion-button [routerLink]="['/home/produccion/registros']" *ngIf="!platform.is('mobile')">
         <ion-icon name="list"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/home/produccion/cartel']">
+      <ion-button [routerLink]="['/home/produccion/cartel']" *ngIf="!platform.is('mobile')">
         <ion-icon name="print"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -31,17 +31,17 @@
         <!-- cabecera: fecha y maquina -->
 
         <ion-item *ngIf="platform.is('mobile')">
-          <ion-label position="fixed">Fecha</ion-label>
+          <ion-label>Fecha</ion-label>
           <ion-datetime #dateInput formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
         </ion-item>
 
         <ion-item *ngIf="!platform.is('mobile')">
-          <ion-label position="fixed">Fecha</ion-label>
+          <ion-label>Fecha</ion-label>
           <ion-input #dateInput formControlName="date" type="date"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="platform.is('mobile')">
-          <ion-label position="fixed">Maquina</ion-label>
+          <ion-label>Maquina</ion-label>
           <ion-select #machInput formControlName="machine">
             <ion-select-option *ngFor="let maquina of staticData.maquinasSupplies | sort:'':true">{{maquina}}</ion-select-option>
           </ion-select>

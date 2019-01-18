@@ -1,9 +1,79 @@
-<ion-header>
+<ion-header class="comp-header">
+
   <ion-toolbar>
-    <ion-title>psp-detail</ion-title>
+    <ion-title *ngIf="psp" >Presupuesto {{ psp.num }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" (click)="sendPsp()">
+        <ion-icon name="paper-plane"></ion-icon>
+      </ion-button>
+      <ion-button (click)="modalCtrl.dismiss()">
+        Salir
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
+  <ion-toolbar *ngIf="psp" >
+    <div margin-start>
+      {{ psp.razSoc }} - {{ psp.salesRep}} - {{ psp.flag }}
+    </div>
+  </ion-toolbar>
+
 </ion-header>
 
+
 <ion-content padding>
+  <ion-grid *ngIf="psp" >
+
+    <ion-row class="headers">
+      <ion-col size="3">
+        <strong>Codigo</strong>
+      </ion-col>
+      <ion-col size="4">
+        <strong>Descripcion</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Cantidad</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Precio</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Sub-total</strong>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of psp?.items" class="data">
+      <ion-col size="3">
+        {{ item.codigocc }}
+      </ion-col>
+      <ion-col size="4">
+        {{ item.conceptocomercial }}
+      </ion-col>
+      <ion-col>
+        {{ item.cantidad | number: '1.0-0'}}
+      </ion-col>
+      <ion-col>
+        {{ item.precio | number: '1.0-0' }}
+      </ion-col>
+      <ion-col>
+        {{ item.total_importe | number: '1.0-0'}}
+      </ion-col>
+    </ion-row>
+    <ion-row class="footer">
+      <ion-col size="3">
+      </ion-col>
+      <ion-col size="4">
+      </ion-col>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <strong>{{ psp.total | number: '1.0-0' }}</strong>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
 
 </ion-content>
+
