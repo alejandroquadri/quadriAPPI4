@@ -40,17 +40,13 @@ export class ManFormsComponent implements OnInit {
     if (this.key) {
       this.updateForm$ = this.prodData.getProdLog(this.key)
       .subscribe( data => {
-        console.log(data);
+        // console.log(data);
+        this.editBtn = true;
         this.updateForm = data;
+        this.updateForm['$key'] = this.key;
         this.buildEdit();
       });
     }
-    // if (this.navParams.data.date) {
-    //   this.editBtn = true;
-    //   this.updateForm = this.navParams.data;
-    //   // console.log(this.updateForm);
-    //   this.buildEdit();
-    // }
     this.focusDate();
   }
 
@@ -91,7 +87,7 @@ export class ManFormsComponent implements OnInit {
     });
 
     if (this.updateForm.stops) {
-      console.log('hay paradas');
+      // console.log('hay paradas');
       const control = <FormArray> this.myForm.controls['stops'];
       const stopArr = Object.keys(this.updateForm.stops);
       stopArr.forEach( stop => {
@@ -154,13 +150,13 @@ export class ManFormsComponent implements OnInit {
 
     this.prodData.pushProduction(prod)
     .then( (ret: any) => {
-      console.log(ret);
+      // console.log(ret);
       if (stops.length > 0) {
         this.prodData.setProdStop(ret.key, prod, stops);
       }
     })
     .then( () => {
-      console.log('stops saved');
+      // console.log('stops saved');
       this.buildForm(); // esto es para que borre las entradas de stops
     });
     this.myForm.reset();
@@ -171,14 +167,14 @@ export class ManFormsComponent implements OnInit {
     const prod = this.myForm.value;
     const stops = this.myForm.value.stops;
     delete prod.stops;
-    console.log(this.updateForm.stops);
+    // console.log(this.updateForm);
 
     if (stops.length > 0) {
       if (!this.updateForm.stops) {
         this.prodData.setProdStop(this.updateForm['$key'], prod, stops);
       } else {
         const stopKeys = Object.keys(this.updateForm.stops);
-        console.log(stopKeys);
+        // console.log(stopKeys);
         this.prodData.updateProdStop(this.updateForm['$key'], prod, stops, stopKeys)
         .then( () => console.log('terminado update stops'));
       }
@@ -237,6 +233,5 @@ export class ManFormsComponent implements OnInit {
   newLog() {
     this.router.navigate(['home/produccion/carga-produccion']);
   }
-
 
 }

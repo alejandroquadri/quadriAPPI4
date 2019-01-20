@@ -32,7 +32,7 @@
 			<ion-list>
 				<ion-item *ngIf="platform.is('mobile')">
 				  <ion-label class="labelColor" position="fixed">Fecha</ion-label>
-				  <ion-datetime #dateInput formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
+				  <ion-datetime slot="end" #dateInput formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
 				</ion-item>
 
 				<ion-item *ngIf="!platform.is('mobile')">
@@ -41,7 +41,7 @@
 			  </ion-item>
 
 			  <ion-item *ngIf="platform.is('mobile')">
-				  <ion-label>Maquina</ion-label>
+				  <ion-label class="labelColor">Maquina</ion-label>
 				  <ion-select formControlName="machine">
 				    <ion-select-option *ngFor="let maquina of data.maquinasProd | sort:'':true">{{maquina}}</ion-select-option>
 				  </ion-select>
@@ -56,21 +56,21 @@
 				</ion-item>
 				
 				<ion-item *ngIf="platform.is('mobile')">
-				  <ion-label>Color</ion-label>
+				  <ion-label class="labelColor">Color</ion-label>
 				  <ion-select formControlName="color">
 				    <ion-select-option *ngFor="let color of data.colorProductos[isPastina()] | sort:'':true">{{color}}</ion-select-option>
 				  </ion-select>
 				</ion-item>
 
 				<ion-item *ngIf="platform.is('mobile')">
-				  <ion-label>Dimension</ion-label>
+				  <ion-label class="labelColor">Dimension</ion-label>
 				  <ion-select formControlName="dim">
 				    <ion-select-option *ngFor="let dim of data.dimProductos[isPastina()] | sort:'':true">{{dim}}</ion-select-option>
 				  </ion-select>
 				</ion-item>
 
 				<ion-item *ngIf="platform.is('mobile')">
-				  <ion-label>Dibujo</ion-label>
+				  <ion-label class="labelColor">Dibujo</ion-label>
 				  <ion-select formControlName="drawing" *ngIf="isPastina() !== 'pastinas'">
 				  	<ion-select-option *ngFor="let drawing of data.drawing | sort:'':true">{{drawing}}</ion-select-option>
 				  </ion-select>
@@ -102,23 +102,28 @@
 				  </select>
 				</ion-item>
 
-				<ion-item>
-			    <ion-label position="fixed">N° Operarios</ion-label>
+				<ion-item *ngIf="platform.is('mobile')">
+			    <ion-label class="labelColor" position="fixed">N° Operarios</ion-label>
+			    <ion-input text-end slot="end" formControlName="mod" type="number"></ion-input>
+				</ion-item>
+				
+				<ion-item *ngIf="!platform.is('mobile')">
+			    <ion-label class="labelColor" position="fixed">N° Operarios</ion-label>
 			    <ion-input formControlName="mod" type="number"></ion-input>
 			  </ion-item>
 
 			  <ion-item *ngIf="platform.is('mobile')">
-				  <ion-label position="fixed">Hora inicio</ion-label>
-				  <ion-datetime ion-content formControlName="start" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+				  <ion-label position="fixed" class="labelColor">Hora inicio</ion-label>
+				  <ion-datetime slot="end" formControlName="start" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
 				</ion-item>
 
 				<ion-item *ngIf="platform.is('mobile')">
-				  <ion-label position="fixed">Hora fin</ion-label>
-				  <ion-datetime formControlName="end" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+				  <ion-label position="fixed" class="labelColor">Hora fin</ion-label>
+				  <ion-datetime slot="end" formControlName="end" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
 				</ion-item>
 
 				<ion-item *ngIf="!platform.is('mobile')">
-			    <ion-label position="fixed">Hora</ion-label>
+			    <ion-label class="labelColor" position="fixed">Hora</ion-label>
 			    <div item-content class="labelColor">inicio</div>
 			    <ion-input ion-content formControlName="start" type="time" text-center class="horaParada"></ion-input>
 			    <div item-content class="labelColor">fin</div>
@@ -126,7 +131,7 @@
 			  </ion-item>
 
 			  <ion-item *ngIf="!platform.is('mobile')">
-			    <ion-label position="fixed">Produccion</ion-label>
+			    <ion-label class="labelColor" position="fixed">Produccion</ion-label>
 			    <ion-input ion-content formControlName="prod" type="number"></ion-input>
 		    	<div item-content *ngIf="isPulidora()" class="labelColor">Segunda</div>
 			    <ion-input *ngIf="isPulidora()" ion-content formControlName="seg" type="number"></ion-input>
@@ -137,25 +142,30 @@
 			  </ion-item>
 
 			  <ion-item *ngIf="platform.is('mobile')">
-			    <ion-label position="fixed">Produccion</ion-label>
-			    <ion-input ion-content formControlName="prod" type="number" text-center></ion-input>
+			    <ion-label position="fixed" class="labelColor">Produccion</ion-label>
+			    <ion-input text-end slot="end" formControlName="prod" type="number"></ion-input>
 			  </ion-item>
 			  <ion-item *ngIf="platform.is('mobile') && isPulidora()">
-		    	<ion-label item-content >Segunda</ion-label>
-			    <ion-input ion-content formControlName="seg" type="number" text-center></ion-input>
+		    	<ion-label item-content class="labelColor">Segunda</ion-label>
+			    <ion-input slot="end" formControlName="seg" type="number" text-center></ion-input>
 			  </ion-item>
 			  <ion-item *ngIf="platform.is('mobile') && isPulidora()">
-			    <ion-label item-content >Rotos</ion-label>
-			    <ion-input ion-content formControlName="broken" type="number" text-center></ion-input>
+			    <ion-label item-content class="labelColor">Rotos</ion-label>
+			    <ion-input slot="end" formControlName="broken" type="number" text-center></ion-input>
 			  </ion-item>
 			  <ion-item *ngIf="platform.is('mobile') && isPulidora()">
-			    <ion-label item-content>Repaso</ion-label>
-			    <ion-input ion-content formControlName="rep" type="number" text-center></ion-input>
+			    <ion-label item-content class="labelColor">Repaso</ion-label>
+			    <ion-input slot="end" formControlName="rep" type="number" text-center></ion-input>
 			  </ion-item>
 
-			  <ion-item>
-			    <ion-label position="fixed">Observacion</ion-label>
-			    <ion-textarea formControlName="observaciones" fz-elastic></ion-textarea>
+			  <ion-item *ngIf="!platform.is('mobile')">
+			    <ion-label position="fixed" class="labelColor">Observacion</ion-label>
+			    <ion-textarea formControlName="observaciones"></ion-textarea>
+				</ion-item>
+				
+				<ion-item *ngIf="platform.is('mobile')">
+			    <ion-label position="fixed" class="labelColor">Observacion</ion-label>
+			    <ion-textarea text-end formControlName="observaciones"></ion-textarea>
 			  </ion-item>
 			
 			</ion-list>
@@ -186,7 +196,7 @@
 							    <ion-input ion-content formControlName="startP" type="time" text-center class="horaParada"></ion-input>
 							    <div item-content class="labelColor">fin</div>
 							    <ion-input ion-content formControlName="endP" type="time" text-center class="horaParada"></ion-input>
-							    <div item-content class="labelColor">Causa</div>
+							    <div item-content class="labelColor" margin-end>Causa</div>
 							    <ion-input ion-content formControlName="cause" type="text"></ion-input>
 							    <ion-button fill="clear" slot="end" size="small" (click)="addStop()" type="button">
 				            <ion-icon name="add"></ion-icon>
@@ -197,18 +207,18 @@
 					    	</ion-item>
 
 					    	<ion-item *ngIf="platform.is('mobile')">
-					    		<ion-label position="fixed">inicio</ion-label>
-								  <ion-datetime formControlName="startP" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+					    		<ion-label position="fixed" class="labelColor" >inicio</ion-label>
+								  <ion-datetime slot="end" formControlName="startP" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
 					    	</ion-item>
 					    	<ion-item *ngIf="platform.is('mobile')">
-					    		<ion-label position="fixed">fin</ion-label>
-								  <ion-datetime formControlName="endP" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+					    		<ion-label position="fixed" class="labelColor" >fin</ion-label>
+								  <ion-datetime slot="end" formControlName="endP" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
 					    	</ion-item>
 					    	<ion-item *ngIf="platform.is('mobile')">
-					    		<!-- <ion-label position="fixed">causa</ion-label> -->
-								  <ion-input ion-content formControlName="cause" type="text" placeholder="causa"></ion-input>
+					    		<ion-label class="labelColor" position="fixed">causa</ion-label>
+								  <ion-input text-end slot="end" formControlName="cause" type="text"></ion-input>
 					    	</ion-item>
-					    	<ion-button *ngIf="platform.is('mobile')" fill="outline" slot="end" size="small" type="button" (click)="removeStop(i)"> 
+					    	<ion-button margin-top margin-start *ngIf="platform.is('mobile')" fill="outline" slot="end" size="small" expand="block" type="button" (click)="removeStop(i)"> 
 					    	<!-- *ngIf="(myForm.controls.stops.controls.length>1)" -->
 				            <ion-icon name="close"></ion-icon>
 			          </ion-button>

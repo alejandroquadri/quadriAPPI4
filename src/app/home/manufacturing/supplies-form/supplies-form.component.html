@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-toolbar>
-    <ion-title>Insumos de produccion</ion-title>
+    <ion-title>Insumos</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
       <ion-back-button></ion-back-button>
@@ -31,24 +31,24 @@
         <!-- cabecera: fecha y maquina -->
 
         <ion-item *ngIf="platform.is('mobile')">
-          <ion-label>Fecha</ion-label>
-          <ion-datetime #dateInput formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
+          <ion-label position="fixed" class="labelColor">Fecha</ion-label>
+          <ion-datetime #dateInput formControlName="date" displayFormat="MM/DD/YYYY" slot="end"></ion-datetime>
         </ion-item>
 
         <ion-item *ngIf="!platform.is('mobile')">
-          <ion-label>Fecha</ion-label>
+          <ion-label position="fixed" class="labelColor">Fecha</ion-label>
           <ion-input #dateInput formControlName="date" type="date"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="platform.is('mobile')">
-          <ion-label>Maquina</ion-label>
-          <ion-select #machInput formControlName="machine">
+          <ion-label position="fixed" class="labelColor">Maquina</ion-label>
+          <ion-select #machInput formControlName="machine" slot="end">
             <ion-select-option *ngFor="let maquina of staticData.maquinasSupplies | sort:'':true">{{maquina}}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item *ngIf="!platform.is('mobile')">
-          <ion-label position="fixed" class="labelSelect">Maquina</ion-label>	
+          <ion-label position="fixed" class="labelColor" position="fixed" class="labelSelect">Maquina</ion-label>	
           <select #machInput item-content formControlName="machine" class="selectInputStyle">
             <option value="" disabled selected></option>
             <option *ngFor="let maquina of staticData.maquinasSupplies | sort:'':true">{{maquina}}</option>
@@ -57,18 +57,17 @@
 
         <!-- breton o lineal -->
         <div *ngIf="sForm.value.machine === 'Breton' || sForm.value.machine === 'Lineal'" >
-
           <ion-item *ngIf="platform.is('mobile')">
-            <ion-label>Cabezal</ion-label>
-            <ion-select #cabInput formControlName="cab">
-              <ion-select-option *ngFor="let cabezal of staticData.cabezales['sForm.value.machine']">
+            <ion-label position="fixed" class="labelColor">Cabezal</ion-label>
+            <ion-select #cabInput formControlName="cab" slot="end">
+              <ion-select-option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
                 {{cabezal}}
               </ion-select-option>
             </ion-select>
           </ion-item>
   
           <ion-item *ngIf="!platform.is('mobile')">
-            <ion-label class="labelSelect">Cabezal</ion-label>				
+            <ion-label position="fixed" class="labelColor" class="labelSelect">Cabezal</ion-label>				
             <select #cabInput item-content formControlName="cab" class="selectInputStyle">
               <option value="" disabled selected></option>
               <option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
@@ -78,8 +77,8 @@
           </ion-item>
 
           <ion-item *ngIf="platform.is('mobile') && sForm.value.machine === 'Breton'">
-            <ion-label>Abrasivo</ion-label>
-            <ion-select formControlName="brick">
+            <ion-label position="fixed" class="labelColor">Abrasivo</ion-label>
+            <ion-select formControlName="brick" slot="end">
               <ion-select-option *ngFor="let abrasivo of staticData.abrasivos">
                 {{abrasivo}}
               </ion-select-option>
@@ -87,7 +86,7 @@
           </ion-item>
   
           <ion-item *ngIf="!platform.is('mobile')">
-            <ion-label class="labelSelect">Abrasivo</ion-label>				
+            <ion-label position="fixed" class="labelColor" class="labelSelect">Abrasivo</ion-label>				
             <select item-content formControlName="brick" class="selectInputStyle">
               <option value="" disabled selected></option>
               <option *ngFor="let abrasivo of staticData.abrasivos">
@@ -103,16 +102,16 @@
         <div *ngIf="sForm.value.machine === 'Desbañadora' || sForm.value.machine === 'Biseladora zocalos' || sForm.value.machine === 'Biseladora' || sForm.value.machine === 'Cortadora'">
 
           <ion-item *ngIf="platform.is('mobile')">
-            <ion-label>Cabezal</ion-label>
-            <ion-select #cabInput formControlName="cab">
-              <ion-select-option *ngFor="let cabezal of staticData.cabezales['sForm.value.machine']">
+            <ion-label position="fixed" class="labelColor">Cabezal</ion-label>
+            <ion-select #cabInput formControlName="cab" slot="end">
+              <ion-select-option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
                 {{cabezal}}
               </ion-select-option>
             </ion-select>
           </ion-item>
   
           <ion-item *ngIf="!platform.is('mobile')">
-            <ion-label class="labelSelect">Cabezal</ion-label>				
+            <ion-label position="fixed" class="labelColor" class="labelSelect">Cabezal</ion-label>				
             <select #cabInput item-content formControlName="cab" class="selectInputStyle">
               <option value="" disabled selected></option>
               <option *ngFor="let cabezal of staticData.cabezales[sForm.value.machine]">
@@ -123,8 +122,13 @@
 
         </div>
 
-        <ion-item>
-          <ion-label position="fixed">Observacion</ion-label>
+        <ion-item *ngIf="platform.is('mobile')">
+          <ion-label position="fixed" class="labelColor" position="fixed">Observacion</ion-label>
+          <ion-textarea slot="end" text-end formControlName="obs"></ion-textarea>
+        </ion-item>
+
+        <ion-item *ngIf="!platform.is('mobile')">
+          <ion-label position="fixed" class="labelColor" position="fixed">Observacion</ion-label>
           <ion-textarea formControlName="obs" fz-elastic></ion-textarea>
         </ion-item>
           
