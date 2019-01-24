@@ -41,9 +41,14 @@ const routes: Routes = [
       {
         path: 'produccion',
         loadChildren: './manufacturing/manufacturing.module#ManufacturingModule'
+      },
+      {
+        path: 'perfil',
+        loadChildren: './profile/profile.module#ProfilePageModule'
       }
     ]
-  }
+  },
+  
 ];
 
 @NgModule({

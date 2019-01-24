@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 
 import * as firebase from 'firebase/app';
 // import { GooglePlus } from '@ionic-native/google-plus';
@@ -37,19 +39,25 @@ export class LoggerService {
     return this.afAuth.auth.signOut();
   }
 
+  updateProfile(displayName, photoURL) {
+
+    const profile = {
+      displayName: displayName ,
+      photoURL: photoURL
+    };
+
+    const user = firebase.auth().currentUser;
+
+    user.updateProfile(profile).then(() => {
+      console.log('updated profile');
+    }).catch( (error) => {
+      console.log('updat profile error', error);
+    });
+  }
+
   signInWithGoogleWeb(): Promise<any> {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
-
-  // signInWithGoogleDevice(): Promise<any> {
-  //   return this.googlePlus.login({
-  //     'webClientId': '872720422739-b5ja69fq45q4aevrik24o3j9nfeak8lg.apps.googleusercontent.com',
-  //     'offline': true
-  //   })
-  //   .then( res => {
-  //     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken));
-  //   });
-  // }
 
   checkRestriction(area: string, userMail?: string) {
     if (this.current) {
