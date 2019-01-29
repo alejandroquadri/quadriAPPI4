@@ -1,24 +1,24 @@
 <ion-header>
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-    <ion-back-button></ion-back-button>
-  </ion-buttons>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button *ngIf="!platform.is('mobile')"></ion-back-button>
+    </ion-buttons>
     <ion-title>Editar Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-  <form [formGroup]="profileForm" (ngSubmit)="submit()">
+  <form [formGroup]="profileForm">
     
     <ion-list lines="none">
 
-      <ion-item>
-        <ion-avatar slot="start">
-          <img [src]="avatar">
-        </ion-avatar>
-      </ion-item>
+      <ion-avatar (click)="img.click()">
+        <img [src]="avatar">
+      </ion-avatar>
+
+      <input [hidden]="true" #img type="file" accept="image/*" (change)="uploadFile($event)">
 
       <ion-item>
         <ion-label class="labelColor" position="fixed">Nombre</ion-label>

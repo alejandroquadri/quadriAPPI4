@@ -4,15 +4,15 @@
 
   <ion-menu>
 
-    <ion-content *ngIf="userProfile">
+    <ion-content *ngIf="userProfile" class="side-menu">
 
       <ion-list>
         <ion-menu-toggle auto-hide="false">
-          <ion-item [routerLink]="['/home/perfil']">
-            <ion-avatar>
+          <ion-item>
+            <ion-avatar [routerLink]="['/home/perfil']" class="to-profile">
               <img [src]="userProfile.photoURL">
             </ion-avatar>
-            <ion-label class="name-label">
+            <ion-label class="name-label to-profile" [routerLink]="['/home/perfil']">
               <div class="display-name">{{ userProfile.displayName }}</div>
               <div class="email">{{ userProfile.email }}</div>
             </ion-label>
@@ -38,12 +38,22 @@
             <ion-label>Produccion</ion-label>
           </ion-item>
 
+          <ion-item [routerLink]="['/home/registros-mantenimiento/carga']" *ngIf="platform.is('mobile')">
+            <ion-icon slot="start" name="build"></ion-icon>
+            <ion-label>Mantenimiento</ion-label>
+          </ion-item>
+
           <ion-item [routerLink]="['/home/registros-mantenimiento']" *ngIf="!platform.is('mobile')">
             <ion-icon slot="start" name="build"></ion-icon>
-            <ion-label>Registro mantenimiento</ion-label>
+            <ion-label>Mantenimiento</ion-label>
           </ion-item>
         
           <ion-item [routerLink]="['/home/compras']" *ngIf="!platform.is('mobile')">
+            <ion-icon slot="start" name="cart"></ion-icon>
+            <ion-label>Compras</ion-label>
+          </ion-item>
+
+          <ion-item [routerLink]="['/home/compras/carga']" *ngIf="platform.is('mobile')">
             <ion-icon slot="start" name="cart"></ion-icon>
             <ion-label>Compras</ion-label>
           </ion-item>

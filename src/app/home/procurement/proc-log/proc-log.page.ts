@@ -114,7 +114,7 @@ export class ProcLogPage implements OnInit {
   async presentModal(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: ProcFormPage,
-      componentProps: form
+      componentProps: {form: form}
     });
     return await profileModal.present();
   }

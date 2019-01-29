@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-
 import { ProfilePage } from './profile.page';
 import { SharedModule } from '../../shared';
+
 
 const routes: Routes = [
   {
@@ -19,6 +18,8 @@ const routes: Routes = [
   ],
   declarations: [
     ProfilePage
+  ],
+  providers: [
   ]
 })
 export class ProfilePageModule {}

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavParams, Platform, ModalController} from '@ionic/angular';
+import { Platform, ModalController} from '@ionic/angular';
 import * as firebase from 'firebase/app';
 
 import { ProcurementService } from '../shared/procurement.service';
@@ -18,10 +18,10 @@ export class ProcFormPage implements OnInit {
   submitType = 'new';
   updateForm: any;
   data: any;
+  @Input() form: any;
 
   constructor(
     private fb: FormBuilder,
-    public navParams: NavParams,
     public platform: Platform,
     public modalCtrl: ModalController,
     private spareData: ProcurementService,
@@ -33,8 +33,8 @@ export class ProcFormPage implements OnInit {
     ngOnInit() {
     this.data = this.staticData.data.produccion;
     this.buildForm();
-    if (this.navParams.data.detalle) {
-      this.updateForm = this.navParams.data;
+    if (this.form) {
+      this.updateForm = this.form;
       this.edit();
     }
   }

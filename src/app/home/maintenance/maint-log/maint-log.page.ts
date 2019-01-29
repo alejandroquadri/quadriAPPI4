@@ -82,7 +82,7 @@ export class MaintLogPage implements OnInit {
   async presentModal(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: MaintLogFormPage,
-      componentProps: form
+      componentProps: {form: form}
     });
     return await profileModal.present();
   }

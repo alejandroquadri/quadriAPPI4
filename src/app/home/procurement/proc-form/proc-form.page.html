@@ -1,7 +1,10 @@
 <ion-header>
 
   <ion-toolbar>
-    <ion-title>{{submitType === 'new' ? 'Nuevo repuesto' : 'Editar repuesto '}}</ion-title>
+			<ion-buttons slot="start" *ngIf="platform.is('mobile')">
+				<ion-menu-button></ion-menu-button>
+			</ion-buttons>
+    <ion-title>{{submitType === 'new' ? 'Nueva compra' : 'Editar compra '}}</ion-title>
     <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
 	    <ion-button (click)="modalCtrl.dismiss()">
 	      Salir
@@ -16,76 +19,96 @@
 
 	<ion-grid fixed #form>
 	  <form [formGroup]="spareForm" (ngSubmit)="onSubmit()">
-				<ion-list lines="inset">
+				<ion-list>
 					
-					<ion-item lines="none" *ngIf="platform.is('mobile')">
-					  <ion-label position="fixed">Tipo</ion-label>
+					<ion-item *ngIf="platform.is('mobile')">
+					  <ion-label class="labelGrey">Tipo</ion-label>
 					  <ion-select formControlName="tipo" interface="popover">
 					    <ion-select-option *ngFor="let item of data.items | sort:'':true" [value]="item">{{item}}</ion-select-option>
 					  </ion-select>
 					</ion-item>
 
-					<ion-item lines="none" *ngIf="!platform.is('mobile')">
-							<ion-label position="fixed" class="labelMachineSelect">Tipo</ion-label>					
+					<ion-item *ngIf="!platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed" class="labelMachineSelect">Tipo</ion-label>					
 							<select formControlName="tipo" class="selectMachine">
 						    <option *ngFor="let item of data.items | sort:'':true" [ngValue]="item">{{ item }}</option>
 						  </select>
 					</ion-item>
 
-					<ion-item lines="none" *ngIf="platform.is('mobile')">
-					  <ion-label position="fixed">Destino</ion-label>
+					<ion-item *ngIf="platform.is('mobile')">
+					  <ion-label class="labelGrey">Destino</ion-label>
 					  <ion-select formControlName="destino" interface="popover">
 					    <ion-select-option *ngFor="let maquina of data.maquinas | sort:'':true" [value]="maquina">{{maquina}}</ion-select-option>
 					  </ion-select>
 					</ion-item>
 
-					<ion-item lines="none" *ngIf="!platform.is('mobile')">
-							<ion-label position="fixed" class="labelMachineSelect">Destino</ion-label>					
+					<ion-item *ngIf="!platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed" class="labelMachineSelect">Destino</ion-label>					
 							<select formControlName="destino" class="selectMachine">
 						    <option *ngFor="let maquina of data.maquinas | sort:'':true" [ngValue]="maquina">{{maquina}}</option>
 						  </select>
 					</ion-item>
-
-				  <ion-item lines="none">
-				    <ion-label position="fixed">Descripcion</ion-label>
+					
+				  <ion-item *ngIf="!platform.is('mobile')">
+				    <ion-label class="labelGrey" position="fixed">Descripcion</ion-label>
 				    <ion-textarea formControlName="detalle"></ion-textarea>
 				  </ion-item>
 
-				  <ion-item lines="none">
-				    <ion-label position="fixed">Cantidad</ion-label>
+				  <ion-item *ngIf="!platform.is('mobile')">
+				    <ion-label class="labelGrey" position="fixed">Cantidad</ion-label>
 				    <ion-input formControlName="cantidad" type="number"></ion-input>
-				  </ion-item>
+					</ion-item>
+					
+					<ion-item *ngIf="platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed">Descripcion</ion-label>
+							<ion-textarea formControlName="detalle" text-end></ion-textarea>
+						</ion-item>
+	
+						<ion-item *ngIf="platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed">Cantidad</ion-label>
+							<ion-input formControlName="cantidad" text-end slot="end" type="number"></ion-input>
+						</ion-item>
 
-				  <ion-item lines="none" *ngIf="platform.is('mobile')">
-					  <ion-label position="fixed" >Unidad</ion-label>
+				  <ion-item *ngIf="platform.is('mobile')">
+					  <ion-label class="labelGrey" >Unidad</ion-label>
 					  <ion-select formControlName="unidad" interface="popover">
               <ion-select-option disabled></ion-select-option>
 					    <ion-select-option *ngFor="let unidad of data.unidades | sort:'':true" [value]="unidad">{{unidad}}</ion-select-option>
 					  </ion-select>				
 				  </ion-item>
 
-				  <ion-item lines="none" *ngIf="!platform.is('mobile')">
-					  <ion-label position="fixed" class="labelMachineSelect">Unidad</ion-label>
+				  <ion-item *ngIf="!platform.is('mobile')">
+					  <ion-label class="labelGrey" position="fixed" class="labelMachineSelect">Unidad</ion-label>
 						<select formControlName="unidad" class="selectMachine">
               <option disabled></option>
               <option *ngFor="let unidad of data.unidades | sort:'':true" [ngValue]="unidad">{{unidad}}</option>
 					  </select>
 				  </ion-item>
 
-					<ion-item lines="none">
-				    <ion-label position="fixed">Proveedor</ion-label>
+					<ion-item *ngIf="!platform.is('mobile')">
+				    <ion-label class="labelGrey" position="fixed">Proveedor</ion-label>
 				    <ion-input formControlName="proveedor" type="text"></ion-input>
-				  </ion-item>
+					</ion-item>
+					
+					<ion-item *ngIf="platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed">Proveedor</ion-label>
+							<ion-input formControlName="proveedor" type="text" text-end slot="end"></ion-input>
+						</ion-item>
 
-				  <ion-item lines="none" *ngIf="submitType === 'edit'">
-				    <ion-label position="fixed">Observacion</ion-label>
+				  <ion-item *ngIf="submitType === 'edit'">
+				    <ion-label class="labelGrey" position="fixed">Observacion</ion-label>
 				    <ion-textarea formControlName="observacion"></ion-textarea>
 				  </ion-item>
 
-				  <ion-item lines="none">
-					  <ion-label position="fixed">Muestra</ion-label>
+				  <ion-item *ngIf="!platform.is('mobile')">
+					  <ion-label class="labelGrey" position="fixed">Muestra</ion-label>
 					  <ion-checkbox formControlName="muestra"></ion-checkbox>
 					</ion-item>
+
+					<ion-item *ngIf="platform.is('mobile')">
+							<ion-label class="labelGrey" position="fixed">Muestra</ion-label>
+							<ion-checkbox text-end slot="end" formControlName="muestra"></ion-checkbox>
+						</ion-item>
 
 				</ion-list>
 

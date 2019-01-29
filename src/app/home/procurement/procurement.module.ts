@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: '',
     component: ProcLogPage
+  },
+  {
+    path: 'carga',
+    component: ProcFormPage
   }
 ];
 

@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: '',
     component: MaintLogPage
+  },
+  {
+    path: 'carga',
+    component: MaintLogFormPage
   }
 ];
 

@@ -8,8 +8,12 @@
   display: none;
 }
 
-ion-content {
+.side-menu {
   overflow: scroll;
+}
+
+.to-profile {
+  cursor: pointer;
 }
 
 ion-item {

@@ -1,9 +1,10 @@
 <ion-header>
 
   <ion-toolbar>
-  	<ion-button *ngIf="platform.is('mobile')">
-	    <ion-icon name="menu"></ion-icon>
-	  </ion-button>
+  	<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button *ngIf="!platform.is('mobile')"></ion-back-button>
+    </ion-buttons>
 		<ion-title>{{submitType === 'new' ? 'Nuevo registro' : 'Editar registro'}}</ion-title>
     <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
 	    <ion-button (click)="modalCtrl.dismiss()">
@@ -19,37 +20,47 @@
 
 		<form [formGroup]="machineForm" (ngSubmit)="onSubmit()">
 
-			<ion-list lines="inset">
-				<ion-item lines="none" *ngIf="platform.is('mobile')">
+			<ion-list>
+				<ion-item *ngIf="platform.is('mobile')">
 				  <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
-				  <ion-datetime formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
+				  <ion-datetime formControlName="date" slot="end" displayFormat="MM/DD/YYYY"></ion-datetime>
 				</ion-item>
 
-				<ion-item lines="none" *ngIf="!platform.is('mobile')">
+				<ion-item *ngIf="!platform.is('mobile')">
 			    <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
 			    <input class="dateDesktop" formControlName="date" type="date">
 			  </ion-item>
 
-				<ion-item lines="none">
+				<ion-item *ngIf="platform.is('mobile')">
+			    <ion-label position="fixed" class="labelGrey">N° de orden</ion-label>
+			    <ion-input text-end slot="end" formControlName="orderNumber" type="number"></ion-input>
+				</ion-item>
+				
+				<ion-item *ngIf="!platform.is('mobile')">
 			    <ion-label position="fixed" class="labelGrey">N° de orden</ion-label>
 			    <ion-input formControlName="orderNumber" type="number"></ion-input>
 			  </ion-item>
 				
-				<ion-item lines="none" *ngIf="platform.is('mobile')">
-				  <ion-label position="fixed" class="labelGrey">Maquina</ion-label>
+				<ion-item *ngIf="platform.is('mobile')">
+				  <ion-label class="labelGrey">Maquina</ion-label>
 				  <ion-select formControlName="title" interface="popover">
 				    <ion-select-option *ngFor="let maquina of machines | sort:'':true" [value]="maquina">{{maquina}}</ion-select-option>
 				  </ion-select>
 				</ion-item>
 
-				<ion-item lines="none" *ngIf="!platform.is('mobile')">
+				<ion-item *ngIf="!platform.is('mobile')">
 						<ion-label position="fixed" class="labelMachineSelect">Maquina</ion-label>					
 					  <select item-content formControlName="title" class="selectMachine">
 					    <option *ngFor="let maquina of machines | sort:'':true" [ngValue]="maquina">{{maquina}}</option>
 					  </select>
 				</ion-item>
 
-			  <ion-item lines="none">
+				<ion-item *ngIf="platform.is('mobile')">
+			    <ion-label position="fixed" class="labelGrey">Descripcion</ion-label>
+			    <ion-textarea  rows="5" text-end formControlName="description"></ion-textarea>
+        </ion-item>
+
+			  <ion-item *ngIf="!platform.is('mobile')">
 			    <ion-label position="fixed" class="labelGrey">Descripcion</ion-label>
 			    <ion-textarea  rows="5" formControlName="description"></ion-textarea>
         </ion-item>

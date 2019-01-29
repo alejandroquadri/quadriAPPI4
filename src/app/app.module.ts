@@ -14,11 +14,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 import { AuthModule } from './auth/auth.module';
-import { StaticDataService } from './shared';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 // // esto es para precargar la data antes que se inicie la aplicacion
@@ -40,12 +39,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireDatabaseModule, // para la database de siempre
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features,
-    AuthModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    AuthModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: StorageBucket, useValue: 'gs://repmant-ce7a5.appspot.com' }
     // { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
   ],
   bootstrap: [AppComponent]
