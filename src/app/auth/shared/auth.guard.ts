@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
           this.staticData.getStaticData()
           .then( () => {
             this.logService.current = user;
+            this.logService.users = this.staticData.data.auth;
             this.splitS.updateSplitShow(true);
             resolve(true);
           })

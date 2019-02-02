@@ -62,6 +62,10 @@ app.use(function(err, req, res, next) {
 
 exports.app = functions.https.onRequest(app);
 
+exports.saveUrl = functions.storage.object().onFinalize((object) => {
+  console.log(object);
+});
+
 // exports.sendMail = functions.database
 // .ref('/queo/queries/{pushId}')
 // .onCreate(send);

@@ -24,7 +24,7 @@ export class LoggerService {
     // private googlePlus: GooglePlus
   ) {
     this.user = afAuth.authState;
-    this.users = Users;
+    // this.users = Users;
   }
 
   login(email: string, password: string): Promise<any> {
@@ -45,6 +45,8 @@ export class LoggerService {
       displayName: displayName ,
       photoURL: photoURL
     };
+
+    console.log(profile);
 
     const user = firebase.auth().currentUser;
 

@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import 'moment/locale/es';
 import { ProdProgramService } from './prod-program.service';
 import { StaticDataService } from '../../shared';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'prod-program',
@@ -57,6 +58,7 @@ export class ProdProgramPage implements OnInit {
     private _fb: FormBuilder,
     private programData: ProdProgramService,
     private staticData: StaticDataService,
+    public platform: Platform
   ) {
   }
 

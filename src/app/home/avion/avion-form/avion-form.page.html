@@ -18,19 +18,19 @@
 
   <form [formGroup]="avionForm" (ngSubmit)="onSubmit()">
 
-    <ion-list lines="inset">
+    <ion-list>
 
-      <ion-item lines="none" *ngIf="platform.is('mobile')">
+      <ion-item *ngIf="platform.is('mobile')">
         <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
         <ion-datetime formControlName="date" displayFormat="MM/DD/YYYY"></ion-datetime>
       </ion-item>
 
-      <ion-item lines="none" *ngIf="!platform.is('mobile')">
+      <ion-item *ngIf="!platform.is('mobile')">
         <ion-label position="fixed" class="labelGrey">Fecha</ion-label>
         <input class="dateDesktop" formControlName="date" type="date">
       </ion-item>
 
-      <ion-item lines="none">
+      <ion-item>
         <ion-label position="fixed" class="labelSelect">Tipo</ion-label>					
         <select item-content formControlName="type" class="select">
             <option value=""></option>
@@ -38,7 +38,7 @@
         </select>
       </ion-item>
 
-      <ion-item lines="none">
+      <ion-item>
         <ion-label position="fixed" class="labelSelect">Cuenta</ion-label>					
         <select item-content formControlName="account" class="select">
           <option value=""></option>
@@ -46,7 +46,7 @@
         </select>
       </ion-item>
 
-      <ion-item lines="none">
+      <ion-item>
         <ion-label position="fixed" class="labelGrey">Monto</ion-label>
         <ion-input formControlName="amount" type="text" 
         [value]="onAmountChange(avionForm.get('amount').value)">
@@ -55,12 +55,12 @@
       
       <div *ngIf="showSalesForm">
         
-        <ion-item lines="none">
+        <ion-item>
           <ion-label position="fixed" class="labelGrey">NP</ion-label>
           <ion-input formControlName="np" type="number"></ion-input>
         </ion-item>
 
-        <ion-item lines="none">
+        <ion-item>
           <ion-label position="fixed" class="labelSelect">Vendedor</ion-label>					
           <select item-content formControlName="salesRep" class="select">
               <option value="" disabled selected></option>
@@ -69,14 +69,14 @@
           </select>
         </ion-item>
 
-        <ion-item lines="none">
+        <ion-item>
           <ion-label position="fixed" class="labelGrey">Cliente</ion-label>
           <ion-input formControlName="client" type="text"></ion-input>
         </ion-item>
 
       </div>
 
-      <ion-item lines="none">
+      <ion-item>
         <ion-label position="fixed" class="labelGrey">Obs</ion-label>
         <ion-textarea  rows="5" formControlName="obs"></ion-textarea>
       </ion-item>

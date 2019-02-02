@@ -5,7 +5,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+    <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" *ngIf="!platform.is('mobile')">
   
       <ion-row align-items-center class="inputForm">
         <ion-col size="auto">
@@ -83,7 +83,7 @@
     </form>
 
 
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="!platform.is('mobile')">
       <ion-button size="small" (click)="newProgram()">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>

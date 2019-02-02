@@ -45,7 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: StorageBucket, useValue: 'gs://repmant-ce7a5.appspot.com' }
+    { provide: StorageBucket, useValue: 'repmant-ce7a5.appspot.com' }
     // { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
   ],
   bootstrap: [AppComponent]
