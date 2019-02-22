@@ -70,8 +70,7 @@ export class PspLogPage implements OnInit {
       const value = this.pspObj[psp];
       return (
         this.filterTypePsp(psp) &&
-        this.filterSalesRep(value) &&
-        (value.flag === 'Pronostico' || value.flag === 'Pendiente')
+        this.filterSalesRep(value)
       );
     })
     .forEach( psp => {

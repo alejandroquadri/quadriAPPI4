@@ -25,6 +25,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 //   return () => provider.getStaticData();
 // }
 
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features,
     AuthModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    Ng2ImgMaxModule
   ],
   providers: [
     StatusBar,

@@ -14,6 +14,7 @@ export class ApiService {
 
   // url = 'http://quadriserver.ddns.net:3100/api';
   url = 'https://afternoon-waters-60961.herokuapp.com/api';
+  // url = 'http://localhost:3100/api';
 
   constructor(
     public http: Http,

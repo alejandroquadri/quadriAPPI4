@@ -7,6 +7,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 
+import { Ng2ImgMaxService } from 'ng2-img-max';
+
 import {
   Plugins, CameraResultType, CameraSource,
   FilesystemDirectory, FilesystemEncoding
@@ -35,7 +37,8 @@ export class ProfilePage implements OnInit {
     private auth: LoggerService,
     private sanitizer: DomSanitizer,
     private storage: AngularFireStorage,
-    public platform: Platform
+    public platform: Platform,
+    private ng2ImgMax: Ng2ImgMaxService
   ) {
     }
 
@@ -52,42 +55,62 @@ export class ProfilePage implements OnInit {
       img: ['']
     });
     this.formChanges();
-    this.imageChange();
   }
 
   formChanges() {
     this.formChanges$ = this.profileForm.controls['name'].valueChanges
     .pipe(debounceTime(1000))
     .subscribe( data => {
-      console.log(data);
       this.updateProfile();
     });
   }
 
-  imageChange() {
-    this.profileForm.controls['img']
-    .valueChanges
-    .subscribe( img => {
-      console.log(img);
-      // this.uploadFirebaseSDK(img);
-      this.uploadAngularFire(img);
-    });
-  }
+  // imageChange() {
+  //   this.profileForm.controls['img']
+  //   .valueChanges
+  //   .subscribe( img => {
+  //     console.log(img);
+  //     // this.uploadFirebaseSDK(img);
+  //     this.uploadAngularFire(img);
+  //   });
+  // }
+
+  // uploadFile(e) {
+  //   console.log(e, e.target.files[0]);
+  //   this.uploadAngularFire(e.target.files[0]);
+  //   this.setImg(e.target.files[0]);
+  // }
 
   uploadFile(e) {
     console.log(e, e.target.files[0]);
-    this.uploadAngularFire(e.target.files[0]);
-    this.setImg(e.target.files[0]);
+    this.compress(e.target.files[0])
+    .subscribe( compImg => {
+      console.log('vuelve comprimida', compImg);
+      this.uploadAngularFire(compImg);
+      this.setImg(compImg);
+    },
+    error => {
+          console.log('😢 Oh no!', error);
+    });
+  }
+
+  compress(image) {
+    // return this.ng2ImgMax.compressImage(image, 0.075);
+    return this.ng2ImgMax.resizeImage(image, 10000, 300);
   }
 
   setImg(file) {
-    const reader = new FileReader();
+    this.compress(file)
+    .subscribe( comprImg => {
+      console.log('vuelve imagen');
+      const reader = new FileReader();
 
-    reader.onload = (e) => {
-      console.log(e);
-      this.avatar = reader.result;
-    };
-    reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        console.log(e);
+        this.avatar = reader.result;
+      };
+      reader.readAsDataURL(comprImg);
+    });
   }
 
   uploadAngularFire(blob) {
@@ -118,6 +141,26 @@ export class ProfilePage implements OnInit {
 
   updateProfile() {
     this.auth.updateProfile(this.profileForm.value.name, this.avatar);
+  }
+
+  // pruebas de camera
+
+  showCamera() {
+    console.log('arranca camera');
+    const browser = <any>navigator;
+    console.log('browser', browser);
+
+    const config = { audio: true, video: true };
+
+    browser.mediaDevices.getUserMedia(config)
+    .then((stream) => {
+      console.log(stream);
+      /* use the stream */
+    })
+    .catch((err) => {
+      console.log(err);
+      /* handle the error */
+    });
   }
 
 
