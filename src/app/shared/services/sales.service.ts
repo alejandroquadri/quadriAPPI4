@@ -11,7 +11,7 @@ export class SalesService {
   ) { }
 
   getRevenue(start: string, end: string) {
-    return this.api.get(`ventas/ok/${start}/${end}`);
+    return this.api.get(`ventas/facturacion/${start}/${end}`);
   }
 
   getStock() {
