@@ -32,7 +32,9 @@ export class OpSelectPage implements OnInit {
   initialFilter(opList) {
     // permito que se vean solo las ops que aun estan pendientes
     return opList.filter((op: any) => {
-      return op.payload.val().status === 'Pendiente';
+      return (
+        op.payload.val().status === 'Pendiente' ||
+        op.payload.val().status === 'Seguro');
     });
   }
 
