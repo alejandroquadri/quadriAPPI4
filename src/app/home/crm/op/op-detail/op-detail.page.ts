@@ -41,7 +41,7 @@ export class OpDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private crmData: CrmService,
+    public crmData: CrmService,
     private staticData: StaticDataService,
     private fb: FormBuilder,
     public modalCtrl: ModalController,
@@ -65,6 +65,7 @@ export class OpDetailPage implements OnInit {
     .subscribe( (pair: any) => {
       this.op = pair.op;
       if (this.op) {
+  
         this.statusBis = this.op.status;
         this.op['$key'] = this.opKey;
         this.totalValue = this.customCurrencyPipe.transform(this.op.total.toString(), 0);

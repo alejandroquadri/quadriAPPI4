@@ -32,7 +32,6 @@ export class CrmService {
 
   constructor(
     private apiData: ApiService,
-    // private apiData: ApiDataProvider,
     private authData: LoggerService,
   ) {
     this.subscribeToCalipsoDocs();
@@ -40,7 +39,7 @@ export class CrmService {
    }
 
   subscribeToCalipsoDocs() {
-    this.calipsoSubs = this.getDocs()
+    this.calipsoSubs = this.getPsp()
     .pipe(
       map( (res: any) => res.json())
     )
@@ -112,8 +111,8 @@ export class CrmService {
     return months;
   }
 
-  getDocs() {
-    return this.apiData.get('ventas/docs');
+  getPsp() {
+    return this.apiData.get('ventas/psp');
   }
 
   getCheckedPsp() {
@@ -354,6 +353,21 @@ export class CrmService {
 
   postPsp(psp) {
     return this.apiData.post('email', psp);
+  }
+
+  calcBon(item: any) {
+    let bonificacion, prBon;
+    if (Number(item.importe_bonificado) !== 0) {
+      bonificacion = item.importe_bonificado / (item.cantidad * item.precio);
+      prBon = item.precio * (1 - bonificacion);
+    } else {
+      bonificacion = 0;
+      prBon = item.precio;
+    }
+    return {
+      bonificacion: bonificacion * 100,
+      prBon: prBon
+    };
   }
 
 }

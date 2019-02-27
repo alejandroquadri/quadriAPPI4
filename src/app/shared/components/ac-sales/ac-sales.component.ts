@@ -57,9 +57,9 @@ export class AcSalesComponent implements OnInit {
     const start = today.date(1).subtract(6, 'months').format('YYYYMMDD');
 
     this.objectives$ = this.salesData.getObjectives();
-    this.sales$ = this.salesData.getRevenue(start, end)
-    .pipe( map( res => res.json()));
     this.fin$ = this.financeData.getAvionList();
+
+    this.sales$ = this.salesData.facturacion$;
 
     this.obs$ = combineLatest(
       this.sales$,

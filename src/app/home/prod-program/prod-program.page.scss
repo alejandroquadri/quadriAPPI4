@@ -1,7 +1,7 @@
-scroll-content {
-  display: flex;
-  flex-direction: column;
-}
+// scroll-content {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 ion-grid {
   padding: 0px;
@@ -13,6 +13,7 @@ ion-grid {
 }
 
 .container {
+  height: 100%;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #dedede;
@@ -44,6 +45,7 @@ ion-grid {
 }
 
 .day {
+  height: 100%;
   border-right: 1px solid #dedede;
   overflow: scroll;
   font-size: 11px;
@@ -145,6 +147,7 @@ ion-input {
 }
 
 .entregasContainer {
+  height: 100%;
   overflow: scroll;
 }
 

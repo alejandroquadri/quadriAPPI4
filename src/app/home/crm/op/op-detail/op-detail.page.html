@@ -152,7 +152,7 @@
                 <ion-col>
                   <ion-card-header>
                     <ion-card-title>
-                      Presupuesto {{ psp }} - {{ calipsoObj[psp].flag }}
+                      Presupuesto {{ psp }} - {{ calipsoObj[psp].razSoc }}
                     </ion-card-title>
                   </ion-card-header>
                 </ion-col>
@@ -171,36 +171,48 @@
               
               <ion-card-content>
                 <ion-row class="headers">
-                  <ion-col>
+                  <ion-col text-center size="2">
                     <strong>Codigo</strong>
                   </ion-col>
-                  <ion-col size="4">
+                  <ion-col text-center size="5">
                     <strong>Descripcion</strong>
                   </ion-col>
-                  <ion-col>
+                  <ion-col text-center size="1">
                     <strong>Cantidad</strong>
                   </ion-col>
-                  <ion-col>
+                  <ion-col text-center size="1">
                     <strong>Precio</strong>
                   </ion-col>
-                  <ion-col>
+                  <ion-col text-center size="1">
+                    <strong>Dto %</strong>
+                  </ion-col>
+                  <ion-col text-center size="1">
+                    <strong>Precio F</strong>
+                  </ion-col>
+                  <ion-col text-center size="1">
                     <strong>Sub-total</strong>
                   </ion-col>
                 </ion-row>
                 <ion-row *ngFor="let item of calipsoObj[psp]?.items" class="data">
-                  <ion-col>
+                  <ion-col size="2">
                     {{ item.codigocc }}
                   </ion-col>
-                  <ion-col size="4">
+                  <ion-col size="5">
                     {{ item.conceptocomercial }}
                   </ion-col>
-                  <ion-col>
+                  <ion-col size="1">
                     {{ item.cantidad | number: '1.0-0'}}
                   </ion-col>
-                  <ion-col>
+                  <ion-col size="1">
                     {{ item.precio | number: '1.0-0' }}
                   </ion-col>
-                  <ion-col>
+                  <ion-col size="1">
+                    {{ crmData.calcBon(item).bonificacion | number: '1.0-0' }}
+                  </ion-col>
+                  <ion-col size="1">
+                    {{ crmData.calcBon(item).prBon | number: '1.0-0' }}
+                  </ion-col>
+                  <ion-col size="1">
                     {{ item.total_importe | number: '1.0-0'}}
                   </ion-col>
                 </ion-row>
@@ -208,6 +220,12 @@
                   <ion-col>
                   </ion-col>
                   <ion-col size="4">
+                  </ion-col>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
                   </ion-col>
                   <ion-col>
                   </ion-col>

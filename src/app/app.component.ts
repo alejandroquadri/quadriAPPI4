@@ -3,6 +3,9 @@ import { Platform } from '@ionic/angular';
 import { LoggerService } from './auth/shared/logger.service';
 import { SplitService, ServiceWorkerService } from './shared';
 
+import { ToastController } from '@ionic/angular';
+import { CrmService } from './home/crm/shared';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -26,14 +29,20 @@ export class AppComponent implements OnInit {
   disSplitObs: any;
   disSplit = true;
 
+  update$: any;
+
   constructor(
     private platform: Platform,
     private authData: LoggerService,
     public splitService: SplitService,
-    private swService: ServiceWorkerService
-  ) {
+    private swService: ServiceWorkerService,
+    private crmData: CrmService,
+    public toastCtrl: ToastController
+    ) {
     this.initializeApp();
     this.swService.checkForUpdates();
+    this.update();
+    this.crmData.subscribeToCalipsoDocs();
   }
 
   ngOnInit() {
@@ -67,5 +76,30 @@ export class AppComponent implements OnInit {
 
   permission(area: string) {
     return this.authData.checkRestriction(area, this.userProfile.email);
+  }
+
+  update() {
+    this.update$ = this.swService.update$;
+    this.update$.subscribe( ret => {
+      console.log('llamo a toast hay actualizacion');
+      if (ret) {
+        this.presentToast();
+      }
+    });
+  }
+
+  async presentToast() {
+    console.log('presento toast');
+    const toast = await this.toastCtrl.create({
+      message: 'Click para actualizar nueva version',
+      showCloseButton: true,
+      position: 'bottom',
+      closeButtonText: 'Actualizar'
+    });
+    toast.present();
+    toast.onDidDismiss()
+    .then( () => {
+      this.swService.updateVersion();
+    });
   }
 }

@@ -3,16 +3,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoggerService } from '../../auth/shared/logger.service';
 import { debounceTime, finalize } from 'rxjs/operators';
 
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { /*DomSanitizer,*/ SafeResourceUrl } from '@angular/platform-browser';
 import { AngularFireStorage } from '@angular/fire/storage';
-import * as firebase from 'firebase/app';
+// import * as firebase from 'firebase/app';
 
 import { Ng2ImgMaxService } from 'ng2-img-max';
 
-import {
-  Plugins, CameraResultType, CameraSource,
-  FilesystemDirectory, FilesystemEncoding
-} from '@capacitor/core';
+// import {
+//   Plugins, CameraResultType, CameraSource,
+//   FilesystemDirectory, FilesystemEncoding
+// } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -35,7 +35,7 @@ export class ProfilePage implements OnInit {
   constructor(
     public fb: FormBuilder,
     private auth: LoggerService,
-    private sanitizer: DomSanitizer,
+    // private sanitizer: DomSanitizer,
     private storage: AngularFireStorage,
     public platform: Platform,
     private ng2ImgMax: Ng2ImgMaxService
@@ -83,11 +83,11 @@ export class ProfilePage implements OnInit {
 
   uploadFile(e) {
     console.log(e, e.target.files[0]);
+    this.setImg(e.target.files[0]);
     this.compress(e.target.files[0])
     .subscribe( compImg => {
       console.log('vuelve comprimida', compImg);
       this.uploadAngularFire(compImg);
-      this.setImg(compImg);
     },
     error => {
           console.log('😢 Oh no!', error);
@@ -99,18 +99,29 @@ export class ProfilePage implements OnInit {
     return this.ng2ImgMax.resizeImage(image, 10000, 300);
   }
 
-  setImg(file) {
-    this.compress(file)
-    .subscribe( comprImg => {
-      console.log('vuelve imagen');
-      const reader = new FileReader();
+  // setImg(file) {
+  //   this.compress(file)
+  //   .subscribe( comprImg => {
+  //     console.log('vuelve imagen');
+  //     const reader = new FileReader();
 
-      reader.onload = (e) => {
-        console.log(e);
-        this.avatar = reader.result;
-      };
-      reader.readAsDataURL(comprImg);
-    });
+  //     reader.onload = (e) => {
+  //       console.log(e);
+  //       this.avatar = reader.result;
+  //     };
+  //     reader.readAsDataURL(comprImg);
+  //   });
+  // }
+
+  setImg(file) {
+    console.log('vuelve imagen');
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      console.log(e);
+      this.avatar = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   uploadAngularFire(blob) {

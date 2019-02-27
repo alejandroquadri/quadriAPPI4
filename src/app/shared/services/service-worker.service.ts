@@ -1,21 +1,27 @@
 import { Injectable, isDevMode } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { interval } from 'rxjs';
-import { ToastController } from '@ionic/angular';
+
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceWorkerService {
 
+  update$ = new Subject();
+
   constructor(
     private updates: SwUpdate,
-    public toastCtrl: ToastController
   ) {
-    console.log('serviceW service boots');
+    // console.log('serviceW service boots');
     if (updates.isEnabled) {
-      interval(6 * 60 * 60).subscribe(() => updates.checkForUpdate()
-        .then(() => console.log('checking for updates')));
+      interval(6 * 60 * 60)
+      .subscribe(() => {
+        updates.checkForUpdate()
+        // .then(() => console.log('checking for updates'))
+      });
     }
   }
 
@@ -25,7 +31,13 @@ export class ServiceWorkerService {
     }
   }
 
-  private promptUser(): void {
+  promptUser(): void {
+    this.update$.next(true);
+    // this.updates.activateUpdate()
+    // .then( () => document.location.reload());
+  }
+
+  updateVersion() {
     console.log('updating to new version');
     this.updates.activateUpdate()
     .then( () => document.location.reload());
