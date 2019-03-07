@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 
 import { LoggerService } from '../../auth/shared/logger.service';
 
@@ -14,7 +14,9 @@ export class DashboardPage implements OnInit {
   ) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   // events
   public chartClicked(e: any): void {

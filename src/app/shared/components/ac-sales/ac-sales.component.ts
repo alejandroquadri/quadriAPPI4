@@ -52,6 +52,7 @@ export class AcSalesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('init ac sales');
     const today = moment();
     const end = today.format('YYYYMMDD');
     const start = today.date(1).subtract(6, 'months').format('YYYYMMDD');

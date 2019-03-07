@@ -12,6 +12,9 @@
         <span (click)="changeClient(op)" class="client" >
           - {{ op?.client }}	
         </span>
+        <span style="visibility: hidden;">
+          op: {{ opKey }} cliente: {{ op?.clientKey }}	
+        </span>
       </ion-title>
       <ion-buttons slot="end">
         <ion-button fill="clear" color="medium" size="small" (click)="seeClient(op?.clientKey)">
@@ -51,6 +54,13 @@
           [ngClass]="{'pendiente': statusBis === 'Pendiente','rechazado': statusBis === 'Rechazado','cerrado': statusBis === 'Cerrado', 'seguro': statusBis === 'Seguro'}">
             <option *ngFor="let option of statusOptions" [selected]="op.status === option? true: false">{{option}}</option>
           </select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-textarea #desc (ionChange)="change('desc', desc.value)"
+          [debounce]="500" [placeholder]="opDescText" class="input text-area-description"></ion-textarea>
         </ion-col>
       </ion-row>
       

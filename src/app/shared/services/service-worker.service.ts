@@ -19,7 +19,7 @@ export class ServiceWorkerService {
     if (updates.isEnabled) {
       interval(6 * 60 * 60)
       .subscribe(() => {
-        updates.checkForUpdate()
+        updates.checkForUpdate();
         // .then(() => console.log('checking for updates'))
       });
     }

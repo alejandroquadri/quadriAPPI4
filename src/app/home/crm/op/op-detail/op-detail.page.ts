@@ -37,6 +37,7 @@ export class OpDetailPage implements OnInit {
   editAgendaKey: string;
   totalValue: any;
   opName: any;
+  opDescText: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +52,7 @@ export class OpDetailPage implements OnInit {
     this.statusOptions = this.staticData.data.crm.statusOptions;
     this.actions = this.staticData.data.crm.actions;
     this.salesReps = this.staticData.data.crm.salesReps;
+    this.opDescText = this.staticData.data.crm.opDescText;
     this.buildForm();
   }
 
