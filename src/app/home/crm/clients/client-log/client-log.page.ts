@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrmService, ClientFormComponent } from '../../shared';
-import { StaticDataService, WordFilterPipe } from '../../../../shared';
+import { StaticDataService, WordFilterPipe, SortPipe } from '../../../../shared';
 import { ModalController } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import * as moment from 'moment';
@@ -23,6 +23,7 @@ export class ClientLogPage implements OnInit {
   clientList: any;
   clientObj: any;
   clientViewCrude: any;
+  filtered: any;
   clientView: any;
   totalsObj: any;
 
@@ -37,11 +38,13 @@ export class ClientLogPage implements OnInit {
   sortDir = false;
 
   seeTotals = false;
+  offset = 50;
 
   constructor(
     private crmData: CrmService,
     private staticData: StaticDataService,
     private filterPipe: WordFilterPipe,
+    private sortPipe: SortPipe,
     public modalCtrl: ModalController,
   ) {
     this.buildPeriodArray();
@@ -159,9 +162,11 @@ export class ClientLogPage implements OnInit {
 
   filter() {
     const fieldsFiltered = this.fieldFilter(this.clientViewCrude);
-    this.clientView = this.filterPipe.transform(fieldsFiltered, this.searchInput, false);
+    this.filtered = this.filterPipe.transform(fieldsFiltered, this.searchInput, false);
+    // const sorted = this.sort(lastFilter);
+    // this.clientView = this.sliceArray(sorted);
     this.sort();
-    this.calcTotal();
+    // this.calcTotal();
   }
 
   searchBar(event) {
@@ -194,25 +199,32 @@ export class ClientLogPage implements OnInit {
   }
 
   sort() {
-    this.clientView.sort((a: any, b: any) => {
-      if (this.sortDir) {
-        if (a[this.status][this.sortTerm] < b[this.status][this.sortTerm]) {
-          return -1;
-        } else if (a[this.status][this.sortTerm] > b[this.status][this.sortTerm]) {
-          return 1;
+    let ordered;
+    if (this.sortTerm === 'client') {
+      ordered = this.sortPipe.transform(this.filtered, 'name', this.sortDir, false);
+    } else {
+      ordered = this.filtered.sort((a: any, b: any) => {
+        if (this.sortDir) {
+          if (a[this.status][this.sortTerm] < b[this.status][this.sortTerm]) {
+            return -1;
+          } else if (a[this.status][this.sortTerm] > b[this.status][this.sortTerm]) {
+            return 1;
+          } else {
+            return 0;
+          }
         } else {
-          return 0;
+          if (a[this.status][this.sortTerm] > b[this.status][this.sortTerm]) {
+            return -1;
+          } else if (a[this.status][this.sortTerm] < b[this.status][this.sortTerm]) {
+            return 1;
+          } else {
+            return 0;
+          }
         }
-      } else {
-        if (a[this.status][this.sortTerm] > b[this.status][this.sortTerm]) {
-          return -1;
-        } else if (a[this.status][this.sortTerm] < b[this.status][this.sortTerm]) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    });
+      });
+    }
+    this.clientView = this.sliceArray(ordered);
+    this.calcTotal();
   }
 
   changeSort(term) {
@@ -246,6 +258,27 @@ export class ClientLogPage implements OnInit {
       componentProps: {$key: key, mode: 'edit'}
     });
     return modal.present();
+  }
+
+  sliceArray(array: Array<any>) {
+    return array.slice(0, this.offset);
+  }
+
+  doInfinite(event) {
+    setTimeout( () => {
+      event.target.complete();
+
+      // aca es donde hay que poner la logica para que cargue mas datos
+      this.offset += 20;
+      this.filter();
+
+      // esto es para que si ya tiene todos los registros no siga buscando
+      // if (this.avionView.length === this.filtered.length ) {
+      //   console.log('llego');
+      //   event.target.disabled = true;
+      // }
+
+    }, 500);
   }
 
 }

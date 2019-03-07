@@ -41,8 +41,12 @@
       </select>
     </ion-row>
     <ion-row padding-top class="headers">
-      <ion-col size="2">
+      <ion-col size="2" (click)="changeSort('client')">
         Cliente
+        <strong>
+          <ion-icon name="arrow-dropup" *ngIf="sortTerm === 'client' && sortDir === true"></ion-icon>
+          <ion-icon name="arrow-dropdown" *ngIf="sortTerm === 'client' && sortDir === false"></ion-icon>
+        </strong>
       </ion-col>
       <ion-col *ngFor="let period of periodArray" 
       (click)="changeSort(period)" class="orderCol">
@@ -76,6 +80,16 @@
         <ion-col *ngFor="let period of periodArray" >
           {{ client[status][period] | number : '1.0-0' || '' }}
         </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Cargando mas registros...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+      </ion-col>
     </ion-row>
   </div>
     

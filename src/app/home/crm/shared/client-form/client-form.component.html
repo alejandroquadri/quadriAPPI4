@@ -1,14 +1,14 @@
 <ion-header>
 
     <ion-toolbar>
-      <ion-title *ngIf="clientKey">
-        <input class="clientName" #clientNameEl type="text" size="{{ clientName.length || 1 }}" 
-        (blur)="editName(clientNameEl.value)" 
-        [(ngModel)]="clientName">
+      <ion-title *ngIf="clientKey" slot="start">
+        <ion-input [debounce]="500" class="clientName" #clientNameEl type="text" size="{{ clientName?.length || 1 }}" 
+        (ngModelChange)="editName(clientNameEl.value)"
+        [(ngModel)]="clientName"></ion-input>
         <span style="visibility: hidden;"> {{ clientKey }} </span>
       </ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="modalCtrl.dismiss()">
+        <ion-button (click)="modalCtrl.dismiss()" fill="clear" size="small">
           Salir
         </ion-button>
       </ion-buttons>
