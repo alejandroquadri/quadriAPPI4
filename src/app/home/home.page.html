@@ -2,128 +2,131 @@
 
 <ion-split-pane [when]="shouldShow()">
 
-  <ion-menu>
+  <ion-menu class="side-menu">
 
-    <ion-content *ngIf="userProfile" class="side-menu">
+    <ion-content *ngIf="userProfile">
 
-      <ion-list>
-        <ion-menu-toggle auto-hide="false">
-          <ion-item>
-            <ion-avatar [routerLink]="['/home/perfil']" class="to-profile">
-              <img [src]="userProfile.photoURL">
-            </ion-avatar>
-            <ion-label class="name-label to-profile" [routerLink]="['/home/perfil']">
-              <div class="display-name">{{ userProfile.displayName }}</div>
-              <div class="email">{{ userProfile.email }}</div>
-            </ion-label>
-            <ion-button size="small" color="dark" fill="clear" [routerLink]="'/home'">
-              <ion-icon name="home"></ion-icon>
-            </ion-button>
-            <ion-button size="small" color="dark" fill="clear" (click)="changeShow()" *ngIf="!platform.is('mobile')">
-              <ion-icon *ngIf="disSplit"  name="close"></ion-icon>
-              <ion-icon *ngIf="!disSplit" name="open"></ion-icon>
-            </ion-button>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-
-      <ion-list *ngIf="permission('fabrica') || permission('direccion')" lines="none">
-        <ion-menu-toggle auto-hide="false">
-          <ion-list-header>
-            <ion-label>Operaciones</ion-label>
-          </ion-list-header>
-
-          <ion-item [routerLink]="['/home/produccion/carga-produccion']">
-            <ion-icon menuClose slot="start" name="hammer"></ion-icon>
-            <ion-label>Produccion</ion-label>
-          </ion-item>
-
-          <ion-item [routerLink]="['/home/registros-mantenimiento/carga']" *ngIf="platform.is('mobile')">
-            <ion-icon slot="start" name="build"></ion-icon>
-            <ion-label>Mantenimiento</ion-label>
-          </ion-item>
-
-          <ion-item [routerLink]="['/home/registros-mantenimiento']" *ngIf="!platform.is('mobile')">
-            <ion-icon slot="start" name="build"></ion-icon>
-            <ion-label>Mantenimiento</ion-label>
-          </ion-item>
-        
-          <ion-item [routerLink]="['/home/compras']" *ngIf="!platform.is('mobile')">
-            <ion-icon slot="start" name="cart"></ion-icon>
-            <ion-label>Compras</ion-label>
-          </ion-item>
-
-          <ion-item [routerLink]="['/home/compras/carga']" *ngIf="platform.is('mobile')">
-            <ion-icon slot="start" name="cart"></ion-icon>
-            <ion-label>Compras</ion-label>
-          </ion-item>
-
-          <ion-item [routerLink]="['/home/programa-produccion']">
-            <ion-icon slot="start" name="calendar"></ion-icon>
-            <ion-label>Programa produccion</ion-label>
-          </ion-item>
-
-          <ion-item [routerLink]="['/home/programa-entregas']" *ngIf="!platform.is('mobile')">
-            <ion-icon slot="start" name="bus"></ion-icon>
-            <ion-label>Programa entregas</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-
-      <div *ngIf="!platform.is('mobile')">
-        <ion-list *ngIf="permission('ventas') || permission('direccion')" lines="none">
+      <div class="side-menu">
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item>
+              <ion-avatar [routerLink]="['/home/perfil']" class="to-profile">
+                <img [src]="userProfile.photoURL">
+              </ion-avatar>
+              <ion-label class="name-label to-profile" [routerLink]="['/home/perfil']">
+                <div class="display-name">{{ userProfile.displayName }}</div>
+                <div class="email">{{ userProfile.email }}</div>
+              </ion-label>
+              <ion-button size="small" color="dark" fill="clear" [routerLink]="'/home'">
+                <ion-icon name="home"></ion-icon>
+              </ion-button>
+              <ion-button size="small" color="dark" fill="clear" (click)="changeShow()" *ngIf="!platform.is('mobile')">
+                <ion-icon *ngIf="disSplit"  name="close"></ion-icon>
+                <ion-icon *ngIf="!disSplit" name="open"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+  
+        <ion-list *ngIf="permission('fabrica') || permission('direccion')" lines="none">
           <ion-menu-toggle auto-hide="false">
             <ion-list-header>
-              <ion-label>CRM</ion-label>
+              <ion-label>Operaciones</ion-label>
             </ion-list-header>
-            <ion-item [routerLink]="['/home/crm/registro-actividades']">
-              <ion-icon slot="start" name="podium"></ion-icon>
-              <ion-label>Registro actividades</ion-label>
+  
+            <ion-item [routerLink]="['/home/produccion/carga-produccion']">
+              <ion-icon menuClose slot="start" name="hammer"></ion-icon>
+              <ion-label>Produccion</ion-label>
+            </ion-item>
+  
+            <ion-item [routerLink]="['/home/registros-mantenimiento/carga']" *ngIf="platform.is('mobile')">
+              <ion-icon slot="start" name="build"></ion-icon>
+              <ion-label>Mantenimiento</ion-label>
+            </ion-item>
+  
+            <ion-item [routerLink]="['/home/registros-mantenimiento']" *ngIf="!platform.is('mobile')">
+              <ion-icon slot="start" name="build"></ion-icon>
+              <ion-label>Mantenimiento</ion-label>
             </ion-item>
           
-            <ion-item [routerLink]="['/home/crm/stock-precio']">
-              <ion-icon slot="start" name="logo-usd"></ion-icon>
-              <ion-label>Precios + Stock</ion-label>
+            <ion-item [routerLink]="['/home/compras']" *ngIf="!platform.is('mobile')">
+              <ion-icon slot="start" name="cart"></ion-icon>
+              <ion-label>Compras</ion-label>
             </ion-item>
   
-            <ion-item [routerLink]="['/home/crm/clientes']">
-              <ion-icon slot="start" name="people"></ion-icon>
-              <ion-label>Clientes</ion-label>
+            <ion-item [routerLink]="['/home/compras/carga']" *ngIf="platform.is('mobile')">
+              <ion-icon slot="start" name="cart"></ion-icon>
+              <ion-label>Compras</ion-label>
             </ion-item>
   
-            <ion-item [routerLink]="['/home/crm/oportunidades']">
-              <ion-icon slot="start" name="bulb"></ion-icon>
-              <ion-label>Oportunidades</ion-label>
+            <ion-item [routerLink]="['/home/programa-produccion']">
+              <ion-icon slot="start" name="calendar"></ion-icon>
+              <ion-label>Programa produccion</ion-label>
             </ion-item>
   
-            <ion-item [routerLink]="['/home/crm/presupuestos']">
-              <ion-icon slot="start" name="add"></ion-icon>
-              <ion-label>Presupuestos</ion-label>
+            <ion-item [routerLink]="['/home/programa-entregas']" *ngIf="!platform.is('mobile')">
+              <ion-icon slot="start" name="bus"></ion-icon>
+              <ion-label>Programa entregas</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+  
+        <div *ngIf="!platform.is('mobile')">
+          <ion-list *ngIf="permission('ventas') || permission('direccion')" lines="none">
+            <ion-menu-toggle auto-hide="false">
+              <ion-list-header>
+                <ion-label>CRM</ion-label>
+              </ion-list-header>
+              <ion-item [routerLink]="['/home/crm/registro-actividades']">
+                <ion-icon slot="start" name="podium"></ion-icon>
+                <ion-label>Registro actividades</ion-label>
+              </ion-item>
+            
+              <ion-item [routerLink]="['/home/crm/stock-precio']">
+                <ion-icon slot="start" name="logo-usd"></ion-icon>
+                <ion-label>Precios + Stock</ion-label>
+              </ion-item>
+    
+              <ion-item [routerLink]="['/home/crm/clientes']">
+                <ion-icon slot="start" name="people"></ion-icon>
+                <ion-label>Clientes</ion-label>
+              </ion-item>
+    
+              <ion-item [routerLink]="['/home/crm/oportunidades']">
+                <ion-icon slot="start" name="bulb"></ion-icon>
+                <ion-label>Oportunidades</ion-label>
+              </ion-item>
+    
+              <ion-item [routerLink]="['/home/crm/presupuestos']">
+                <ion-icon slot="start" name="add"></ion-icon>
+                <ion-label>Presupuestos</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </div>
+  
+        <div *ngIf="!platform.is('mobile')">
+          <ion-list *ngIf="permission('direccion')" lines="none">
+            <ion-list-header>
+              <ion-label>Finanzas</ion-label>
+            </ion-list-header>
+            <ion-item [routerLink]="['/home/avion']">
+              <ion-icon slot="start" name="airplane"></ion-icon>
+              <ion-label>Avion</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+  
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="logOut()" class="logout">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>Salir</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
       </div>
 
-      <div *ngIf="!platform.is('mobile')">
-        <ion-list *ngIf="permission('direccion')" lines="none">
-          <ion-list-header>
-            <ion-label>Finanzas</ion-label>
-          </ion-list-header>
-          <ion-item [routerLink]="['/home/avion']">
-            <ion-icon slot="start" name="airplane"></ion-icon>
-            <ion-label>Avion</ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
-
-      <ion-list>
-        <ion-menu-toggle auto-hide="false">
-          <ion-item (click)="logOut()" class="logout">
-            <ion-icon slot="start" name="log-out"></ion-icon>
-            <ion-label>Salir</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
 
     </ion-content>
 

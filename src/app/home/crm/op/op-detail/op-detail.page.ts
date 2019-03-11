@@ -36,6 +36,7 @@ export class OpDetailPage implements OnInit {
   edit = false;
   editAgendaKey: string;
   totalValue: any;
+  descValue: any;
   opName: any;
   opDescText: string;
 
@@ -67,10 +68,10 @@ export class OpDetailPage implements OnInit {
     .subscribe( (pair: any) => {
       this.op = pair.op;
       if (this.op) {
-  
         this.statusBis = this.op.status;
         this.op['$key'] = this.opKey;
         this.totalValue = this.customCurrencyPipe.transform(this.op.total.toString(), 0);
+        this.descValue = this.op.desc;
         this.opName = this.op.obra;
       }
       this.calipsoObj = pair.calipsoObj.psp;

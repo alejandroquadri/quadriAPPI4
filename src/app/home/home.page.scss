@@ -4,11 +4,12 @@
   max-width: 15%;
 }
 
-::-webkit-scrollbar {
+.side-menu::-webkit-scrollbar{
   display: none;
 }
 
 .side-menu {
+  height: 100%;
   overflow: scroll;
 }
 

@@ -3,10 +3,11 @@
   width: 100%;
 }
 
-::-webkit-scrollbar {
+.custom-content::-webkit-scrollbar{
   display: none;
 }
 
-ion-content {
+.custom-content {
+  height: 100%;
   overflow: scroll;
 }

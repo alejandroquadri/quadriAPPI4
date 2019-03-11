@@ -59,8 +59,12 @@
 
       <ion-row>
         <ion-col>
-          <ion-textarea #desc (ionChange)="change('desc', desc.value)"
-          [debounce]="500" [placeholder]="opDescText" class="input text-area-description"></ion-textarea>
+          <ion-textarea #desc 
+          [ngModel]="descValue"
+          (ngModelChange)="change('desc', desc.value)"
+          [debounce]="1000" 
+          [placeholder]="opDescText" 
+          class="input text-area-description"></ion-textarea>
         </ion-col>
       </ion-row>
       
