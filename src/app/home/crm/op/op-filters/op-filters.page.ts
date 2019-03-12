@@ -19,6 +19,7 @@ export class OpFiltersPage implements OnInit {
     private staticData: StaticDataService
   ) {
     this.filters = this.staticData.data.crm.filters;
+    // console.log(this.filters, this.filters.month.length);
     this.months = this.crmData.buildCloseMonth();
   }
 
@@ -27,6 +28,7 @@ export class OpFiltersPage implements OnInit {
   }
 
   updateFilters() {
+    // console.log(this.filters, this.filters.month.length);
     this.crmData.filters = this.filters;
     this.crmData.updateFilters();
   }

@@ -116,13 +116,26 @@ export class OpLogPage implements OnInit {
     }
   }
 
+  // monthFilter(item) {
+  //   const month = this.filters.month;
+  //   if (month === '') {
+  //     return true;
+  //   } else {
+  //     if (item.closeMonth === month) {
+  //       return true;
+  //     }
+  //   }
+  // }
+
   monthFilter(item) {
     const month = this.filters.month;
-    if (month === '') {
+    if (month.length === 0 || month[0] === '') {
       return true;
     } else {
-      if (item.closeMonth === month) {
-        return true;
+      for (let i = 0 ; i < month.length; i++) {
+        if (month[i] === item.closeMonth) {
+          return true;
+        }
       }
     }
   }
@@ -152,14 +165,18 @@ export class OpLogPage implements OnInit {
   }
 
   changeCloseMonth(closeMonth: string, key: string) {
-    const month = moment(closeMonth, 'MMM YY').format('YYYY-MM');
+    let month: string | any;
+    if (closeMonth === 'indefinido') {
+      month = closeMonth;
+    } else {
+      month = moment(closeMonth, 'MMM YY').format('YYYY-MM');
+    }
     this.crmData.updateOp(key, {closeMonth: month})
     .then( () => console.log('closeMonth actualizado'));
   }
 
   seeOp(op: any, key: string) {
     op['$key'] = key;
-    // this.navCtrl.push('CrmOpDetailPage', op);
     this.router.navigate([`home/crm/oportunidades/${key}`]);
   }
 
@@ -172,11 +189,6 @@ export class OpLogPage implements OnInit {
     return await popover.present();
   }
 
-  // presentModal() {
-  //   let profileModal = this.modalCtrl.create('CrmOpFormPage', {state:'addNew'});
-  //   profileModal.present();
-  // }
-
   async presentModal() {
     const profileModal = await this.modalCtrl.create({
       component: AddOpPage,
@@ -186,7 +198,11 @@ export class OpLogPage implements OnInit {
   }
 
   oldMonth(month: string) {
-    return moment().isAfter(month, 'month');
+    if (month === 'indefinido') {
+      return false;
+    } else {
+      return moment().isAfter(month, 'month');
+    }
   }
 
 }

@@ -31,10 +31,18 @@
   </ion-item>
 
   <ion-item lines="none">
-    <select class="select" [(ngModel)]="filters.month" (ngModelChange)="updateFilters()">
-      <option value="">Mes</option>
+    <!-- <select class="select" [(ngModel)]="filters.month" (ngModelChange)="updateFilters()">
+      <option disabled="true" value="">Mes</option>
+      <option value="">todos</option>
+      <option value="indefinido">indefinido</option>
       <option *ngFor="let month of months" [value]="month">{{ month | moment:'MMM YY' }}</option>
-    </select>
+    </select> -->
+    <ion-label>Mes</ion-label>
+    <ion-select [(ngModel)]="filters.month" (ngModelChange)="updateFilters()" multiple="true">
+      <!-- <ion-select-option value="">todos</ion-select-option> -->
+      <ion-select-option value="indefinido">indefinido</ion-select-option>
+      <ion-select-option *ngFor="let month of months" [value]="month">{{ month | moment:'MMM YY' }}</ion-select-option>
+    </ion-select>
   </ion-item>
 
 </ion-list>

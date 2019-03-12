@@ -71,16 +71,17 @@
         </ion-col>
         <ion-col text-center>
           <ion-select #closeMonth (ionChange)="changeCloseMonth(closeMonth.value, op.key)" interface="popover">
-            <ion-select-option [selected]="oldMonth(op.payload.val().closeMonth)" disabled="true">
-              anterior
-            </ion-select-option>
+            <ion-select-option [selected]="oldMonth(op.payload.val().closeMonth)" disabled="true">anterior</ion-select-option>
+            <ion-select-option [selected]="op.payload.val().closeMonth === 'indefinido'">indefinido</ion-select-option>
             <ion-select-option *ngFor="let month of months" [selected]="op.payload.val().closeMonth===month? true: false">{{ month | moment:'MMM YY'}}</ion-select-option>
           </ion-select>
         </ion-col>
         <ion-col size="2" text-center class="select-col">
           <ion-select #status class="select" (ionChange)="changeStatus(status.value, op.key)" interface="popover"
           [ngClass]="{'pendiente': op.payload.val().status === 'Pendiente','rechazado': op.payload.val().status === 'Rechazado','cerrado': op.payload.val().status === 'Cerrado', 'seguro': op.payload.val().status === 'Seguro'}">
-            <ion-select-option *ngFor="let option of statusOptions" [selected]="op.payload.val().status===option? true: false">{{option}}</ion-select-option>
+            <ion-select-option *ngFor="let option of statusOptions" [selected]="op.payload.val().status===option? true: false">
+              {{option}}
+            </ion-select-option>
           </ion-select>
         </ion-col>
         <ion-col size="auto" text-center>

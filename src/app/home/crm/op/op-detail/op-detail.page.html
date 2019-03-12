@@ -46,6 +46,7 @@
         </ion-col>
         <ion-col size="auto">
           <select class="titleItem" #closeMonth (change)="change('closeMonth', closeMonth.value)">
+            <option>indefinido</option>
             <option *ngFor="let month of months" [selected]="op.closeMonth===month? true: false">{{month}}</option>
           </select>
         </ion-col>
