@@ -38,7 +38,7 @@
       <option *ngFor="let month of months" [value]="month">{{ month | moment:'MMM YY' }}</option>
     </select> -->
     <ion-label>Mes</ion-label>
-    <ion-select [(ngModel)]="filters.month" (ngModelChange)="updateFilters()" multiple="true">
+    <ion-select [(ngModel)]="filters.month" (ngModelChange)="updateFilters()" multiple="true" okText="Ok" cancelText="Cancelar">
       <!-- <ion-select-option value="">todos</ion-select-option> -->
       <ion-select-option value="indefinido">indefinido</ion-select-option>
       <ion-select-option *ngFor="let month of months" [value]="month">{{ month | moment:'MMM YY' }}</ion-select-option>
