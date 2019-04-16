@@ -33,6 +33,9 @@ export class OpLogPage implements OnInit {
   total = 0;
 
   opList: Array<any>;
+  opListCut: Array<any>;
+  offset = 40;
+  first = true;
 
   constructor(
     private crmData: CrmService,
@@ -61,11 +64,21 @@ export class OpLogPage implements OnInit {
     });
   }
 
+  ionViewDidEnter() {
+    if (this.first) {
+      this.first = false;
+    } else {
+      this.offset = 40;
+      this.filter();
+    }
+  }
+
   filter() {
     const fieldsFiltered = this.fieldFilter(this.opListCrude);
     this.opList = this.filterPipe.transform(fieldsFiltered, this.searchInput, true);
     this.sort();
     this.calcTotal(this.opList);
+    this.opListCut = this.sliceArray(this.opList);
   }
 
   fieldFilter(array: Array<any>) {
@@ -85,6 +98,27 @@ export class OpLogPage implements OnInit {
 
   sort() {
     this.opList =  this.sortPipe.transform(this.opList, this.sortTerm, this.sortDir, true);
+  }
+
+  sliceArray(array: Array<any>) {
+    return array.slice(0, this.offset);
+  }
+
+  doInfinite(event) {
+    setTimeout( () => {
+      event.target.complete();
+
+      // aca es donde hay que poner la logica para que cargue mas datos
+      this.offset += 20;
+      this.filter();
+
+      // esto es para que si ya tiene todos los registros no siga buscando
+      // if (this.avionView.length === this.filtered.length ) {
+      //   console.log('llego');
+      //   event.target.disabled = true;
+      // }
+
+    }, 500);
   }
 
   changeSort(term) {

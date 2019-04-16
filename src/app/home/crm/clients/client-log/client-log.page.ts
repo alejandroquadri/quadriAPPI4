@@ -73,6 +73,7 @@ export class ClientLogPage implements OnInit {
     const now = moment();
 
     this.periodArray.push('anterior');
+    this.periodArray.push('indefinido');
 
     for (let i = 0; i < months; i++) {
       const month = now.clone().add(i, 'month').format('YYYY-MM');
@@ -86,15 +87,18 @@ export class ClientLogPage implements OnInit {
     this.periodArray.forEach( period => {
       this.totalsObj[period] = 0;
     });
+    console.log(this.periodArray);
   }
 
   buildClientObj() {
     // this.buildPeriodArray();
-    this.sortTerm = this.periodArray[1]; // esto para que ordene segun el mes actual
+    this.sortTerm = this.periodArray[2]; // esto para que ordene segun el mes actual
 
     const clientObj = {};
 
-    this.clientList.forEach( client => {
+    console.log('primer clientObj', clientObj);
+
+    this.clientList.forEach( (client, index) => {
       const id = client.key;
       const clientVal = client.payload.val();
 
@@ -111,32 +115,38 @@ export class ClientLogPage implements OnInit {
           });
         });
       }
-
       if (clientVal.ops) {
         const opsList = Object.keys(clientVal.ops);
         opsList.forEach( op => {
-          // console.log(id, op, this.opObj[op]);
           const month = this.monthTime(this.opObj[op].closeMonth);
+          // console.log(id, op, this.opObj[op], month);
+          console.log(clientObj[id], clientObj[id][this.opObj[op].status], this.opObj[op].status);
           clientObj[id][this.opObj[op].status][month] += this.opObj[op].total;
           clientObj[id][this.opObj[op].status]['total'] += this.opObj[op].total;
         });
       }
     });
+    console.log(clientObj);
     return clientObj;
   }
 
   monthTime(month: string): string {
 
-    const anterior = moment(month).isBefore(this.periodArray[1], 'month');
-    const posterior = moment(month).isAfter(this.periodArray[this.periodArray.length - 3], 'month');
-
-    if (anterior) {
-      return 'anterior';
-    } else if (posterior) {
-      return 'posterior';
+    if (month === 'indefinido') {
+      return 'indefinido';
     } else {
-      return month;
+      const anterior = moment(month).isBefore(this.periodArray[1], 'month');
+      const posterior = moment(month).isAfter(this.periodArray[this.periodArray.length - 3], 'month');
+
+      if (anterior) {
+        return 'anterior';
+      } else if (posterior) {
+        return 'posterior';
+      } else {
+        return month;
+      }
     }
+
   }
 
   buildClientView(clientObj: any) {
@@ -153,7 +163,7 @@ export class ClientLogPage implements OnInit {
   }
 
   monthFormat(month) {
-    if (month === 'anterior' || month === 'posterior' || month === 'total') {
+    if (month === 'anterior' || month === 'indefinido' || month === 'posterior' || month === 'total') {
       return month;
     } else {
       return moment(month).format('MMM YY');

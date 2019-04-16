@@ -28,7 +28,7 @@
           <option>Quadri</option>
         </select>
     </ion-col>
-    <ion-col size="auto" *ngIf="permission('direccion')">
+    <ion-col size="auto">
         <input type="checkbox" [(ngModel)]="showAvion" value="" (ngModelChange)="salesDataFilter()"> <span> Avion</span>
     </ion-col>
   </ion-row>
