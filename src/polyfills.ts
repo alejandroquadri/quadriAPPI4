@@ -74,3 +74,7 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Need to import at least one locale-data with intl.
  */
 // import 'intl/locale-data/jsonp/en';
+
+// esto lo agregue despues de actualizar a 4.2 por errores que tiraba
+// ver en https://github.com/manfredsteyer/ngx-build-plus/issues/5
+import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
