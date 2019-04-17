@@ -104,6 +104,18 @@
             </ion-menu-toggle>
           </ion-list>
         </div>
+
+        <div *ngIf="!platform.is('mobile')"> 
+          <ion-list *ngIf="permission('direccion')" lines="none">
+            <ion-list-header>
+              <ion-label>Adm Ventas</ion-label>
+            </ion-list-header>
+            <ion-item [routerLink]="['/home/adm-ventas/pendientes-impresion']">
+              <ion-icon slot="start" name="print"></ion-icon>
+              <ion-label>Impresora electronica</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
   
         <div *ngIf="!platform.is('mobile')">
           <ion-list *ngIf="permission('direccion')" lines="none">

@@ -54,10 +54,14 @@ const routes: Routes = [
         path: 'perfil',
         canActivate: [AuthGuard],
         loadChildren: './profile/profile.module#ProfilePageModule'
+      },
+      {
+        path: 'adm-ventas',
+        canActivate: [AuthGuard],
+        loadChildren: './sales-adm/sales-adm.module#SalesAdm'
       }
     ]
   },
-  
 ];
 
 @NgModule({

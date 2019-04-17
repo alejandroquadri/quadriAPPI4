@@ -1,0 +1,28 @@
+.data, .headers {
+  font-size: 0.9rem;
+}
+
+.data {
+  border-bottom: solid var(--light) 1px;
+}
+
+.data:hover {
+  background-color: var(--light);
+}
+
+.orderCol {
+  cursor: pointer;
+}
+
+.doc {
+  cursor: pointer;
+}
+
+.doc:hover {
+  color: var(--ion-color-primary);
+}
+
+.actionButtons {
+  margin: 0px;
+  color: var(--light-GreyQ)
+}

@@ -1,0 +1,83 @@
+<ion-header>
+  
+  <ion-toolbar>
+	  <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="filterSearchBar($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home/adm-ventas/impresas']">
+        <ion-icon name="print"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-grid class="headers" text-center>
+      <ion-row text-center>
+        <ion-col size="2">
+          <strong>Fecha</strong>
+        </ion-col>
+        <ion-col size="2">
+            <strong>N°</strong>
+        </ion-col>
+        <ion-col size="3">
+          <strong>Razon Social</strong>
+        </ion-col>
+        <ion-col size="3">
+          <strong>Vendedor</strong>
+        </ion-col>
+        <ion-col size="1">
+          <strong>Total $
+          </strong>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+  <div class="" *ngIf="docView">
+
+    <ion-grid>
+      <ion-row class="data"  *ngFor="let doc of docView">
+        <ion-col size="2" text-center>
+          {{ doc.date | moment:'DD/MM/YY'}}
+        </ion-col>
+        <ion-col size="2" text-center (click)="seeDoc(doc)" class="doc">
+          {{ doc.num }}
+        </ion-col>
+        <ion-col size="3">
+          {{ doc.razSoc }}
+        </ion-col>
+        <ion-col size="3" text-center>
+          {{ doc.salesRep }}
+        </ion-col>
+        <ion-col size="1">
+          {{ doc.total | number : '1.0-0'}}
+        </ion-col>
+        <ion-col size="1" text-center>
+          <ion-button fill="clear" size="small" (click)="print(doc)" class="actionButtons">
+						<ion-icon name="print"></ion-icon>
+					</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Cargando mas registros...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+</ion-content>
