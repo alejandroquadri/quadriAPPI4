@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SalesAdmService } from '../sales-adm.service';
 
 @Component({
   selector: 'app-doc-detail',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() doc: any;
+
+  constructor(
+    public modalCtrl: ModalController,
+    private admData: SalesAdmService
+  ) { }
 
   ngOnInit() {
+    console.log(this.doc);
+  }
+
+  print() {
+    this.admData.afipMock()
+    .then( ret => {
+      console.log(ret);
+    });
   }
 
 }

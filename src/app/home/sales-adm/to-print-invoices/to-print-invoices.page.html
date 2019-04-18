@@ -6,6 +6,9 @@
     </ion-buttons>
     <ion-searchbar [(ngModel)]="searchInput" (ngModelChange)="filterSearchBar($event)"></ion-searchbar>
     <ion-buttons slot="end">
+        <ion-button (click)="subscribe()">
+          <ion-icon name="refresh"></ion-icon>
+        </ion-button>
       <ion-button [routerLink]="['/home/adm-ventas/impresas']">
         <ion-icon name="print"></ion-icon>
       </ion-button>
@@ -25,7 +28,7 @@
           <strong>Razon Social</strong>
         </ion-col>
         <ion-col size="3">
-          <strong>Vendedor</strong>
+          <strong>Tipo</strong>
         </ion-col>
         <ion-col size="1">
           <strong>Total $
@@ -55,13 +58,13 @@
           {{ doc.razSoc }}
         </ion-col>
         <ion-col size="3" text-center>
-          {{ doc.salesRep }}
+          {{ doc.tipo }}
         </ion-col>
         <ion-col size="1">
           {{ doc.total | number : '1.0-0'}}
         </ion-col>
         <ion-col size="1" text-center>
-          <ion-button fill="clear" size="small" (click)="print(doc)" class="actionButtons">
+          <ion-button fill="clear" size="small" (click)="seeDoc(doc)" class="actionButtons">
 						<ion-icon name="print"></ion-icon>
 					</ion-button>
         </ion-col>

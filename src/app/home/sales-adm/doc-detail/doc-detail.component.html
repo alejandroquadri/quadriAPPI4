@@ -1,3 +1,151 @@
-<p>
-  doc-detail works!
-</p>
+<ion-header class="comp-header">
+
+    <ion-toolbar>
+      <ion-title *ngIf="doc" >{{ doc.tipo }} {{ doc.num }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button size="small" (click)="print()">
+          <ion-icon name="print"></ion-icon>
+        </ion-button>
+        <ion-button (click)="modalCtrl.dismiss()">
+          Salir
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  
+    <ion-toolbar *ngIf="doc" >
+      <div margin-start>
+        {{ doc.razSoc }} - {{ doc.salesRep}}
+      </div>
+    </ion-toolbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-grid *ngIf="doc" >
+  
+      <ion-row class="headers">
+        <ion-col size="2">
+          <strong>Codigo</strong>
+        </ion-col>
+        <ion-col size="3">
+          <strong>Descripcion</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Cantidad</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Precio</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Desc %</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Precio D</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Sub-total</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of doc?.items" class="data">
+        <ion-col size="2">
+          {{ item.codigocc }}
+        </ion-col>
+        <ion-col size="3">
+          {{ item.conceptocomercial }}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.cantidad | number: '1.0-2'}}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.precio | number: '1.0-2' }}
+        </ion-col>
+        <ion-col size="2">
+          {{ (item.descuento * 100) | number: '1.0-2' }}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.precio_descuento | number: '1.0-2' }}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.total_importe | number: '1.0-2'}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="footer footer-first">
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="3">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+          Neto
+        </ion-col>
+        <ion-col size="2">
+          <strong>{{ doc.total | number: '1.0-0' }}</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row class="footer">
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="3">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+          IVA
+        </ion-col>
+        <ion-col size="2">
+          <strong>{{ doc.ivaTotal | number: '1.0-0' }}</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row class="footer">
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="3">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+          P. IIBB
+        </ion-col>
+        <ion-col size="2">
+          <strong>{{ doc.iibb | number: '1.0-0' }}</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row class="footer">
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="3">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+        <ion-col size="2">
+          Total
+        </ion-col>
+        <ion-col size="2">
+          <strong>{{ doc.totalFinal | number: '1.0-0' }}</strong>
+        </ion-col>
+      </ion-row>
+  
+    </ion-grid>
+  
+  
+  </ion-content>
+  
+  

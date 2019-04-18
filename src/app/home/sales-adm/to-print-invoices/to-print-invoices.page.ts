@@ -50,9 +50,7 @@ export class ToPrintInvoicesPage implements OnInit {
   }
 
   filterSearchBar(event?) {
-    // this.viewArray = this.searchFilter.transform(this.filteredPsp,this.searchInput, false);
     this.docView = this.sliceArray(this.searchFilter.transform(this.arrayAll, this.searchInput, false));
-    // this.sort();
   }
 
   sliceArray(array: Array<any>) {
@@ -73,7 +71,7 @@ export class ToPrintInvoicesPage implements OnInit {
   async seeDoc(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: DocDetailComponent,
-      componentProps: form
+      componentProps: {doc: form}
     });
     return await profileModal.present();
   }

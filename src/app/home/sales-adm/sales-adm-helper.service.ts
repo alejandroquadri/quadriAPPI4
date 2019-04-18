@@ -24,7 +24,8 @@ export class SalesAdmHelperService {
             iibb: +doc.iibbtr,
             ivaTotal: +doc.iva,
             totalFinal: +doc.total_transaccion,
-            flag: doc.flag
+            flag: doc.flag,
+            tipo: doc.tipo_documento_full
           };
           filteredObj[doc.numerodocumento].items = [];
           filteredObj[doc.numerodocumento].items.push(doc);
@@ -42,5 +43,5 @@ export class SalesAdmHelperService {
     });
     return array;
   }
-  
+
 }
