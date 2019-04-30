@@ -14,13 +14,27 @@ export class ApiService {
 
   // url = 'http://quadriserver.ddns.net:3100/api'; // conectado a traves de no-ip
   // url = 'https://afternoon-waters-60961.herokuapp.com/api'; // heroku
-  url = 'http://localhost:3100/api';
+  url = 'http://localhost:3100/api'; // conexion api dev
+  // url = 'http://192.168.0.210:3100/api'; // conexion local
   // url = 'https://quadri.ngrok.io/api'; // tunneling con ngrok
+
+  // url: string;
 
   constructor(
     public http: Http,
     public db: AngularFireDatabase
-  ) { }
+  ) {
+    // this.setUrl(true);
+  }
+
+  // set url
+  setUrl(local: boolean) {
+    if (local) {
+      this.url = 'http://192.168.0.210:3100/api';
+    } else {
+      this.url = 'https://quadri.ngrok.io/api';
+    }
+  }
 
   // FUNCIONES http
 

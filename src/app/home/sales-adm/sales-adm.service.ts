@@ -14,15 +14,25 @@ export class SalesAdmService {
     return this.apiData.get('ventas/docs-imp');
   }
 
-  afipMock() {
+  afipMock(num) {
     return new Promise( (res, rej) => {
       setTimeout(() => {
         console.log('afip returns');
         res({
-          cae: '1234823409324',
-          num: '0009-23234098'
+          cae: '12345678901234',
+          caeFecha: '2018-04-22',
+          num: num
         });
       }, 1000);
+    })
+  }
+
+  nextNumber(tipoDoc) {
+    return new Promise( (res, rej) => {
+      setTimeout(() => {
+        console.log('afip returns number');
+        res('0009-23234098');
+      }, 500);
     })
   }
 }

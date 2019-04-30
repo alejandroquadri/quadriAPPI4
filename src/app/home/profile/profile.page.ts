@@ -14,6 +14,7 @@ import { Ng2ImgMaxService } from 'ng2-img-max';
 //   FilesystemDirectory, FilesystemEncoding
 // } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { ApiService } from '../../shared';
 
 @Component({
   selector: 'app-profile',
@@ -31,8 +32,10 @@ export class ProfilePage implements OnInit {
   uploadPercent: any;
   downloadURL: any;
 
+  local = true;
 
   constructor(
+    private apiData: ApiService,
     public fb: FormBuilder,
     private auth: LoggerService,
     // private sanitizer: DomSanitizer,
@@ -52,7 +55,8 @@ export class ProfilePage implements OnInit {
   buildForm() {
     this.profileForm = this.fb.group({
       name: [ this.current.displayName || ''],
-      img: ['']
+      img: [''],
+      source: [true]
     });
     this.formChanges();
   }
@@ -210,5 +214,10 @@ export class ProfilePage implements OnInit {
   //   }
   //   return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
   // }
+
+  // funcion para cambiar la fuente del api
+  apiSource(value) {
+    this.apiData.setUrl(this.profileForm.value.source);
+  }
 
 }

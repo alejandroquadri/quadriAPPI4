@@ -22,7 +22,8 @@
   
   
   <ion-content padding>
-    <ion-grid *ngIf="doc" >
+    <canvas [hidden]="true" #myCanvas></canvas>
+    <ion-grid *ngIf="doc">
   
       <ion-row class="headers">
         <ion-col size="2">

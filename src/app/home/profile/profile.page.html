@@ -25,6 +25,11 @@
         <ion-input #dateInput formControlName="name" type="text"></ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-label>Oficina</ion-label>
+        <ion-toggle formControlName="source" color="primary" (ionChange)="apiSource()"></ion-toggle>
+      </ion-item>
+
       <!-- <ion-item>
         <div>Porcentaje: {{ uploadPercent | async }}</div>
       </ion-item> -->

@@ -25,7 +25,14 @@ export class SalesAdmHelperService {
             ivaTotal: +doc.iva,
             totalFinal: +doc.total_transaccion,
             flag: doc.flag,
-            tipo: doc.tipo_documento_full
+            tipo: doc.tipo_documento_full,
+            pos_IVA: doc.pos_iva,
+            tipo_doc: doc.tipo_documento,
+            detalle: doc.detalle,
+            domicilio: doc.domicilio,
+            calle: doc.calle,
+            ciudad: doc.ciudad,
+            cuit: doc.cuit
           };
           filteredObj[doc.numerodocumento].items = [];
           filteredObj[doc.numerodocumento].items.push(doc);

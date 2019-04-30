@@ -6,3 +6,5 @@ export * from './sales.service';
 export * from './chart-builder.service';
 export * from './production.service';
 export * from './service-worker.service';
+export * from './pdf-generator.service';
+

@@ -2,6 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { DecimalPipe } from '@angular/common';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -47,6 +48,7 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
   providers: [
     StatusBar,
     SplashScreen,
+    DecimalPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: StorageBucket, useValue: 'repmant-ce7a5.appspot.com' }
     // { provide: APP_INITIALIZER, useFactory: DataProviderFactory, deps: [StaticDataService], multi: true }
