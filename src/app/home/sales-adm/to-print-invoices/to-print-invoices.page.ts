@@ -7,6 +7,7 @@ import { SalesAdmService } from '../sales-adm.service';
 import { SalesAdmHelperService } from '../sales-adm-helper.service';
 import { WordFilterPipe } from '../../../shared';
 import { DocDetailComponent } from '../doc-detail/doc-detail.component';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-to-print-invoices',
@@ -16,6 +17,9 @@ import { DocDetailComponent } from '../doc-detail/doc-detail.component';
 export class ToPrintInvoicesPage implements OnInit {
 
   docs$: any;
+  printed$: any;
+  combined$: any;
+  
   docObj: any;
   arrayAll: any;
   docView: any;
@@ -37,12 +41,21 @@ export class ToPrintInvoicesPage implements OnInit {
   }
 
   subscribe() {
+
+    this.printed$ = this.admData.getPrintedNumbers();
+
     this.docs$ = this.admData.getPendingInvoices()
-    .pipe(
-      map( (res: any) => res.json())
-    )
-    .subscribe( docs => {
-      this.docObj = this.helper.buildCalipsoObj(docs.data);
+    .pipe( map( (res: any) => res.json()));
+
+    this.combined$ = combineLatest(
+      this.docs$,
+      this.printed$,
+      (docs: any, printed: any) => ({docs, printed}))
+
+    this.combined$
+    .subscribe( pair => {
+      console.log(pair.printed);
+      this.docObj = this.helper.buildCalipsoObj(pair);
       this.arrayAll = this.helper.buildArray(this.docObj);
       this.filterSearchBar();
       console.log(this.docObj);
@@ -71,7 +84,7 @@ export class ToPrintInvoicesPage implements OnInit {
   async seeDoc(form?: any) {
     const profileModal = await this.modalCtrl.create({
       component: DocDetailComponent,
-      componentProps: {doc: form}
+      componentProps: {doc: form, printed: false}
     });
     return await profileModal.present();
   }

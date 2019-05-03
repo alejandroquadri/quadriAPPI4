@@ -1,7 +1,7 @@
 <ion-header class="comp-header">
 
     <ion-toolbar>
-      <ion-title *ngIf="doc" >{{ doc.tipo }} {{ doc.num }}</ion-title>
+      <ion-title *ngIf="doc" >{{ doc.tipo }} {{ doc.caeNum || doc.num }}</ion-title>
       <ion-buttons slot="end">
         <ion-button size="small" (click)="print()">
           <ion-icon name="print"></ion-icon>

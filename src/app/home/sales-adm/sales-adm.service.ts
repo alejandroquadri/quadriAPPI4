@@ -21,7 +21,7 @@ export class SalesAdmService {
         res({
           cae: '12345678901234',
           caeFecha: '2018-04-22',
-          num: num
+          caeNum: num
         });
       }, 1000);
     })
@@ -33,6 +33,24 @@ export class SalesAdmService {
         console.log('afip returns number');
         res('0009-23234098');
       }, 500);
-    })
+    });
+  }
+
+  saveDoc(doc: any) {
+    return this.apiData.push('sales/printed', doc);
+  }
+
+  addPrintedList(number: string) {
+    const obj = {};
+    obj[number] = true;
+    return this.apiData.updateObject('sales/printedNumbers', obj);
+  }
+
+  getPrintedDocs() {
+    return this.apiData.getList('sales/printed');
+  }
+
+  getPrintedNumbers() {
+    return this.apiData.getObject('sales/printedNumbers');
   }
 }

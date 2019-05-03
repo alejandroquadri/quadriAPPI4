@@ -7,10 +7,9 @@ import { Injectable } from '@angular/core';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
-pdfMake.vfs = pdfFonts.pdfMake.vfs; 
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import * as moment from 'moment';
-import { headerSize } from 'tar';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class PdfGeneratorService {
     pdfMake.createPdf(obj).open();
   }
 
-  genInvoicePdfObject(logo: string, data: any, afip: any) {
+  genInvoicePdfObject(logo: string, data: any) {
 
     const articles = this.buildArtArray(data.items);
 
@@ -95,7 +94,7 @@ export class PdfGeneratorService {
                   style: 'header',
                   text: [
                     {text: `${this.docType(data.tipo_doc)} `, fontSize: 15},
-                    {text: `${afip.num}\n`, fontSize: 15},
+                    {text: `${data.caeNum}\n`, fontSize: 15},
                     {text: `Fecha emision ${moment(data.date).format('DD-MM-YYYY')}\n\n`, fontSize: 12},
                     {text: 'Eugenio P. Quadri y CIA SACIFIA\nGascon 483, CABA\nIVA Responsable Inscripto'},
                     {text: '\nCUIT: 30-50245565-2\nIngresos Brutos: 901-981895-0\nInicio de actividades: 14/11/1960'}
@@ -165,7 +164,7 @@ export class PdfGeneratorService {
                 style: 'footerCae'
               },
               {
-                text: `${afip.cae}\n${moment(afip.caeFecha).format('DD/MM/YYYY')}`,
+                text: `${data.cae}\n${moment(data.caeFecha).format('DD/MM/YYYY')}`,
                 alignment: 'left',
                 border: [false, true, false, false],
                 style: 'footerCae'

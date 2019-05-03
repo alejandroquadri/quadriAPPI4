@@ -7,10 +7,14 @@ export class SalesAdmHelperService {
 
   constructor() { }
 
-  buildCalipsoObj(array: any) {
+  buildCalipsoObj(pair: any) {
     const filteredObj = {};
+    const array = pair.docs.data;
+    const printed = pair.printed;
 
     array.forEach((doc: any) => {
+      // con este 1er if filtro las ya impresas
+      if (!printed[doc.numerodocumento]) {
         if (filteredObj[doc.numerodocumento]) {
           filteredObj[doc.numerodocumento].total += (+doc.total_importe);
           filteredObj[doc.numerodocumento].items.push(doc);
@@ -37,6 +41,7 @@ export class SalesAdmHelperService {
           filteredObj[doc.numerodocumento].items = [];
           filteredObj[doc.numerodocumento].items.push(doc);
         }
+      }
     });
     return filteredObj;
   }

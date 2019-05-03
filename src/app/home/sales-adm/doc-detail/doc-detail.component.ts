@@ -11,6 +11,7 @@ import { PdfGeneratorService } from './../../../shared';
 export class DocDetailComponent implements OnInit {
 
   @Input() doc: any;
+  @Input() printed: boolean;
   @ViewChild('myCanvas') myCanvas: ElementRef;
   public context: CanvasRenderingContext2D;
 
@@ -46,20 +47,39 @@ export class DocDetailComponent implements OnInit {
   }
 
   print() {
+    if (this.printed) {
+      this.createPdf(this.doc);
+    } else {
+      this.cae();
+    }
+  }
+
+  cae() {
     this.admData.nextNumber('A')
     .then( num => {
-      return this.admData.afipMock(num)
+      return this.admData.afipMock(num);
     })
     .then( ret => {
-      console.log(ret);
+      // console.log(ret);
       this.afipObj = ret;
-      this.createPdf();
+      const obj = {...this.doc, ...this.afipObj};
+      console.log(obj);
+      this.createPdf(obj);
+      this.admData.addPrintedList(obj.num);
+      return this.savePrintedDoc(obj);
+    })
+    .then( ret => {
+      console.log('guardado');
     });
   }
 
-  createPdf() {
-    const obj = this.pdfGen.genInvoicePdfObject(this.canvasLogo, this.doc, this.afipObj);
+  createPdf(doc) {
+    const obj = this.pdfGen.genInvoicePdfObject(this.canvasLogo, doc);
     this.pdfGen.genPdf(obj);
+  }
+
+  savePrintedDoc(doc) {
+    return this.admData.saveDoc(doc);
   }
 
 }
