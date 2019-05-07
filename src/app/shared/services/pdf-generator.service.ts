@@ -110,13 +110,14 @@ export class PdfGeneratorService {
         text: `Cliente:  ${data.razSoc}`, margin: [0, 10, 0, 4]
       },
       {
-        text: `CUIT:  ${data.cuit}`, margin: [0, 0, 0, 4]
+        text: `${this.condIva(data.pos_IVA).documento}:  ${this.condIva(data.pos_IVA).documento === 'CUIT' ? data.cuit: data.dni}`,
+        margin: [0, 0, 0, 4]
       },
       {
-        text: `Domicilio:  ${data.calle}, ${data.ciudad}`, margin: [0, 0, 0, 4]
+        text: this.domicilio(data), margin: [0, 0, 0, 4]
       },
       {
-        text: `Condicion frente al IVA:  ${this.condIva(data.pos_IVA)}`, margin: [0, 0, 0, 4]
+        text: `Condicion frente al IVA:  ${this.condIva(data.pos_IVA).posicion}`, margin: [0, 0, 0, 4]
       },
       {
         text: 'Condicion de venta:  7 dias fecha de factura', margin: [0, 0, 0, 4]
@@ -261,10 +262,25 @@ export class PdfGeneratorService {
 
   condIva(letra: string) {
     if (letra === 'A') {
-      return 'Responsable inscripto';
+      return {
+        posicion: 'Responsable inscripto',
+        documento: 'CUIT'
+      };
     } else {
-      return 'Consumidor final';
+      return {
+        posicion: 'Consumidor final',
+        documento: 'DNI'
+      };
     }
+  }
+
+  domicilio(data) {
+    if (data.calle === null) {
+      return 'Domicilio:';
+    } else {
+      return `Domicilio:  ${data.calle}, ${data.ciudad}`;
+    }
+
   }
 }
 

@@ -89,6 +89,4 @@ export class ToPrintInvoicesPage implements OnInit {
     return await profileModal.present();
   }
 
-
-
 }

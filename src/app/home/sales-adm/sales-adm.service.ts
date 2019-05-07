@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { ApiService } from '../../shared';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalesAdmService {
 
+  afipUrl = 'http://localhost:3000/api/';
+
   constructor(
-    private apiData: ApiService
+    private apiData: ApiService,
+    public http: Http
   ) { }
 
   getPendingInvoices() {
@@ -27,13 +32,31 @@ export class SalesAdmService {
     })
   }
 
-  nextNumber(tipoDoc) {
+  nextNumberMock(tipoDoc) {
     return new Promise( (res, rej) => {
       setTimeout(() => {
         console.log('afip returns number');
         res('0009-23234098');
       }, 500);
     });
+  }
+
+  getAfipNumber(body) {
+    const endpoint = 'wsfev1/FECompUltimoAutorizado';
+    return this.http.post(`${this.afipUrl}${endpoint}`, body)
+    .pipe(
+      map( (res: any) => res.json())
+    )
+    .toPromise();
+  }
+
+  getAfipCae(body) {
+    const endpoint = 'wsfev1/FECAESolicitar';
+    return this.http.post(`${this.afipUrl}${endpoint}`, body)
+    .pipe(
+      map( (res: any) => res.json())
+    )
+    .toPromise();
   }
 
   saveDoc(doc: any) {
