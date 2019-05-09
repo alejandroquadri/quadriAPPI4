@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SalesAdmService } from '../sales-adm.service';
-import { WordFilterPipe } from '../../../shared';
+import { WordFilterPipe, SortPipe } from '../../../shared';
 import { ModalController } from '@ionic/angular';
 import { DocDetailComponent } from '../doc-detail/doc-detail.component';
 
@@ -11,16 +11,20 @@ import { DocDetailComponent } from '../doc-detail/doc-detail.component';
 })
 export class PrintedInvoicesPage implements OnInit {
 
-  searchInput = '';
-  offset = 100;
-
   docs$: any;
   docsCrude: any;
   docView: any;
 
+  searchInput = '';
+  field = 'date';
+  asc = false;
+  offset = 100;
+
+
   constructor(
     private admData: SalesAdmService,
     private searchFilter: WordFilterPipe,
+    private sortPipe: SortPipe,
     public modalCtrl: ModalController
   ) { }
 
@@ -34,7 +38,9 @@ export class PrintedInvoicesPage implements OnInit {
   }
 
   filterSearchBar(event?) {
-    this.docView = this.sliceArray(this.searchFilter.transform(this.docsCrude, this.searchInput, false));
+    const filtered = this.searchFilter.transform(this.docsCrude, this.searchInput, false);
+    const sliced = this.sliceArray(filtered);
+    this.docView = this.sortPipe.transform(sliced, this.field, this.asc, false);
   }
 
   sliceArray(array: Array<any>) {

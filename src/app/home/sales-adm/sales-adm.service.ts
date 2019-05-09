@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class SalesAdmService {
 
-  afipUrl = 'http://localhost:3000/api/';
+  afipUrl = 'http://192.168.0.144:3000/api/';
 
   constructor(
     private apiData: ApiService,

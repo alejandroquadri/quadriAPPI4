@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { SalesAdmService } from '../sales-adm.service';
 import { SalesAdmHelperService } from '../sales-adm-helper.service';
-import { WordFilterPipe } from '../../../shared';
+import { WordFilterPipe, SortPipe } from '../../../shared';
 import { DocDetailComponent } from '../doc-detail/doc-detail.component';
 import { combineLatest } from 'rxjs';
 
@@ -26,13 +26,14 @@ export class ToPrintInvoicesPage implements OnInit {
 
   searchInput = '' ;
   sortTerm = 'date';
-  sortDir = true;
+  sortDir = false;
   offset = 100;
 
   constructor(
     private admData: SalesAdmService,
     private helper: SalesAdmHelperService,
     private searchFilter: WordFilterPipe,
+    private sortPipe: SortPipe,
     public modalCtrl: ModalController
   ) { }
 
@@ -63,7 +64,8 @@ export class ToPrintInvoicesPage implements OnInit {
   }
 
   filterSearchBar(event?) {
-    this.docView = this.sliceArray(this.searchFilter.transform(this.arrayAll, this.searchInput, false));
+    const sliced = this.sliceArray(this.searchFilter.transform(this.arrayAll, this.searchInput, false));
+    this.docView = this.sortPipe.transform(sliced, this.sortTerm, this.sortDir, false);
   }
 
   sliceArray(array: Array<any>) {

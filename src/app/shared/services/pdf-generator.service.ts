@@ -31,7 +31,7 @@ export class PdfGeneratorService {
     const dd = {
       pageSize: 'A4',
       pageOrientation: 'portrait',
-      pageMargins: [40, 190, 40, 170],
+      pageMargins: [40, 190, 40, 180],
       styles: {
         header: {
           fontSize: 9
@@ -176,6 +176,7 @@ export class PdfGeneratorService {
       }
     ]
     };
+
     return dd;
   }
 
@@ -250,7 +251,15 @@ export class PdfGeneratorService {
         docType = 'Nota de Débito';
         break;
 
+      case 'Nota de Débito Venta x Cheque Rechazado':
+        docType = 'Nota de Débito';
+        break;
+
       case 'Nota de Crédito de Venta':
+        docType = 'Nota de Crédito';
+        break;
+      
+      case 'Factura de Ventas Anulada':
         docType = 'Nota de Crédito';
         break;
 

@@ -18,9 +18,9 @@ export class AvionLogPage implements OnInit {
 
   searchInput = '';
   field = 'date';
-  total = 0;
   asc = false;
   offset = 50;
+  total = 0;
 
   constructor(
     public navCtrl: NavController,

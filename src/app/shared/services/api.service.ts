@@ -14,7 +14,7 @@ export class ApiService {
 
   // url = 'http://quadriserver.ddns.net:3100/api'; // conectado a traves de no-ip
   // url = 'https://afternoon-waters-60961.herokuapp.com/api'; // heroku
-  url = 'http://localhost:3100/api'; // conexion api dev
+  url = 'http://192.168.0.144:3100/api'; // conexion api dev
   // url = 'http://192.168.0.210:3100/api'; // conexion local
   // url = 'https://quadri.ngrok.io/api'; // tunneling con ngrok
 

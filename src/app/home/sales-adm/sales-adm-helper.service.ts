@@ -12,6 +12,7 @@ export class SalesAdmHelperService {
   ) { }
 
   buildCalipsoObj(pair: any) {
+    console.log(pair);
     const filteredObj = {};
     const array = pair.docs.data;
     const printed = pair.printed;
@@ -89,11 +90,27 @@ export class SalesAdmHelperService {
         id = 7;
         break;
 
+      case 'Nota de Débito Venta x Cheque Rechazado A':
+        id = 2;
+        break;
+
+      case 'Nota de Débito Venta x Cheque Rechazado B':
+        id = 7;
+        break;
+
       case 'Nota de Crédito de Venta A':
         id = 3;
         break;
 
       case 'Nota de Crédito de Venta B':
+        id = 8;
+        break;
+
+      case 'Factura de Ventas Anulada A':
+        id = 3;
+        break;
+
+      case 'Factura de Ventas Anulada B':
         id = 8;
         break;
 
@@ -179,6 +196,8 @@ export class SalesAdmHelperService {
 
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['CbteFch'] = today;
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpTotal'] = this.round(doc.totalFinal, 2);
+
+
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpTotConc'] = 0; // importe neto no gravado
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpNeto'] = this.round(doc.total, 2);
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['ImpOpEx'] = 0; // importe excento
@@ -191,17 +210,29 @@ export class SalesAdmHelperService {
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Tributos']['Tributo']['BaseImp'] = this.round(doc.total, 2);
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Tributos']['Tributo']['Alic'] = 3;
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Tributos']['Tributo']['Importe'] = this.round(doc.iibb, 2);
-    obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Iva']['AlicIva']['Id'] = 5; // IVA 21%
+    obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Iva']['AlicIva']['Id'] = this.ivaKind(doc.ivaTotal);
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Iva']['AlicIva']['BaseImp'] = this.round(doc.total, 2);
     obj.params['FeCAEReq']['FeDetReq']['FECAEDetRequest']['Iva']['AlicIva']['Importe'] = this.round(doc.ivaTotal, 2);
+
+    console.log(obj);
     return obj;
   }
+  // Si ImpIva es igual a 0 el objeto Iva y AlicIva son obligatorios. Id iva = 3 (iva 0)
 
   // esta funcion permite evitar lo problemas de redondeo de javascript devolviendo un numero en lugar de string
   // https://www.jacklmoore.com/notes/rounding-in-javascript/
   round(value, decimals) {
     const valueExp: any = value + 'e' + decimals;
     return Number(Math.round(valueExp) + 'e-' + decimals);
+  }
+
+  ivaKind(iva) {
+    // Si ImpIva es igual a 0 el objeto Iva y AlicIva son obligatorios. Id iva = 3 (iva 0), si no id IVA = 5
+    if (iva === 0) {
+      return 3;
+    } else {
+      return 5;
+    }
   }
 
 }
